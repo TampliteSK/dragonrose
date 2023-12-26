@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "defs.h"
 
-// this comment will improve elo by 200
+// this comment will improve elo by 2000
 // to set a pawn
 // bitboard |= (1ULL << SQ64(d2))
 
