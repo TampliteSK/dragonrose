@@ -164,11 +164,8 @@ static int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO 
 		return 0;
 	}
 
-	S_MOVELIST list[1];
-    GenerateAllMoves(pos,&list);
-
 	if(pos->ply > MAXDEPTH - 1) {
-		return EvalPosition(pos, list->count);
+		return EvalPosition(pos);
 	}
 
 	int InCheck = SqAttacked(pos->KingSq[pos->side],pos->side^1,pos);
@@ -176,6 +173,9 @@ static int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO 
 	if(InCheck == TRUE) {
 		depth++;
 	}
+
+	S_MOVELIST list[1];
+    GenerateAllMoves(pos,&list);
 
 	int Score = -INFINITE;
 	int PvMove = NOMOVE;

@@ -37,6 +37,7 @@ typedef unsigned long long U64;
 #define INFINITE 30000
 #define ISMATE (INFINITE - MAXDEPTH)
 
+//       0    1   2   3   4   5   6   7   8   9   10  11  12
 enum { EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK  };
 enum { FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_NONE };
 enum { RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RANK_NONE };
@@ -330,7 +331,8 @@ extern int GetPvLine(const int depth, S_BOARD *pos);
 extern void ClearHashTable(S_HASHTABLE *table);
 
 // evaluate.c
-extern int EvalPosition(const S_BOARD *pos, int legalMoves);
+extern double evalWeight(S_BOARD *pos);
+extern int EvalPosition(const S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos) ;
 
 // uci.c

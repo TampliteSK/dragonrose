@@ -317,12 +317,10 @@ void Console_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 
 		if(!strcmp(command, "eval")) {
 			PrintBoard(pos);
-			S_MOVELIST list[1];
-            GenerateAllCaps(pos,&list);
-			printf("Eval:%d",EvalPosition(pos, list->count));
+			printf("Eval:%d",EvalPosition(pos));
 			MirrorBoard(pos);
 			PrintBoard(pos);
-			printf("Eval:%d",EvalPosition(pos, list->count));
+			printf("Eval:%d",EvalPosition(pos));
 			continue;
 		}
 
