@@ -11,6 +11,9 @@ const int QueenOpenFile = 5;
 const int QueenSemiOpenFile = 3;
 const int BishopPair = 30;
 
+/*****************************
+***** PeSTO Piece Tables *****
+*****************************/
 // PeSTO's piece tables (mg only)
 const int PawnTable[64] = {
     0,    0,    0,    0,    0,    0,    0,    0,
