@@ -97,11 +97,9 @@ void MirrorEvalTest(S_BOARD *pos) {
         while(fgets (lineIn , 1024 , file) != NULL) {
             ParseFen(lineIn, pos);
             positions++;
-            S_MOVELIST list[1];
-            GenerateAllCaps(pos,list);
-            ev1 = EvalPosition(pos, list->count);
+            ev1 = EvalPosition(pos);
             MirrorBoard(pos);
-            ev2 = EvalPosition(pos, list->count);
+            ev2 = EvalPosition(pos);
 
             if(ev1 != ev2) {
                 printf("\n\n\n");

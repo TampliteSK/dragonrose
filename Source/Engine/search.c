@@ -90,10 +90,10 @@ static int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
     GenerateAllCaps(pos,&list);
 
 	if(pos->ply > MAXDEPTH - 1) {
-		return EvalPosition(pos, list->count);
+		return EvalPosition(pos);
 	}
 
-	int Score = EvalPosition(pos, list->count);
+	int Score = EvalPosition(pos);
 
 	ASSERT(Score>-INFINITE && Score<INFINITE);
 
