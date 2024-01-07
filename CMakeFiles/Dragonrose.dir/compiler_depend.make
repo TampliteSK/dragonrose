@@ -710,6 +710,32 @@ CMakeFiles/Dragonrose.dir/Source/Engine/validate.c.obj: Source/Engine/validate.c
   C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/vadefs.h \
   Source/Engine/defs.h
 
+CMakeFiles/Dragonrose.dir/Source/Engine/xboard.c.obj: Source/Engine/xboard.c \
+  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h \
+  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
+  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_off_t.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_secapi.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/corecrt.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/crtdefs.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/errno.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/limits.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/malloc.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/string_s.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/string.h \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl \
+  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/vadefs.h \
+  Source/Engine/defs.h
+
 
 C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/lzcntintrin.h:
 
@@ -1284,3 +1310,5 @@ Source/Engine/polykeys.h:
 Source/Engine/search.c:
 
 Source/Engine/validate.c:
+
+Source/Engine/xboard.c:

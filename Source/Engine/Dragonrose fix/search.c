@@ -1,6 +1,6 @@
 // search.c
 
-#include <stdio.h>
+#include "stdio.h"
 #include "defs.h"
 
 
@@ -39,7 +39,10 @@ static void PickNextMove(int moveNum, S_MOVELIST *list) {
 }
 
 static int IsRepetition(const S_BOARD *pos) {
-	for(int index = pos->hisPly - pos->fiftyMove; index < pos->hisPly-1; ++index) {
+
+	int index = 0;
+
+	for(index = pos->hisPly - pos->fiftyMove; index < pos->hisPly-1; ++index) {
 		ASSERT(index >= 0 && index < MAXGAMEMOVES);
 		if(pos->posKey == pos->history[index].posKey) {
 			return TRUE;
@@ -49,15 +52,19 @@ static int IsRepetition(const S_BOARD *pos) {
 }
 
 static void ClearForSearch(S_BOARD *pos, S_SEARCHINFO *info) {
-	for(int i = 0; i < 13; ++i) {
-		for(int j = 0; j < BRD_SQ_NUM; ++j) {
-			pos->searchHistory[i][j] = 0;
+
+	int index = 0;
+	int index2 = 0;
+
+	for(index = 0; index < 13; ++index) {
+		for(index2 = 0; index2 < BRD_SQ_NUM; ++index2) {
+			pos->searchHistory[index][index2] = 0;
 		}
 	}
 
-	for(int i = 0; i < 2; ++i) {
-		for(int j = 0; j < MAXDEPTH; ++j) {
-			pos->searchKillers[i][j] = 0;
+	for(index = 0; index < 2; ++index) {
+		for(index2 = 0; index2 < MAXDEPTH; ++index2) {
+			pos->searchKillers[index][index2] = 0;
 		}
 	}
 
@@ -86,9 +93,6 @@ static int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
 		return 0;
 	}
 
-    S_MOVELIST list[1];
-    GenerateAllCaps(pos,&list);
-
 	if(pos->ply > MAXDEPTH - 1) {
 		return EvalPosition(pos);
 	}
@@ -104,6 +108,9 @@ static int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
 	if(Score > alpha) {
 		alpha = Score;
 	}
+
+	S_MOVELIST list[1];
+    GenerateAllCaps(pos,list);
 
     int MoveNum = 0;
 	int Legal = 0;
@@ -142,7 +149,6 @@ static int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
 	return alpha;
 }
 
-// Alpha-beta pruning + PV Search
 static int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO *info, int DoNull) {
 
 	ASSERT(CheckBoard(pos));
@@ -174,9 +180,6 @@ static int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO 
 		depth++;
 	}
 
-	S_MOVELIST list[1];
-    GenerateAllMoves(pos,&list);
-
 	int Score = -INFINITE;
 	int PvMove = NOMOVE;
 
@@ -185,7 +188,6 @@ static int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO 
 		return Score;
 	}
 
-	// Null move pruning
 	if( DoNull && !InCheck && pos->ply && (pos->bigPce[pos->side] > 0) && depth >= 4) {
 		MakeNullMove(pos);
 		Score = -AlphaBeta( -beta, -beta + 1, depth-4, pos, info, FALSE);
@@ -200,6 +202,9 @@ static int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO 
 		}
 	}
 
+	S_MOVELIST list[1];
+    GenerateAllMoves(pos,list);
+
     int MoveNum = 0;
 	int Legal = 0;
 	int OldAlpha = alpha;
@@ -209,7 +214,6 @@ static int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO 
 
 	Score = -INFINITE;
 
-	// PVS
 	if( PvMove != NOMOVE) {
 		for(MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 			if( list->moves[MoveNum].move == PvMove) {
@@ -282,7 +286,6 @@ static int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO 
 	return alpha;
 }
 
-// Iterative deepening
 void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 
 	int bestMove = NOMOVE;
@@ -292,13 +295,14 @@ void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 	int pvNum = 0;
 
 	ClearForSearch(pos,info);
-
+	
 	if(EngineOptions->UseBook == TRUE) {
 		bestMove = GetBookMove(pos);
 	}
 
 	//printf("Search depth:%d\n",info->depth);
 
+	// iterative deepening
 	if(bestMove == NOMOVE) {
 		for( currentDepth = 1; currentDepth <= info->depth; ++currentDepth ) {
 								// alpha	 beta
@@ -323,7 +327,7 @@ void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 			}
 			if(info->GAME_MODE == UCIMODE || info->POST_THINKING == TRUE) {
 				pvMoves = GetPvLine(currentDepth, pos);
-				if((!info->GAME_MODE) == XBOARDMODE) {
+				if(!info->GAME_MODE == XBOARDMODE) {
 					printf("pv");
 				}
 				for(pvNum = 0; pvNum < pvMoves; ++pvNum) {
@@ -343,7 +347,7 @@ void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 		printf("move %s\n",PrMove(bestMove));
 		MakeMove(pos, bestMove);
 	} else {
-		printf("\n\n***!! Dragonrose makes move %s !!***\n\n",PrMove(bestMove));
+		printf("\n\n***!! Vice makes move %s !!***\n\n",PrMove(bestMove));
 		MakeMove(pos, bestMove);
 		PrintBoard(pos);
 	}

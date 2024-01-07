@@ -160,8 +160,7 @@ double evalWeight(S_BOARD *pos) {
 	ASSERT(CheckBoard(pos));
 
 	// totalPieces = (wN + wB + wR + wQ) + (bN + bB + bR + bQ)
-	int totalPieces = pos->pceNum[2] + pos->pceNum[3] + pos->pceNum[4] + pos->pceNum[5] +
-					  pos->pceNum[8] + pos->pceNum[9] + pos->pceNum[10] + pos->pceNum[11];
+	int totalPieces = pos->pceNum[wN] + pos->pceNum[wB] + pos->pceNum[wR] + pos->pceNum[wQ] + pos->pceNum[bN] + pos->pceNum[bB] + pos->pceNum[bR] + pos->pceNum[bQ];
 	
 	return totalPieces / 14;
 
@@ -197,7 +196,7 @@ int MaterialDraw(const S_BOARD *pos) {
 // #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
 
 // Evaluation function
-int EvalPosition(const S_BOARD *pos) {
+int EvalPosition(S_BOARD *pos) {
 
 	ASSERT(CheckBoard(pos));
 
