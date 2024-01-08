@@ -1,18 +1,12 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-/*******************
-** System Headers **
-*******************/
-
-#include <stdlib.h>
-#include <stdio.h>
-
-/*******************
-*** Definitions ****
-*******************/
+#include "stdlib.h"
+#include "stdio.h"
 
 // #define DEBUG
+
+#define MAX_HASH 1024
 
 #ifndef DEBUG
 #define ASSERT(n)
@@ -29,15 +23,11 @@ exit(1);}
 
 typedef unsigned long long U64;
 
-#define NAME "Dragonrose 0.0"
+#define NAME "Vice 1.1"
 #define BRD_SQ_NUM 120
-// Maximum hash size
-#define MAX_HASH 1024
-// maximum number of moves in a game
+
 #define MAXGAMEMOVES 2048
-// maximum expected legal moves
-// Position that breaks 256 limit: QQQQQQBk/Q6B/Q6Q/Q6Q/Q6Q/Q6Q/Q6Q/KQQQQQQQ w - - 0 1 (credit to Caissa and Quanticade)
-#define MAXPOSITIONMOVES 280
+#define MAXPOSITIONMOVES 256
 #define MAXDEPTH 64
 
 #define START_FEN  "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
@@ -45,11 +35,6 @@ typedef unsigned long long U64;
 #define INFINITE 30000
 #define ISMATE (INFINITE - MAXDEPTH)
 
-/*******************
-****** Enums *******
-*******************/
-
-//       0    1   2   3   4   5   6   7   8   9   10  11  12
 enum { EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK  };
 enum { FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_NONE };
 enum { RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RANK_NONE };
@@ -71,17 +56,11 @@ enum { FALSE, TRUE };
 
 enum { WKCA = 1, WQCA = 2, BKCA = 4, BQCA = 8 };
 
-/*******************
-***** Structs ******
-*******************/
-
-// Move struct. See below for format of move
 typedef struct {
 	int move;
 	int score;
 } S_MOVE;
 
-// Legal moves list struct
 typedef struct {
 	S_MOVE moves[MAXPOSITIONMOVES];
 	int count;
@@ -89,7 +68,6 @@ typedef struct {
 
 enum {  HFNONE, HFALPHA, HFBETA, HFEXACT};
 
-// Hash entry struct
 typedef struct {
 	U64 posKey;
 	int move;
@@ -98,7 +76,6 @@ typedef struct {
 	int flags;
 } S_HASHENTRY;
 
-// Hash table struct
 typedef struct {
 	S_HASHENTRY *pTable;
 	int numEntries;
@@ -108,7 +85,6 @@ typedef struct {
 	int cut;
 } S_HASHTABLE;
 
-// Undo move struct
 typedef struct {
 
 	int move;
@@ -119,32 +95,35 @@ typedef struct {
 
 } S_UNDO;
 
-// Board struct
 typedef struct {
 
 	int pieces[BRD_SQ_NUM];
 	U64 pawns[3];
+
+	int KingSq[2];
+
+	int side;
+	int enPas;
+	int fiftyMove;
+
+	int ply;
+	int hisPly;
+
+	int castlePerm;
+
+	U64 posKey;
 
 	int pceNum[13];
 	int bigPce[2];
 	int majPce[2];
 	int minPce[2];
 	int material[2];
-	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
-  // usage eg.: pList[wN][0] = e1; for the position of 1st knight
-
-	int KingSq[2];
-	int side;
-	int enPas;
-	int fiftyMove;
-	int castlePerm;
-
-	int ply;
-	int hisPly;
-
-	U64 posKey;
 
 	S_UNDO history[MAXGAMEMOVES];
+
+	// piece list
+	int pList[13][10];
+
 	S_HASHTABLE HashTable[1];
 	int PvArray[MAXDEPTH];
 
@@ -153,7 +132,6 @@ typedef struct {
 
 } S_BOARD;
 
-// Search info struct
 typedef struct {
 
 	int starttime;
@@ -176,24 +154,23 @@ typedef struct {
 
 } S_SEARCHINFO;
 
-// UCI options struct
 typedef struct {
 	int UseBook;
 } S_OPTIONS;
 
+
 /* GAME MOVE */
 
 /*
-0000 0000 0000 0000 0000 0111 1111 -> From 0x7F (7 bits)
-0000 0000 0000 0011 1111 1000 0000 -> To >> 7, 0x7F (7 bits)
-0000 0000 0011 1100 0000 0000 0000 -> Captured >> 14, 0xF (4 bits)
-0000 0000 0100 0000 0000 0000 0000 -> EP 0x40000 (1 bit)
-0000 0000 1000 0000 0000 0000 0000 -> Pawn Start 0x80000 (1 bit)
-0000 1111 0000 0000 0000 0000 0000 -> Promoted Piece >> 20, 0xF (4 bits)
-0001 0000 0000 0000 0000 0000 0000 -> Castle 0x1000000 (1 bit)
+0000 0000 0000 0000 0000 0111 1111 -> From 0x7F
+0000 0000 0000 0011 1111 1000 0000 -> To >> 7, 0x7F
+0000 0000 0011 1100 0000 0000 0000 -> Captured >> 14, 0xF
+0000 0000 0100 0000 0000 0000 0000 -> EP 0x40000
+0000 0000 1000 0000 0000 0000 0000 -> Pawn Start 0x80000
+0000 1111 0000 0000 0000 0000 0000 -> Promoted Piece >> 20, 0xF
+0001 0000 0000 0000 0000 0000 0000 -> Castle 0x1000000
 */
 
-// Macros for obtaining info from move
 #define FROMSQ(m) ((m) & 0x7F)
 #define TOSQ(m) (((m)>>7) & 0x7F)
 #define CAPTURED(m) (((m)>>14) & 0xF)
@@ -201,25 +178,19 @@ typedef struct {
 
 #define MFLAGEP 0x40000
 #define MFLAGPS 0x80000
-
-// Piece captured
 #define MFLAGCA 0x1000000
-// isCapture (captured + en passant)
+
 #define MFLAGCAP 0x7C000
-// isPromotion
 #define MFLAGPROM 0xF00000
 
 #define NOMOVE 0
 
 
-/*******************
-****** Macros ******
-*******************/
+/* MACROS */
 
 #define FR2SQ(f,r) ( (21 + (f) ) + ( (r) * 10 ) )
 #define SQ64(sq120) (Sq120ToSq64[(sq120)])
 #define SQ120(sq64) (Sq64ToSq120[(sq64)])
-
 #define POP(b) PopBit(b)
 #define CNT(b) CountBits(b)
 #define CLRBIT(bb,sq) ((bb) &= ClearMask[(sq)])
@@ -232,21 +203,12 @@ typedef struct {
 
 #define MIRROR64(sq) (Mirror64[(sq)])
 
-/*******************
-***** Globals ******
-*******************/
+/* GLOBALS */
 
-// init.c
 extern int Sq120ToSq64[BRD_SQ_NUM];
 extern int Sq64ToSq120[64];
-extern int FilesBrd[BRD_SQ_NUM];
-extern int RanksBrd[BRD_SQ_NUM];
-
-// bitboard.c
 extern U64 SetMask[64];
 extern U64 ClearMask[64];
-
-// hashkeys.c
 extern U64 PieceKeys[13][120];
 extern U64 SideKey;
 extern U64 CastleKeys[16];
@@ -255,13 +217,15 @@ extern char SideChar[];
 extern char RankChar[];
 extern char FileChar[];
 
-// data.c
 extern int PieceBig[13];
 extern int PieceMaj[13];
 extern int PieceMin[13];
 extern int PieceVal[13];
 extern int PieceCol[13];
 extern int PiecePawn[13];
+
+extern int FilesBrd[BRD_SQ_NUM];
+extern int RanksBrd[BRD_SQ_NUM];
 
 extern int PieceKnight[13];
 extern int PieceKing[13];
@@ -271,7 +235,6 @@ extern int PieceSlides[13];
 
 extern int Mirror64[64];
 
-// evaluate.c
 extern U64 FileBBMask[8];
 extern U64 RankBBMask[8];
 
@@ -279,12 +242,9 @@ extern U64 BlackPassedMask[64];
 extern U64 WhitePassedMask[64];
 extern U64 IsolatedMask[64];
 
-// main.c, init.c, uci.c, search.c, polybook.c,
 extern S_OPTIONS EngineOptions[1];
 
-/*******************
-**** Functions *****
-*******************/
+/* FUNCTIONS */
 
 // init.c
 extern void AllInit();
@@ -314,7 +274,8 @@ extern char *PrSq(const int sq);
 extern void PrintMoveList(const S_MOVELIST *list);
 extern int ParseMove(char *ptrChar, S_BOARD *pos);
 
-// validate.c
+
+//validate.c
 extern int SqOnBoard(const int sq);
 extern int SideValid(const int side);
 extern int FileRankValid(const int fr);
@@ -357,8 +318,7 @@ extern int GetPvLine(const int depth, S_BOARD *pos);
 extern void ClearHashTable(S_HASHTABLE *table);
 
 // evaluate.c
-extern double evalWeight(S_BOARD *pos);
-extern int EvalPosition(S_BOARD *pos);
+extern int EvalPosition(const S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos) ;
 
 // uci.c
