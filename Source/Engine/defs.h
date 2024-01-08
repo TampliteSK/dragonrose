@@ -358,7 +358,7 @@ extern void ClearHashTable(S_HASHTABLE *table);
 
 // evaluate.c
 extern double evalWeight(S_BOARD *pos);
-extern int EvalPosition(const S_BOARD *pos);
+extern int EvalPosition(S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos) ;
 
 // uci.c
