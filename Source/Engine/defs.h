@@ -259,9 +259,11 @@ extern char FileChar[];
 extern int PieceBig[13];
 extern int PieceMaj[13];
 extern int PieceMin[13];
-extern int PieceVal[13];
 extern int PieceCol[13];
 extern int PiecePawn[13];
+
+extern int PieceValMg[13];
+extern int PieceValEg[13];
 
 extern int PieceKnight[13];
 extern int PieceKing[13];

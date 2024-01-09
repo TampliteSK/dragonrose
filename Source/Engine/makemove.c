@@ -41,7 +41,7 @@ static void ClearPiece(const int sq, S_BOARD *pos) {
     HASH_PCE(pce,sq);
 	
 	pos->pieces[sq] = EMPTY;
-    pos->material[col] -= PieceVal[pce];
+    pos->material[col] -= PieceValMg[pce] * evalWeight(pos) + PieceValEg[pce] * ( 1 + evalWeight(pos) );
 	
 	if(PieceBig[pce]) {
 			pos->bigPce[col]--;
