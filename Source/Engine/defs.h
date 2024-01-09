@@ -1,12 +1,18 @@
 #ifndef DEFS_H
 #define DEFS_H
 
+/*******************
+** System Headers **
+*******************/
+
 #include <stdlib.h>
 #include <stdio.h>
 
-// #define DEBUG
+/*******************
+*** Definitions ****
+*******************/
 
-#define MAX_HASH 1024
+// #define DEBUG
 
 #ifndef DEBUG
 #define ASSERT(n)
@@ -25,17 +31,23 @@ typedef unsigned long long U64;
 
 #define NAME "Dragonrose 0.0"
 #define BRD_SQ_NUM 120
-
+// Maximum hash size
+#define MAX_HASH 1024
+// maximum number of moves in a game
 #define MAXGAMEMOVES 2048
 // maximum expected legal moves
-// According to this: https://www.chess.com/forum/view/fun-with-chess/what-chess-position-has-the-most-number-of-possible-moves max number of moves is 218.
-#define MAXPOSITIONMOVES 256
+// Position that breaks 256 limit: QQQQQQBk/Q6B/Q6Q/Q6Q/Q6Q/Q6Q/Q6Q/KQQQQQQQ w - - 0 1 (credit to Caissa and Quanticade)
+#define MAXPOSITIONMOVES 280
 #define MAXDEPTH 64
 
 #define START_FEN  "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 #define INFINITE 30000
 #define ISMATE (INFINITE - MAXDEPTH)
+
+/*******************
+****** Enums *******
+*******************/
 
 //       0    1   2   3   4   5   6   7   8   9   10  11  12
 enum { EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK  };
@@ -59,13 +71,17 @@ enum { FALSE, TRUE };
 
 enum { WKCA = 1, WQCA = 2, BKCA = 4, BQCA = 8 };
 
+/*******************
+***** Structs ******
+*******************/
+
 // Move struct. See below for format of move
 typedef struct {
 	int move;
 	int score;
 } S_MOVE;
 
-// Legal moves list
+// Legal moves list struct
 typedef struct {
 	S_MOVE moves[MAXPOSITIONMOVES];
 	int count;
@@ -73,6 +89,7 @@ typedef struct {
 
 enum {  HFNONE, HFALPHA, HFBETA, HFEXACT};
 
+// Hash entry struct
 typedef struct {
 	U64 posKey;
 	int move;
@@ -81,6 +98,7 @@ typedef struct {
 	int flags;
 } S_HASHENTRY;
 
+// Hash table struct
 typedef struct {
 	S_HASHENTRY *pTable;
 	int numEntries;
@@ -90,6 +108,7 @@ typedef struct {
 	int cut;
 } S_HASHTABLE;
 
+// Undo move struct
 typedef struct {
 
 	int move;
@@ -134,6 +153,7 @@ typedef struct {
 
 } S_BOARD;
 
+// Search info struct
 typedef struct {
 
 	int starttime;
@@ -156,10 +176,10 @@ typedef struct {
 
 } S_SEARCHINFO;
 
+// UCI options struct
 typedef struct {
 	int UseBook;
 } S_OPTIONS;
-
 
 /* GAME MOVE */
 
@@ -192,7 +212,9 @@ typedef struct {
 #define NOMOVE 0
 
 
-/* MACROS */
+/*******************
+****** Macros ******
+*******************/
 
 #define FR2SQ(f,r) ( (21 + (f) ) + ( (r) * 10 ) )
 #define SQ64(sq120) (Sq120ToSq64[(sq120)])
@@ -210,7 +232,9 @@ typedef struct {
 
 #define MIRROR64(sq) (Mirror64[(sq)])
 
-/* GLOBALS */
+/*******************
+***** Globals ******
+*******************/
 
 // init.c
 extern int Sq120ToSq64[BRD_SQ_NUM];
@@ -258,7 +282,9 @@ extern U64 IsolatedMask[64];
 // main.c, init.c, uci.c, search.c, polybook.c,
 extern S_OPTIONS EngineOptions[1];
 
-/* FUNCTIONS */
+/*******************
+**** Functions *****
+*******************/
 
 // init.c
 extern void AllInit();
