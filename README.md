@@ -25,6 +25,11 @@ Evaluation:
 - Piece-square Table Bonuses
 - Tapered Eval
 
+## Changelogs:
+### 0.x:
+0.11: Fixed crash. Added tapered eval to material (point values) (+70 +/- 32 elo gain)
+0.1: Added tapered eval to PSQT
+
 ## Bugs to fix:
 - The PickMove function needs a BestScore of -(very low) instead of 0
 - Time management for x moves in x minutes causes losses
