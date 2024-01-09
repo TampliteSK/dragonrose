@@ -11,17 +11,19 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 ## Main features:
 
 Search:
-- Alpha beta search
+- Negamax Alpha-beta search
+- Quiesence search
 - Iterative deepening
-- Quiescence search
 - Transposition table
   - Always replace
-- Polyglot opening books
+- Null-move pruning
 - MVV/LVA move ordering
+- Polyglot opening books
 
 Evaluation:
 - Material
-- Piece Square Table Bonuses
+- Piece-square Table Bonuses
+- Tapered Eval
 
 ## Bugs to fix:
 - The PickMove function needs a BestScore of -(very low) instead of 0
