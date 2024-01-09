@@ -29,7 +29,7 @@ exit(1);}
 
 typedef unsigned long long U64;
 
-#define NAME "Dragonrose 0.0"
+#define NAME "Dragonrose 0.11"
 #define BRD_SQ_NUM 120
 // Maximum hash size
 #define MAX_HASH 1024
@@ -357,8 +357,8 @@ extern int GetPvLine(const int depth, S_BOARD *pos);
 extern void ClearHashTable(S_HASHTABLE *table);
 
 // evaluate.c
-extern double evalWeight(S_BOARD *pos);
-extern int EvalPosition(S_BOARD *pos);
+extern double evalWeight(const S_BOARD *pos);
+extern int EvalPosition(const S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos) ;
 
 // uci.c

@@ -159,8 +159,6 @@ const int KingEgTable[64] = {
   -74,  -35,  -18,  -18,  -11,   15,    4,  -17
 };
 
-#define count(pce) pos->pceNum[pce]
-
 // Calculates the weight of tapered eval (mg perspective). Currently a very basic implementation, may not be best.
 double evalWeight(const S_BOARD *pos) {
 

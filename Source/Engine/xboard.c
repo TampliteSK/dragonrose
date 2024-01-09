@@ -46,7 +46,7 @@ int checkresult(S_BOARD *pos) {
     }
 
 	S_MOVELIST list[1];
-    GenerateAllMoves(pos,&list);
+    GenerateAllMoves(pos,list);
 
     int MoveNum = 0;
 	int found = 0;
@@ -180,9 +180,9 @@ void XBoard_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 		    printf("DEBUG time:%d\n",time);
 			continue;
 		}
-
-		if(!strcmp(command, "memory")) {
-			sscanf(inBuf, "memory %d", &MB);
+		
+		if(!strcmp(command, "memory")) {			
+			sscanf(inBuf, "memory %d", &MB);		
 		    if(MB < 4) MB = 4;
 			if(MB > MAX_HASH) MB = MAX_HASH;
 			printf("Set Hash to %d MB\n",MB);
@@ -398,23 +398,3 @@ void Console_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 		pos->ply=0;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

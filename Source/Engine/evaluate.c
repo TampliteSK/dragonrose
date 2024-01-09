@@ -1,7 +1,12 @@
 // evaluate.c
 
 #include <stdio.h>
+#include <math.h>
 #include "defs.h"
+#include <stdint.h>
+
+// Temporary hack. Scales down the eval in case it's too high (assuming the code works fine)
+#define squishFactor 0.4
 
 const int PawnIsolated = -10;
 const int PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
@@ -15,8 +20,6 @@ const int BishopPair = 30;
 ***** PeSTO Piece Tables *****
 *****************************/
 // Note: All these tables are flipped to match the VICE implementation
-
-
 
 // OPENING / MIDDLEGAME
 
@@ -155,14 +158,15 @@ const int KingEgTable[64] = {
 };
 
 // Calculates the weight of tapered eval (mg perspective). Currently a very basic implementation, may not be best.
-double evalWeight(S_BOARD *pos) {
+double evalWeight(const S_BOARD *pos) {
 
 	ASSERT(CheckBoard(pos));
-
-	// totalPieces = (wN + wB + wR + wQ) + (bN + bB + bR + bQ)
-	int totalPieces = pos->pceNum[wN] + pos->pceNum[wB] + pos->pceNum[wR] + pos->pceNum[wQ] + pos->pceNum[bN] + pos->pceNum[bB] + pos->pceNum[bR] + pos->pceNum[bQ];
 	
-	return totalPieces / 14;
+	// Caissa tapered eval
+	// For startpos, gamePhase = min(64, 64)
+	uint8_t gamePhase = fmin(64, pos->material[WHITE] + pos->material[BLACK] - pos->pceNum[wP] - pos->pceNum[bP]);
+
+	return gamePhase / 64;
 
 }
 
@@ -196,13 +200,15 @@ int MaterialDraw(const S_BOARD *pos) {
 // #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
 
 // Evaluation function
-int EvalPosition(S_BOARD *pos) {
+int EvalPosition(const S_BOARD *pos) {
 
 	ASSERT(CheckBoard(pos));
 
 	int pce;
 	int pceNum;
 	int sq;
+
+	// Material eval
 	int score = pos->material[WHITE] - pos->material[BLACK];
 
 	// Material draw
@@ -400,21 +406,3 @@ int EvalPosition(S_BOARD *pos) {
 		return -score;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
