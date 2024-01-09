@@ -124,7 +124,11 @@ void UpdateListsMaterial(S_BOARD *pos) {
 		    if( PieceMin[piece] == TRUE) pos->minPce[colour]++;
 		    if( PieceMaj[piece] == TRUE) pos->majPce[colour]++;
 
+<<<<<<< HEAD
 			pos->material[colour] += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+=======
+			pos->material[colour] += PieceVal[piece];
+>>>>>>> 93604666d56d1ae7bb5a5c3339a1d7abae9724a1
 
 			ASSERT(pos->pceNum[piece] < 10 && pos->pceNum[piece] >= 0);
 
