@@ -96,7 +96,7 @@ static void AddPiece(const int sq, S_BOARD *pos, const int pce) {
 		SETBIT(pos->pawns[BOTH],SQ64(sq));
 	}
 	
-	pos->material[col] += PieceVal[pce];
+	pos->material[col] += PieceValMg[pce] * evalWeight(pos) + PieceValEg[pce] * ( 1 + evalWeight(pos) );
 	pos->pList[pce][pos->pceNum[pce]++] = sq;
 	
 }
