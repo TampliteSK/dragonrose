@@ -1,8 +1,8 @@
 // uci.c
 
-#include "stdio.h"
+#include <stdio.h>
 #include "defs.h"
-#include "string.h"
+#include <string.h>
 
 #define INPUTBUFFER 400 * 6
 
@@ -147,7 +147,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
             break;
         } else if (!strncmp(line, "uci", 3)) {
             printf("id name %s\n",NAME);
-            printf("id author Bluefever\n");
+            printf("id author Tamplite Siphron Kents\n");
             printf("uciok\n");
         } else if (!strncmp(line, "debug", 4)) {
             DebugAnalysisTest(pos,info);

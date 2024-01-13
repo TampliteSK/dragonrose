@@ -11,9 +11,7 @@ U64 GeneratePosKey(const S_BOARD *pos) {
 	// Piece hashing
 	for(sq = 0; sq < BRD_SQ_NUM; ++sq) {
 		piece = pos->pieces[sq];
-		// Check if it's a piece
 		if(piece!=NO_SQ && piece!=EMPTY && piece != OFFBOARD) {
-			// Extra bound check
 			ASSERT(piece>=wP && piece<=bK);
 			finalKey ^= PieceKeys[piece][sq];
 		}		

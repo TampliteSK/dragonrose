@@ -3,7 +3,11 @@
 #include <stdio.h>
 #include "defs.h"
 
+<<<<<<< HEAD
 // to set a pawn
+=======
+// to set a pawn:
+>>>>>>> aa5456aa18a3a0022814b150d33abb07b62fd41b
 // bitboard |= (1ULL << SQ64(d2))
 
 const int BitTable[64] = {
@@ -28,14 +32,24 @@ int CountBits(U64 b) {
 }
 
 void PrintBitBoard(U64 bb) {
+<<<<<<< HEAD
+=======
+
+	U64 shiftMe = 1ULL;
+	
+	int rank = 0;
+	int file = 0;
+	int sq = 0;
+	int sq64 = 0;
+>>>>>>> aa5456aa18a3a0022814b150d33abb07b62fd41b
 	
 	printf("\n");
-	for(int rank = RANK_8; rank >= RANK_1; --rank) {
-		for(int file = FILE_A; file <= FILE_H; ++file) {
-			int sq = FR2SQ(file,rank);	// 120 based		
-			int sq64 = SQ64(sq); // 64 based
+	for(rank = RANK_8; rank >= RANK_1; --rank) {
+		for(file = FILE_A; file <= FILE_H; ++file) {
+			sq = FR2SQ(file,rank);	// 120 based		
+			sq64 = SQ64(sq); // 64 based
 			
-			if((1ULL << sq64) & bb) 
+			if((shiftMe << sq64) & bb) 
 				printf("X");
 			else 
 				printf("-");

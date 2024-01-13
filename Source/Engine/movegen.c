@@ -14,9 +14,11 @@ const int LoopNonSlidePce[6] = {
  wN, wK, 0, bN, bK, 0
 };
 
+/*
 const int LoopKnightPce[4] = {
  wN, 0, bN, 0
 };
+*/
 
 const int LoopSlideIndex[2] = { 0, 4 };
 const int LoopNonSlideIndex[2] = { 0, 3 };

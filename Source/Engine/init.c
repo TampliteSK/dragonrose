@@ -13,8 +13,6 @@
 
 int Sq120ToSq64[BRD_SQ_NUM];
 int Sq64ToSq120[64];
-int FilesBrd[BRD_SQ_NUM];
-int RanksBrd[BRD_SQ_NUM];
 
 U64 SetMask[64];
 U64 ClearMask[64];
@@ -22,6 +20,9 @@ U64 ClearMask[64];
 U64 PieceKeys[13][120];
 U64 SideKey;
 U64 CastleKeys[16];
+
+int FilesBrd[BRD_SQ_NUM];
+int RanksBrd[BRD_SQ_NUM];
 
 U64 FileBBMask[8];
 U64 RankBBMask[8];
@@ -163,15 +164,14 @@ void InitSq120To64() {
 		Sq64ToSq120[index] = 120; // default value if off board
 	}
 
-	for(rank = RANK_1; rank <= RANK_8; ++rank) {
-		for(file = FILE_A; file <= FILE_H; ++file) {
-			sq = FR2SQ(file,rank);
-			ASSERT(SqOnBoard(sq));
-			Sq64ToSq120[sq64] = sq;
-			Sq120ToSq64[sq] = sq64;
-			sq64++;
-		}
-	}
+  	for(int rank = RANK_1; rank <= RANK_8; ++rank) {
+    	for(int file = FILE_A; file <= FILE_H; ++file) {
+      		int sq = FR2SQ(file,rank);
+      		Sq64ToSq120[sq64] = sq;
+      		Sq120ToSq64[sq] = sq64;
+      		sq64++;
+    	}
+  	}
 }
 
 void AllInit() {

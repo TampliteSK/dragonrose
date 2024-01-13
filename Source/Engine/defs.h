@@ -1,8 +1,12 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-#include "stdlib.h"
-#include "stdio.h"
+/*******************
+** System Headers **
+*******************/
+
+#include <stdlib.h>
+#include <stdio.h>
 
 /*******************
 *** Definitions ****
@@ -27,11 +31,13 @@ typedef unsigned long long U64;
 
 #define NAME "Dragonrose 0.21"
 #define BRD_SQ_NUM 120
-
 // Maximum hash size
 #define MAX_HASH 1024
-// Maximum number of moves in a game
+// maximum number of moves in a game
 #define MAXGAMEMOVES 2048
+// maximum expected legal moves
+// Position that breaks 256 limit: QQQQQQBk/Q6B/Q6Q/Q6Q/Q6Q/Q6Q/Q6Q/KQQQQQQQ w - - 0 1 (credit to Caissa and Quanticade)
+#define MAXPOSITIONMOVES 280
 #define MAXDEPTH 64
 
 // Maximum expected legal moves
@@ -122,6 +128,10 @@ typedef struct {
 	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
   // usage eg.: pList[wN][0] = e1; for the position of 1st knight
 
+	// piece list
+	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
+  // usage eg.: pList[wN][0] = e1; for the position of 1st knight
+
 	int pceNum[13];
 	int bigPce[2];
 	int majPce[2];
@@ -137,6 +147,8 @@ typedef struct {
 
 	int ply;
 	int hisPly;
+
+	U64 posKey;
 
 	S_UNDO history[MAXGAMEMOVES];
 	S_HASHTABLE HashTable[1];
@@ -250,15 +262,15 @@ extern char SideChar[];
 extern char RankChar[];
 extern char FileChar[];
 
-// data.c
+// board.c, data.c
 extern int PieceBig[13];
 extern int PieceMaj[13];
 extern int PieceMin[13];
-extern int PieceCol[13];
-extern int PiecePawn[13];
 
 extern int PieceValMg[13];
 extern int PieceValEg[13];
+extern int PieceCol[13];
+extern int PiecePawn[13];
 
 extern int PieceKnight[13];
 extern int PieceKing[13];
@@ -266,7 +278,6 @@ extern int PieceRookQueen[13];
 extern int PieceBishopQueen[13];
 extern int PieceSlides[13];
 
-// evaluate.c, init.c
 extern int Mirror64[64];
 
 extern U64 FileBBMask[8];
@@ -276,12 +287,10 @@ extern U64 BlackPassedMask[64];
 extern U64 WhitePassedMask[64];
 extern U64 IsolatedMask[64];
 
-//  main.c, init.c, uci.c, search.c, polybook.c...
+// main.c, init.c, uci.c, search.c, polybook.c,
 extern S_OPTIONS EngineOptions[1];
 
-/*******************
-**** Functions *****
-*******************/
+/* FUNCTIONS */
 
 // init.c
 extern void AllInit();
@@ -310,6 +319,7 @@ extern char *PrMove(const int move);
 extern char *PrSq(const int sq);
 extern void PrintMoveList(const S_MOVELIST *list);
 extern int ParseMove(char *ptrChar, S_BOARD *pos);
+
 
 
 //validate.c
