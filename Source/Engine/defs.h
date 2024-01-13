@@ -123,10 +123,6 @@ typedef struct {
 
 	int pieces[BRD_SQ_NUM];
 	U64 pawns[3];
-	
-	// piece list
-	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
-  // usage eg.: pList[wN][0] = e1; for the position of 1st knight
 
 	// piece list
 	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
