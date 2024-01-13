@@ -3,6 +3,7 @@
 #include "stdio.h"
 #include "defs.h"
 
+// Print square
 char *PrSq(const int sq) {
 
 	static char SqStr[3];
@@ -10,24 +11,27 @@ char *PrSq(const int sq) {
 	int file = FilesBrd[sq];
 	int rank = RanksBrd[sq];
 
+	// Sets the string as a formatted output
 	sprintf(SqStr, "%c%c", ('a'+file), ('1'+rank));
 
 	return SqStr;
 
 }
 
+// Print move in UCI notation
 char *PrMove(const int move) {
-
 	static char MvStr[6];
 
+	// file_from, rank_from, file_to, rank_to
 	int ff = FilesBrd[FROMSQ(move)];
 	int rf = RanksBrd[FROMSQ(move)];
 	int ft = FilesBrd[TOSQ(move)];
 	int rt = RanksBrd[TOSQ(move)];
 
+	// Check if isPromotion
 	int promoted = PROMOTED(move);
-
 	if(promoted) {
+		// Prints queen by default
 		char pchar = 'q';
 		if(IsKn(promoted)) {
 			pchar = 'n';
@@ -36,8 +40,10 @@ char *PrMove(const int move) {
 		} else if(!IsRQ(promoted) && IsBQ(promoted))  {
 			pchar = 'b';
 		}
+		// print with promotion piece
 		sprintf(MvStr, "%c%c%c%c%c", ('a'+ff), ('1'+rf), ('a'+ft), ('1'+rt), pchar);
 	} else {
+		// print without promotion piece
 		sprintf(MvStr, "%c%c%c%c", ('a'+ff), ('1'+rf), ('a'+ft), ('1'+rt));
 	}
 

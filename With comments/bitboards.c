@@ -1,7 +1,11 @@
 // bitboards.c
 
-#include "stdio.h"
+#include <stdio.h>
 #include "defs.h"
+
+
+// to set a pawn
+// bitboard |= (1ULL << SQ64(d2))
 
 const int BitTable[64] = {
   63, 30, 3, 32, 25, 41, 22, 33, 15, 50, 42, 13, 11, 53, 19, 34, 61, 29, 2,
@@ -10,6 +14,7 @@ const int BitTable[64] = {
   58, 20, 37, 17, 36, 8
 };
 
+// Pops the last set bit and returns the index
 int PopBit(U64 *bb) {
   U64 b = *bb ^ (*bb - 1);
   unsigned int fold = (unsigned) ((b & 0xffffffff) ^ (b >> 32));
@@ -24,21 +29,13 @@ int CountBits(U64 b) {
 }
 
 void PrintBitBoard(U64 bb) {
-
-	U64 shiftMe = 1ULL;
-	
-	int rank = 0;
-	int file = 0;
-	int sq = 0;
-	int sq64 = 0;
-	
 	printf("\n");
-	for(rank = RANK_8; rank >= RANK_1; --rank) {
-		for(file = FILE_A; file <= FILE_H; ++file) {
-			sq = FR2SQ(file,rank);	// 120 based		
-			sq64 = SQ64(sq); // 64 based
+	for(int rank = RANK_8; rank >= RANK_1; --rank) {
+		for(int file = FILE_A; file <= FILE_H; ++file) {
+			int sq = FR2SQ(file,rank);	// 120 based		
+			int sq64 = SQ64(sq); // 64 based
 			
-			if((shiftMe << sq64) & bb) 
+			if((1ULL << sq64) & bb) 
 				printf("X");
 			else 
 				printf("-");

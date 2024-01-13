@@ -34,15 +34,15 @@ int checkresult(S_BOARD *pos) {
 	ASSERT(CheckBoard(pos));
 
     if (pos->fiftyMove > 100) {
-     printf("1/2-1/2 {fifty move rule (claimed by Dragonrose)}\n"); return TRUE;
+     printf("1/2-1/2 {fifty move rule (claimed by Vice)}\n"); return TRUE;
     }
 
     if (ThreeFoldRep(pos) >= 2) {
-     printf("1/2-1/2 {3-fold repetition (claimed by Dragonrose)}\n"); return TRUE;
+     printf("1/2-1/2 {3-fold repetition (claimed by Vice)}\n"); return TRUE;
     }
 
 	if (DrawMaterial(pos) == TRUE) {
-     printf("1/2-1/2 {insufficient material (claimed by Dragonrose)}\n"); return TRUE;
+     printf("1/2-1/2 {insufficient material (claimed by Vice)}\n"); return TRUE;
     }
 
 	S_MOVELIST list[1];
@@ -66,12 +66,12 @@ int checkresult(S_BOARD *pos) {
 
 	if(InCheck == TRUE)	{
 	    if(pos->side == WHITE) {
-	      printf("0-1 {black mates (claimed by Dragonrose)}\n");return TRUE;
+	      printf("0-1 {black mates (claimed by Vice)}\n");return TRUE;
         } else {
-	      printf("0-1 {white mates (claimed by Dragonrose)}\n");return TRUE;
+	      printf("0-1 {white mates (claimed by Vice)}\n");return TRUE;
         }
     } else {
-      printf("\n1/2-1/2 {stalemate (claimed by Dragonrose)}\n");return TRUE;
+      printf("\n1/2-1/2 {stalemate (claimed by Vice)}\n");return TRUE;
     }
 	return FALSE;
 }
@@ -248,14 +248,8 @@ void XBoard_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 
 void Console_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 
-	printf("Dragonrose: Console Mode!\n");
+	printf("Welcome to Vice In Console Mode!\n");
 	printf("Type help for commands\n\n");
-
-	/*
-	ParseFen("rn2kbnr/pppppppp/8/8/8/8/PPPPPPPP/RN2KBNR w KQkq - 0 1", pos);
-	for (int i = EMPTY; i <= bK; ++i)
-		printf("Piece %d: MG[%d], EG[%d], Tapered[%d]\n", i, scaleScore(pos, i, 0), scaleScore(pos, i, 1), scaleScore(pos, i, 2));
-	*/
 
 	info->GAME_MODE = CONSOLEMODE;
 	info->POST_THINKING = TRUE;
@@ -286,7 +280,7 @@ void Console_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 			SearchPosition(pos, info);
 		}
 
-		printf("\nDragonrose > ");
+		printf("\nVice > ");
 
 		fflush(stdout);
 
@@ -404,23 +398,3 @@ void Console_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 		pos->ply=0;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

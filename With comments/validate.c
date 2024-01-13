@@ -84,7 +84,6 @@ void DebugAnalysisTest(S_BOARD *pos, S_SEARCHINFO *info) {
 }
 
 
-
 void MirrorEvalTest(S_BOARD *pos) {
     FILE *file;
     file = fopen("mirror.epd","r");
@@ -121,4 +120,3 @@ void MirrorEvalTest(S_BOARD *pos) {
         }
     }
 }
-

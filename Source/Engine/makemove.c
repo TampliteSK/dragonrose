@@ -41,7 +41,7 @@ static void ClearPiece(const int sq, S_BOARD *pos) {
     HASH_PCE(pce,sq);
 	
 	pos->pieces[sq] = EMPTY;
-    pos->material[col] -= PieceValMg[pce] * evalWeight(pos) + PieceValEg[pce] * ( 1 + evalWeight(pos) );
+    // pos->material[col] -= PieceValMg[pce] * evalWeight(pos) + PieceValEg[pce] * ( 1 - evalWeight(pos) );;
 	
 	if(PieceBig[pce]) {
 			pos->bigPce[col]--;
@@ -96,7 +96,7 @@ static void AddPiece(const int sq, S_BOARD *pos, const int pce) {
 		SETBIT(pos->pawns[BOTH],SQ64(sq));
 	}
 	
-	pos->material[col] += PieceValMg[pce] * evalWeight(pos) + PieceValEg[pce] * ( 1 + evalWeight(pos) );
+	// pos->material[col] += PieceValMg[pce] * evalWeight(pos) + PieceValEg[pce] * ( 1 - evalWeight(pos) );
 	pos->pList[pce][pos->pceNum[pce]++] = sq;
 	
 }
