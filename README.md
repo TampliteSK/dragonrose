@@ -16,14 +16,17 @@ Search:
 - Iterative deepening
 - Transposition table
   - Always replace
-- Null-move pruning
 - MVV/LVA move ordering
+- Null-move pruning
+- Killer heuristics
 - Polyglot opening books
 
 Evaluation:
 - Material
-- Piece-square Table Bonuses
-- Tapered Eval
+- Piece-square table bonuses
+- Tapered eval
+- Piece bonuses: Rook/queen open-file bonuses
+- Pawn bonuses: Passed pawns, isolated pawns
 
 ## Changelogs:<br>
 ### 0.x:<br>
