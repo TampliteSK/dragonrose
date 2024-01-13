@@ -188,6 +188,7 @@ static int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO 
 		return Score;
 	}
 
+	// Null-move pruning
 	if( DoNull && !InCheck && pos->ply && (pos->bigPce[pos->side] > 0) && depth >= 4) {
 		MakeNullMove(pos);
 		Score = -AlphaBeta( -beta, -beta + 1, depth-4, pos, info, FALSE);
@@ -302,7 +303,7 @@ void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 
 	//printf("Search depth:%d\n",info->depth);
 
-	// iterative deepening
+	// Iterative deepening
 	if(bestMove == NOMOVE) {
 		for( currentDepth = 1; currentDepth <= info->depth; ++currentDepth ) {
 								// alpha	 beta
