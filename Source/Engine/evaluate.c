@@ -5,21 +5,34 @@
 #include "defs.h"
 #include <stdint.h>
 
-// Temporary hack. Scales down the eval in case it's too high (assuming the code works fine)
-#define squishFactor 0.4
+// Test positions for evaluation
+// Pos1 (startpos) [+0.2, e4/d4/Nf3/c4]
+// Pos2 (traxler) [+0.4, Nxe4]: r1bqk2r/pppp1Npp/2n2n2/4p3/2B1P3/8/PPPP1KPP/RNBQ3R b kq - 0 6
+// Pos3 (fried liver) [0.0 Na5]: r1bqkb1r/ppp2ppp/2n2n2/3Pp1N1/2B5/8/PPPP1PPP/RNBQK2R b KQkq - 0 5
 
+// Temporary hack. Scales down the eval in case it's too high (assuming the code works fine)
+// #define squishFactor 0.35
+
+/* Pawns */
 const int PawnIsolated = -10;
+// Basic passed pawn bonus. Values from Stockfish and then averaged
+// Failed. Loses elo anyway. Reverted
+// original: 0, 5, 10, 20, 35, 60, 100, 200
 const int PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
+
+// Pieces
 const int RookOpenFile = 10;
 const int RookSemiOpenFile = 5;
 const int QueenOpenFile = 5;
 const int QueenSemiOpenFile = 3;
 const int BishopPair = 30;
 
-/*****************************
-***** PeSTO Piece Tables *****
-*****************************/
+/********************************
+* PesTO / Rofchade Piece Tables *
+********************************/
 // Note: All these tables are flipped to match the VICE implementation
+
+
 
 // OPENING / MIDDLEGAME
 
@@ -157,16 +170,25 @@ const int KingEgTable[64] = {
   -74,  -35,  -18,  -18,  -11,   15,    4,  -17
 };
 
-// Calculates the weight of tapered eval (mg perspective). Currently a very basic implementation, may not be best.
+// Applying gamePhase at startpos
+#define openingPhase 64
+
+// Calculates the weight of tapered eval. 
 double evalWeight(const S_BOARD *pos) {
+	// PesTO has its own tapered eval but it's 17 +/-22 elo worse than Caissa's
+	// Scaling by material is strictly worse, and is about 225-275 elo weaker.
 
 	ASSERT(CheckBoard(pos));
-	
-	// Caissa tapered eval
-	// For startpos, gamePhase = min(64, 64)
-	uint8_t gamePhase = fmin(64, pos->material[WHITE] + pos->material[BLACK] - pos->pceNum[wP] - pos->pceNum[bP]);
 
-	return gamePhase / 64;
+	// Caissa tapered eval (0.11e)
+	uint8_t gamePhase = 3 * ( pos->pceNum[wN] + pos->pceNum[bN] + pos->pceNum[wB] + pos->pceNum[bB] );
+	gamePhase += 5 * ( pos->pceNum[wR] + pos->pceNum[bR] );
+	gamePhase += 10 * ( pos->pceNum[wQ] + pos->pceNum[bQ] );
+	gamePhase = fmin(gamePhase, openingPhase); // capped at opening phase
+
+	// not sure if linear is the best, but it is the norm
+	// sqrt() is strictly worse
+	return sqrt(gamePhase / (double)openingPhase);
 
 }
 
@@ -196,6 +218,15 @@ int MaterialDraw(const S_BOARD *pos) {
   return FALSE;
 }
 
+// Debug function. To be used with a snippet in xboard.c consleLoop()
+int scaleScore(const S_BOARD *pos, int pc, int type) {
+	double score = PieceValMg[pc] * evalWeight(pos) + PieceValEg[pc] * ( 1 - evalWeight(pos) );
+	if (type == 0) return PieceValMg[pc];
+	if (type == 1) return PieceValEg[pc];
+	if (type == 2) return score;
+	return score;
+}
+
 // Used for some sort of king eval tapering. Probably not very good, but an interesting approach. Kept for legacy
 // #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
 
@@ -208,13 +239,32 @@ int EvalPosition(const S_BOARD *pos) {
 	int pceNum;
 	int sq;
 
+	double score = 0;
+
 	// Material eval
-	int score = pos->material[WHITE] - pos->material[BLACK];
+	double material = 0;
+	for(int index = 0; index < BRD_SQ_NUM; ++index) {
+		int piece = pos->pieces[index];
+		ASSERT(PceValidEmptyOffbrd(piece));
+		if(piece!=OFFBOARD && piece!= EMPTY) {
+			int colour = PieceCol[piece];
+			ASSERT(SideValid(colour));
+			if (colour == WHITE)
+				material += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+			else 
+				material -= PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+		}
+	}
+
+	score += material;
 
 	// Material draw
 	if(!pos->pceNum[wP] && !pos->pceNum[bP] && MaterialDraw(pos) == TRUE) {
 		return 0;
 	}
+
+	// Tapered eval weight. Calculated only once
+	double weight = evalWeight(pos);
 
 	/************
 	*** Pawns ***
@@ -225,7 +275,7 @@ int EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += PawnMgTable[SQ64(sq)] * evalWeight(pos) + PawnEgTable[SQ64(sq)] * ( 1 - evalWeight(pos) );
+		score += PawnMgTable[SQ64(sq)] * weight + PawnEgTable[SQ64(sq)] * ( 1 - weight );
 
 		if( (IsolatedMask[SQ64(sq)] & pos->pawns[WHITE]) == 0) {
 			//printf("wP Iso:%s\n",PrSq(sq));
@@ -244,7 +294,7 @@ int EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= PawnMgTable[MIRROR64(SQ64(sq))] * evalWeight(pos) + PawnEgTable[MIRROR64(SQ64(sq))] * ( 1 - evalWeight(pos) );
+		score -= PawnMgTable[MIRROR64(SQ64(sq))] * weight + PawnEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
 
 		if( (IsolatedMask[SQ64(sq)] & pos->pawns[BLACK]) == 0) {
 			//printf("bP Iso:%s\n",PrSq(sq));
@@ -266,7 +316,7 @@ int EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += KnightMgTable[SQ64(sq)] * evalWeight(pos) + KnightEgTable[SQ64(sq)] * ( 1 - evalWeight(pos) );
+		score += KnightMgTable[SQ64(sq)] * weight + KnightEgTable[SQ64(sq)] * ( 1 - weight );
 	}
 
 	pce = bN;
@@ -274,7 +324,7 @@ int EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= KnightMgTable[MIRROR64(SQ64(sq))] * evalWeight(pos) + KnightEgTable[MIRROR64(SQ64(sq))] * ( 1 - evalWeight(pos) );
+		score -= KnightMgTable[MIRROR64(SQ64(sq))] * weight + KnightEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
 	}
 
 	/************
@@ -286,7 +336,7 @@ int EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += BishopMgTable[SQ64(sq)] * evalWeight(pos) + BishopEgTable[SQ64(sq)] * ( 1 - evalWeight(pos) );
+		score += BishopMgTable[SQ64(sq)] * weight + BishopEgTable[SQ64(sq)] * ( 1 - weight );
 	}
 
 	pce = bB;
@@ -294,7 +344,7 @@ int EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= BishopMgTable[MIRROR64(SQ64(sq))] * evalWeight(pos) + BishopEgTable[MIRROR64(SQ64(sq))] * ( 1 - evalWeight(pos) );
+		score -= BishopMgTable[MIRROR64(SQ64(sq))] * weight + BishopEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
 	}
 	
 	/************
@@ -306,7 +356,7 @@ int EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += RookMgTable[SQ64(sq)] * evalWeight(pos) + RookEgTable[SQ64(sq)] * ( 1 - evalWeight(pos) );
+		score += RookMgTable[SQ64(sq)] * weight + RookEgTable[SQ64(sq)] * ( 1 - weight );
 
 		ASSERT(FileRankValid(FilesBrd[sq]));
 
@@ -322,7 +372,7 @@ int EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= RookMgTable[MIRROR64(SQ64(sq))] * evalWeight(pos) + RookEgTable[MIRROR64(SQ64(sq))] * ( 1 - evalWeight(pos) );
+		score -= RookMgTable[MIRROR64(SQ64(sq))] * weight + RookEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
 		ASSERT(FileRankValid(FilesBrd[sq]));
 		if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
 			score -= RookOpenFile;
@@ -340,7 +390,7 @@ int EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += QueenMgTable[SQ64(sq)] * evalWeight(pos) + QueenEgTable[SQ64(sq)] * ( 1 - evalWeight(pos) );
+		score += QueenMgTable[SQ64(sq)] * weight + QueenEgTable[SQ64(sq)] * ( 1 - weight );
 		ASSERT(FileRankValid(FilesBrd[sq]));
 		if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
 			score += QueenOpenFile;
@@ -355,7 +405,7 @@ int EvalPosition(const S_BOARD *pos) {
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= QueenMgTable[MIRROR64(SQ64(sq))] * evalWeight(pos) + QueenEgTable[MIRROR64(SQ64(sq))] * ( 1 - evalWeight(pos) );
+		score -= QueenMgTable[MIRROR64(SQ64(sq))] * weight + QueenEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
 		ASSERT(FileRankValid(FilesBrd[sq]));
 		if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
 			score -= QueenOpenFile;
@@ -373,31 +423,25 @@ int EvalPosition(const S_BOARD *pos) {
 	sq = pos->pList[pce][0];
 	ASSERT(SqOnBoard(sq));
 	ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-	score += KingMgTable[SQ64(sq)] * evalWeight(pos) + KingEgTable[SQ64(sq)] * ( 1 - evalWeight(pos) );
-	/*
-	if( (pos->material[BLACK] <= ENDGAME_MAT) ) {
-		score += KingE[SQ64(sq)];
-	} else {
-		score += KingO[SQ64(sq)];
-	}
-	*/
+	score += KingMgTable[SQ64(sq)] * weight + KingEgTable[SQ64(sq)] * ( 1 - weight );
 
 	pce = bK;
 	sq = pos->pList[pce][0];
 	ASSERT(SqOnBoard(sq));
 	ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-	score -= QueenMgTable[MIRROR64(SQ64(sq))] * evalWeight(pos) + QueenEgTable[MIRROR64(SQ64(sq))] * ( 1 - evalWeight(pos) );
-	/*
-	if( (pos->material[WHITE] <= ENDGAME_MAT) ) {
-		score -= KingE[MIRROR64(SQ64(sq))];
-	} else {
-		score -= KingO[MIRROR64(SQ64(sq))];
-	}
-	*/
+	score -= KingMgTable[MIRROR64(SQ64(sq))] * weight + KingEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
+
+	/****************
+	* Other bonuses *
+	****************/
 
 	// Bishop pair bonus
 	if(pos->pceNum[wB] >= 2) score += BishopPair;
 	if(pos->pceNum[bB] >= 2) score -= BishopPair;
+
+	// No good way of calculating mobility
+	// Kinda counted already by PSQT and open files / bishop pair bonuses. 
+	// Perhaps have to do some trick with setting rooks on certain files to limit king movement in endgame.
 
 	// Perspective adjustment
 	if(pos->side == WHITE) {
@@ -406,3 +450,21 @@ int EvalPosition(const S_BOARD *pos) {
 		return -score;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

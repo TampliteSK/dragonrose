@@ -13,6 +13,8 @@
 
 int Sq120ToSq64[BRD_SQ_NUM];
 int Sq64ToSq120[64];
+int FilesBrd[BRD_SQ_NUM];
+int RanksBrd[BRD_SQ_NUM];
 
 U64 SetMask[64];
 U64 ClearMask[64];
@@ -20,9 +22,6 @@ U64 ClearMask[64];
 U64 PieceKeys[13][120];
 U64 SideKey;
 U64 CastleKeys[16];
-
-int FilesBrd[BRD_SQ_NUM];
-int RanksBrd[BRD_SQ_NUM];
 
 U64 FileBBMask[8];
 U64 RankBBMask[8];
@@ -105,42 +104,42 @@ void InitEvalMasks() {
 }
 
 void InitFilesRanksBrd() {
-	int rank = RANK_1;
-  	int file = FILE_A;
+  int rank = RANK_1;
+  int file = FILE_A;
 
-  	// Clunky but should be faster than 2 for-loops
-  	for(int i = 0; i < BRD_SQ_NUM; ++i) {
-    	FilesBrd[i] = OFFBOARD;
-    	RanksBrd[i] = OFFBOARD;
+  // Clunky but should be faster than 2 for-loops
+  for(int i = 0; i < BRD_SQ_NUM; ++i) {
+    FilesBrd[i] = OFFBOARD;
+    RanksBrd[i] = OFFBOARD;
 
-    	// Check if it's the same square
-    	if (i == FR2SQ(file, rank)) {
-      		// Check if it's on board
-      		if (FR2SQ(file, rank) >= 21 && FR2SQ(file, rank) <= 98) {
-        		FilesBrd[i] = file;
-        		RanksBrd[i] = rank;
-        		++file;
-        		if (file > FILE_H) {
-         			++rank;
-          			file = FILE_A;
-        		}
-      		}
-    	}
-  	}
+    // Check if it's the same square
+    if (i == FR2SQ(file, rank)) {
+      // Check if it's on board
+      if (FR2SQ(file, rank) >= 21 && FR2SQ(file, rank) <= 98) {
+        FilesBrd[i] = file;
+        RanksBrd[i] = rank;
+        ++file;
+        if (file > FILE_H) {
+          ++rank;
+          file = FILE_A;
+        }
+      }
+    }
+  }
 }
 
 void InitHashKeys() {
+	for(int i = 0; i < 13; ++i) {
+    	for(int j = 0; j < 120; ++j) {
+      		PieceKeys[i][j] = RAND_64;
+    	}
+  	}
 
-	for(int index = 0; index < 13; ++index) {
-		for(int index2 = 0; index2 < 120; ++index2) {
-			PieceKeys[index][index2] = RAND_64;
-		}
-	}
-	SideKey = RAND_64;
-	for(int index = 0; index < 16; ++index) {
-		CastleKeys[index] = RAND_64;
-	}
+  	SideKey = RAND_64;
 
+  	for(int i = 0; i < 16; ++i) {
+    	CastleKeys[i] = RAND_64;
+  	}
 }
 
 void InitBitMasks() {
@@ -167,7 +166,7 @@ void InitSq120To64() {
       		Sq120ToSq64[sq] = sq64;
       		sq64++;
     	}
-	}
+  	}
 }
 
 void AllInit() {

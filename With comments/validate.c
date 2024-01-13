@@ -1,8 +1,8 @@
 // validate.c
 
 #include "defs.h"
-#include <stdio.h>
-#include <string.h>
+#include "stdio.h"
+#include "string.h"
 
 int MoveListOk(const S_MOVELIST *list,  const S_BOARD *pos) {
 	if(list->count < 0 || list->count >= MAXPOSITIONMOVES) {
@@ -84,7 +84,6 @@ void DebugAnalysisTest(S_BOARD *pos, S_SEARCHINFO *info) {
 }
 
 
-
 void MirrorEvalTest(S_BOARD *pos) {
     FILE *file;
     file = fopen("mirror.epd","r");
@@ -121,4 +120,3 @@ void MirrorEvalTest(S_BOARD *pos) {
         }
     }
 }
-

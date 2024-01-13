@@ -1,8 +1,8 @@
 // uci.c
 
-#include <stdio.h>
+#include "stdio.h"
 #include "defs.h"
-#include <string.h>
+#include "string.h"
 
 #define INPUTBUFFER 400 * 6
 
@@ -116,12 +116,12 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 
 	char line[INPUTBUFFER];
     printf("id name %s\n",NAME);
-    printf("id author Tamplite Siphron Kents\n");
+    printf("id author Bluefever\n");
 	printf("option name Hash type spin default 64 min 4 max %d\n",MAX_HASH);
 	printf("option name Book type check default true\n");
     printf("uciok\n");
 	
-	int MB = 128; // default hash 128 MB
+	int MB = 64;
 
 	while (TRUE) {
 		memset(&line[0], 0, sizeof(line));
@@ -147,7 +147,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
             break;
         } else if (!strncmp(line, "uci", 3)) {
             printf("id name %s\n",NAME);
-            printf("id author Tamplite Siphron Kents\n");
+            printf("id author Bluefever\n");
             printf("uciok\n");
         } else if (!strncmp(line, "debug", 4)) {
             DebugAnalysisTest(pos,info);
@@ -170,16 +170,3 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 		if(info->quit) break;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

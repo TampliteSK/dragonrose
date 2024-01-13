@@ -14,6 +14,10 @@ const int LoopNonSlidePce[6] = {
  wN, wK, 0, bN, bK, 0
 };
 
+const int LoopKnightPce[4] = {
+ wN, 0, bN, 0
+};
+
 const int LoopSlideIndex[2] = { 0, 4 };
 const int LoopNonSlideIndex[2] = { 0, 3 };
 
@@ -184,6 +188,90 @@ static void AddBlackPawnMove( const S_BOARD *pos, const int from, const int to, 
 		AddQuietMove(pos, MOVE(from,to,EMPTY,EMPTY,0), list);
 	}
 }
+
+// Only used for mobility. Chops off pawn moves and king moves for speed.
+/*
+void GenerateSliders(const S_BOARD *pos, S_MOVELIST *list) {
+
+	ASSERT(CheckBoard(pos));
+
+	list->count = 0;
+
+	int pce = EMPTY;
+	int side = pos->side;
+	int sq = 0; int t_sq = 0;
+	int pceNum = 0;
+	int dir = 0;
+	int index = 0;
+	int pceIndex = 0;
+
+	// Loop for slide pieces
+	pceIndex = LoopSlideIndex[side];
+	pce = LoopSlidePce[pceIndex++];
+	while( pce != 0) {
+		ASSERT(PieceValid(pce));
+
+		for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
+			sq = pos->pList[pce][pceNum];
+			ASSERT(SqOnBoard(sq));
+
+			for(index = 0; index < NumDir[pce]; ++index) {
+				dir = PceDir[pce][index];
+				t_sq = sq + dir;
+
+				while(!SQOFFBOARD(t_sq)) {
+					// BLACK ^ 1 == WHITE       WHITE ^ 1 == BLACK
+					if(pos->pieces[t_sq] != EMPTY) {
+						if( PieceCol[pos->pieces[t_sq]] == (side ^ 1)) {
+							AddCaptureMove(pos, MOVE(sq, t_sq, pos->pieces[t_sq], EMPTY, 0), list);
+						}
+						break;
+					}
+					AddQuietMove(pos, MOVE(sq, t_sq, EMPTY, EMPTY, 0), list);
+					t_sq += dir;
+				}
+			}
+		}
+
+		pce = LoopSlidePce[pceIndex++];
+	}
+
+	// Loop for non slide
+	pceIndex = LoopNonSlideIndex[side];
+	pce = LoopKnightPce[pceIndex++];
+
+	while( pce != 0) {
+		ASSERT(PieceValid(pce));
+
+		for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
+			sq = pos->pList[pce][pceNum];
+			ASSERT(SqOnBoard(sq));
+
+			for(index = 0; index < NumDir[pce]; ++index) {
+				dir = PceDir[pce][index];
+				t_sq = sq + dir;
+
+				if(SQOFFBOARD(t_sq)) {
+					continue;
+				}
+
+				// BLACK ^ 1 == WHITE       WHITE ^ 1 == BLACK
+				if(pos->pieces[t_sq] != EMPTY) {
+					if( PieceCol[pos->pieces[t_sq]] == (side ^ 1)) {
+						AddCaptureMove(pos, MOVE(sq, t_sq, pos->pieces[t_sq], EMPTY, 0), list);
+					}
+					continue;
+				}
+				AddQuietMove(pos, MOVE(sq, t_sq, EMPTY, EMPTY, 0), list);
+			}
+		}
+
+		pce = LoopKnightPce[pceIndex++];
+	}
+
+    ASSERT(MoveListOk(list,pos));
+}
+*/
 
 void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list) {
 

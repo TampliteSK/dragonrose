@@ -1,10 +1,6 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-/*******************
-** System Headers **
-*******************/
-
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -29,13 +25,16 @@ exit(1);}
 
 typedef unsigned long long U64;
 
-#define NAME "Dragonrose 0.11"
+#define NAME "Dragonrose 0.21"
 #define BRD_SQ_NUM 120
-// Maximum hash size
+
+// Max. hash size
 #define MAX_HASH 1024
-// maximum number of moves in a game
+
+// Max. no. of moves in a game
 #define MAXGAMEMOVES 2048
-// maximum expected legal moves
+
+// Maximum expected legal moves
 // Position that breaks 256 limit: QQQQQQBk/Q6B/Q6Q/Q6Q/Q6Q/Q6Q/Q6Q/KQQQQQQQ w - - 0 1 (credit to Caissa and Quanticade)
 #define MAXPOSITIONMOVES 280
 #define MAXDEPTH 64
@@ -125,13 +124,16 @@ typedef struct {
 	int pieces[BRD_SQ_NUM];
 	U64 pawns[3];
 
+	// piece list
+	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
+  // usage eg.: pList[wN][0] = e1; for the position of 1st knight
+
 	int pceNum[13];
 	int bigPce[2];
 	int majPce[2];
 	int minPce[2];
-	int material[2];
-	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
-  // usage eg.: pList[wN][0] = e1; for the position of 1st knight
+	// moved material inside evaluate to save time
+	// int material[2];
 
 	int KingSq[2];
 	int side;
@@ -141,15 +143,15 @@ typedef struct {
 
 	int ply;
 	int hisPly;
-
-	U64 posKey;
-
+	
 	S_UNDO history[MAXGAMEMOVES];
 	S_HASHTABLE HashTable[1];
 	int PvArray[MAXDEPTH];
 
 	int searchHistory[13][BRD_SQ_NUM];
 	int searchKillers[2][MAXDEPTH];
+
+	U64 posKey;
 
 } S_BOARD;
 
@@ -180,6 +182,7 @@ typedef struct {
 typedef struct {
 	int UseBook;
 } S_OPTIONS;
+
 
 /* GAME MOVE */
 
@@ -219,7 +222,6 @@ typedef struct {
 #define FR2SQ(f,r) ( (21 + (f) ) + ( (r) * 10 ) )
 #define SQ64(sq120) (Sq120ToSq64[(sq120)])
 #define SQ120(sq64) (Sq64ToSq120[(sq64)])
-
 #define POP(b) PopBit(b)
 #define CNT(b) CountBits(b)
 #define CLRBIT(bb,sq) ((bb) &= ClearMask[(sq)])
@@ -255,15 +257,15 @@ extern char SideChar[];
 extern char RankChar[];
 extern char FileChar[];
 
-// data.c
+// board.c, data.c
 extern int PieceBig[13];
 extern int PieceMaj[13];
 extern int PieceMin[13];
-extern int PieceCol[13];
-extern int PiecePawn[13];
 
 extern int PieceValMg[13];
 extern int PieceValEg[13];
+extern int PieceCol[13];
+extern int PiecePawn[13];
 
 extern int PieceKnight[13];
 extern int PieceKing[13];
@@ -271,9 +273,9 @@ extern int PieceRookQueen[13];
 extern int PieceBishopQueen[13];
 extern int PieceSlides[13];
 
+// evaluate.c, data.c
 extern int Mirror64[64];
 
-// evaluate.c
 extern U64 FileBBMask[8];
 extern U64 RankBBMask[8];
 
@@ -281,12 +283,10 @@ extern U64 BlackPassedMask[64];
 extern U64 WhitePassedMask[64];
 extern U64 IsolatedMask[64];
 
-// main.c, init.c, uci.c, search.c, polybook.c,
+// main.c, init.c, uci.c, search.c, polybook.c...
 extern S_OPTIONS EngineOptions[1];
 
-/*******************
-**** Functions *****
-*******************/
+/* FUNCTIONS */
 
 // init.c
 extern void AllInit();
@@ -316,6 +316,7 @@ extern char *PrSq(const int sq);
 extern void PrintMoveList(const S_MOVELIST *list);
 extern int ParseMove(char *ptrChar, S_BOARD *pos);
 
+
 // validate.c
 extern int SqOnBoard(const int sq);
 extern int SideValid(const int side);
@@ -329,6 +330,7 @@ extern int MoveListOk(const S_MOVELIST *list,  const S_BOARD *pos);
 extern void DebugAnalysisTest(S_BOARD *pos, S_SEARCHINFO *info);
 
 // movegen.c
+extern void GenerateSliders(const S_BOARD *pos, S_MOVELIST *list);
 extern void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list);
 extern void GenerateAllCaps(const S_BOARD *pos, S_MOVELIST *list);
 extern int MoveExists(S_BOARD *pos, const int move);
@@ -359,9 +361,10 @@ extern int GetPvLine(const int depth, S_BOARD *pos);
 extern void ClearHashTable(S_HASHTABLE *table);
 
 // evaluate.c
+extern int scaleScore(const S_BOARD *pos, int sq, int type);
 extern double evalWeight(const S_BOARD *pos);
 extern int EvalPosition(const S_BOARD *pos);
-extern void MirrorEvalTest(S_BOARD *pos) ;
+extern void MirrorEvalTest(S_BOARD *pos);
 
 // uci.c
 extern void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info);

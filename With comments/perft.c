@@ -1,7 +1,7 @@
 // perft.c
 
 #include "defs.h"
-#include <stdio.h>
+#include "stdio.h"
 
 long leafNodes;
 

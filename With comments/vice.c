@@ -2,8 +2,8 @@
 
 #include "stdio.h"
 #include "defs.h"
-#include <stdlib.h>
-#include <string.h>
+#include "stdlib.h"
+#include "string.h"
 
 
 #define WAC1 "r1b1k2r/ppppnppp/2n2q2/2b5/3NP3/2P1B3/PP3PPP/RN1QKB1R w KQkq - 0 1"
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     	}
     }
 
-	printf("Welcome to Dragonrose! Type 'console' for console mode...\n");
+	printf("Welcome to Vice! Type 'vice' for console mode...\n");
 
 	char line[256];
 	while (TRUE) {
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 			XBoard_Loop(pos, info);
 			if(info->quit == TRUE) break;
 			continue;
-		} else if (!strncmp(line, "console",4))	{
+		} else if (!strncmp(line, "vice",4))	{
 			Console_Loop(pos, info);
 			if(info->quit == TRUE) break;
 			continue;
