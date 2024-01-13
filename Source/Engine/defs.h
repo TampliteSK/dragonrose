@@ -183,7 +183,7 @@ typedef struct {
 
 } S_SEARCHINFO;
 
-// UCI optiosn struct
+// UCI options struct
 typedef struct {
 	int UseBook;
 } S_OPTIONS;
@@ -320,9 +320,7 @@ extern char *PrSq(const int sq);
 extern void PrintMoveList(const S_MOVELIST *list);
 extern int ParseMove(char *ptrChar, S_BOARD *pos);
 
-
-
-//validate.c
+// validate.c
 extern int SqOnBoard(const int sq);
 extern int SideValid(const int side);
 extern int FileRankValid(const int fr);
