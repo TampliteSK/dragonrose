@@ -27,7 +27,9 @@ Evaluation:
 
 ## Changelogs:<br>
 ### 0.x:<br>
-0.11: Fixed crash. Added tapered eval to material (point values) (+70 +/- 32 elo gain)<br>
+0.21: Minor speed boost.
+0.2: Fixed crash. Improved tapered eval. Elo gain: ~270<br>
+0.11: Added tapered eval to material (point values) <br>
 0.1: Added tapered eval to PSQT<br>
 
 ## Bugs to fix:
