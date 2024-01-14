@@ -30,7 +30,6 @@ int CheckBoard(const S_BOARD *pos) {
 	int t_bigPce[2] = { 0, 0};
 	int t_majPce[2] = { 0, 0};
 	int t_minPce[2] = { 0, 0};
-	// int t_material[2] = { 0, 0};
 
 	int sq64,t_piece,t_pce_num,sq120,colour,pcount;
 
@@ -49,8 +48,6 @@ int CheckBoard(const S_BOARD *pos) {
 	}
 
 	// check piece count and other counters
-	// only calculate this once
-	// double weight = evalWeight(pos);
 	for(sq64 = 0; sq64 < 64; ++sq64) {
 		sq120 = SQ120(sq64);
 		t_piece = pos->pieces[sq120];
@@ -59,8 +56,6 @@ int CheckBoard(const S_BOARD *pos) {
 		if( PieceBig[t_piece] == TRUE) t_bigPce[colour]++;
 		if( PieceMin[t_piece] == TRUE) t_minPce[colour]++;
 		if( PieceMaj[t_piece] == TRUE) t_majPce[colour]++;
-
-		t_material[colour] += PieceValMg[t_piece] * evalWeight(pos) + PieceValEg[t_piece] * ( 1 - evalWeight(pos) );
 	}
 
 	for(t_piece = wP; t_piece <= bK; ++t_piece) {
@@ -120,7 +115,7 @@ void UpdateListsMaterial(S_BOARD *pos) {
 
 	int piece, sq, colour;
 
-	for(index = 0; index < BRD_SQ_NUM; ++index) {
+	for(int index = 0; index < BRD_SQ_NUM; ++index) {
 		sq = index;
 		piece = pos->pieces[index];
 		ASSERT(PceValidEmptyOffbrd(piece));
@@ -131,8 +126,6 @@ void UpdateListsMaterial(S_BOARD *pos) {
 		    if( PieceBig[piece] == TRUE) pos->bigPce[colour]++;
 		    if( PieceMin[piece] == TRUE) pos->minPce[colour]++;
 		    if( PieceMaj[piece] == TRUE) pos->majPce[colour]++;
-
-			pos->material[colour] += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
 
 			ASSERT(pos->pceNum[piece] < 10 && pos->pceNum[piece] >= 0);
 			
