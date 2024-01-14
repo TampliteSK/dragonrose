@@ -123,10 +123,6 @@ typedef struct {
 
 	int pieces[BRD_SQ_NUM];
 	U64 pawns[3];
-	
-	// piece list
-	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
-  // usage eg.: pList[wN][0] = e1; for the position of 1st knight
 
 	// piece list
 	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
@@ -183,7 +179,7 @@ typedef struct {
 
 } S_SEARCHINFO;
 
-// UCI optiosn struct
+// UCI options struct
 typedef struct {
 	int UseBook;
 } S_OPTIONS;
@@ -320,9 +316,7 @@ extern char *PrSq(const int sq);
 extern void PrintMoveList(const S_MOVELIST *list);
 extern int ParseMove(char *ptrChar, S_BOARD *pos);
 
-
-
-//validate.c
+// validate.c
 extern int SqOnBoard(const int sq);
 extern int SideValid(const int side);
 extern int FileRankValid(const int fr);
