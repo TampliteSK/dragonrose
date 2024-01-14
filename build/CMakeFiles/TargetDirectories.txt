@@ -1,0 +1,3 @@
+C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles/Dragonrose.dir
+C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles/edit_cache.dir
+C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles/rebuild_cache.dir
