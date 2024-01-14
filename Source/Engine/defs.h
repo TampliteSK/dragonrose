@@ -33,11 +33,8 @@ typedef unsigned long long U64;
 #define BRD_SQ_NUM 120
 // Maximum hash size
 #define MAX_HASH 1024
-// maximum number of moves in a game
+// Maximum number of moves in a game
 #define MAXGAMEMOVES 2048
-// maximum expected legal moves
-// Position that breaks 256 limit: QQQQQQBk/Q6B/Q6Q/Q6Q/Q6Q/Q6Q/Q6Q/KQQQQQQQ w - - 0 1 (credit to Caissa and Quanticade)
-#define MAXPOSITIONMOVES 280
 #define MAXDEPTH 64
 
 // Maximum expected legal moves
