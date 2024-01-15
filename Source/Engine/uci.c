@@ -55,30 +55,40 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos) {
 	info->starttime = GetTimeMs();
 	info->depth = depth;
 
-	#define bufferMoves 10
-
+	// #define bufferMoves 25
+	
 	if(time != -1) {
+
 		info->timeset = TRUE;
 		int phaseMoves = 0;
-		// Opening phase
-		if (pos->hisPly <= 30) {
-			// Allocate 12% of total time
-			time *= 0.12;
-			phaseMoves = round((30 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0); // perspective adjustment to prevent crash
-			time /= phaseMoves;
+
+		// Time trouble check
+		if (time < 20000 /* 20s */) {
+			time /= -time / 500.0 + 100; 
+			// at time = 20000 ms, factor = 60
+			// at time = 10000 ms, factor = 80
 		} else {
-			// Early-middlegame phase
-			if (pos->hisPly <= 50) {
-				// Allocate 33% of total time
-				time *= 0.33;
-				phaseMoves = round((50 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0);
+			// Opening phase
+			if (pos->hisPly <= 30) {
+				// Allocate 10% of total time
+				time *= 0.1;
+				phaseMoves = round((30 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0); // perspective adjustment to prevent crash
 				time /= phaseMoves;
 			} else {
-				// Late-middlegame - endgame phase
-				// Allocate remaining time evenly
-				time /= (movestogo + bufferMoves);
+				// Early-middlegame phase
+				if (pos->hisPly <= 50) {
+					// Allocate 30% of total time
+					time *= 0.3;
+					phaseMoves = round((50 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0);
+					time /= phaseMoves;
+				} else {
+					// Late-middlegame - endgame phase
+					// Allocate remaining time evenly
+					time /= 35;
+				}
 			}
 		}
+		
 
 		// time /= movestogo;
 		time -= 50; // overhead
