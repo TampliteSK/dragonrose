@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "defs.h"
 #include <string.h>
+#include <math.h>
 
 #define INPUTBUFFER 400 * 6
 
@@ -62,7 +63,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos) {
 			// Time/move ~= 1.25 min in 2h game
 			// Only 15.625% of total time should be allocated
 			time *= 0.15625;
-			phaseMoves = round((30 - pos->hisPly) / 2.0);
+			phaseMoves = round((30 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0); // perspective adjustment to prevent crash
 			time /= phaseMoves;
 		} else {
 			// Early-middlegame phase
@@ -70,7 +71,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos) {
 				// Time/move ~= 5 min in 2h game
 				// Allocate 41.667% of total time
 				time *= 50.0 / 120;
-				phaseMoves = round((50 - pos->hisPly) / 2.0);
+				phaseMoves = round((50 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0);
 				time /= phaseMoves;
 			} else {
 				// Late-middlegame - endgame phase
