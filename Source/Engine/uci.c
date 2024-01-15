@@ -55,28 +55,28 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos) {
 	info->starttime = GetTimeMs();
 	info->depth = depth;
 
+	#define bufferMoves 10
+
 	if(time != -1) {
 		info->timeset = TRUE;
 		int phaseMoves = 0;
 		// Opening phase
 		if (pos->hisPly <= 30) {
-			// Time/move ~= 1.25 min in 2h game
-			// Only 15.625% of total time should be allocated
-			time *= 0.15625;
+			// Allocate 12% of total time
+			time *= 0.12;
 			phaseMoves = round((30 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0); // perspective adjustment to prevent crash
 			time /= phaseMoves;
 		} else {
 			// Early-middlegame phase
 			if (pos->hisPly <= 50) {
-				// Time/move ~= 5 min in 2h game
-				// Allocate 41.667% of total time
-				time *= 50.0 / 120;
+				// Allocate 33% of total time
+				time *= 0.33;
 				phaseMoves = round((50 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0);
 				time /= phaseMoves;
 			} else {
 				// Late-middlegame - endgame phase
 				// Allocate remaining time evenly
-				time /= movestogo;
+				time /= (movestogo + bufferMoves);
 			}
 		}
 
