@@ -64,7 +64,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos) {
 
 		// Time trouble check
 		if (time < 20000 /* 20s */) {
-			time /= -time / 80
+			time /= time / 80
 		} else {
 			// Opening phase
 			if (pos->hisPly <= 30) {
