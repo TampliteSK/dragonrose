@@ -19,6 +19,7 @@ const int PawnIsolated = -10;
 // Failed. Loses elo anyway. Reverted
 // original: 0, 5, 10, 20, 35, 60, 100, 200
 const int PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
+const uint8_t PawnShield[3] = { 0, -7, -20 };
 
 // Pieces
 const int RookOpenFile = 10;
@@ -26,6 +27,9 @@ const int RookSemiOpenFile = 5;
 const int QueenOpenFile = 5;
 const int QueenSemiOpenFile = 3;
 const int BishopPair = 30;
+
+// Kings
+const uint8_t KingOpenFile = 30;
 
 /********************************
 * PesTO / Rofchade Piece Tables *
@@ -227,11 +231,89 @@ int scaleScore(const S_BOARD *pos, int pc, int type) {
 	return score;
 }
 
+double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat) {
+	// sq = kingSquare
+	// mat = enemy material excluding king
+
+	double score = 0;
+
+	// Punish open files near king
+	//    For edge cases
+	if (FilesBrd[sq] == FILE_A || FilesBrd[sq] == FILE_H) {
+		if (!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
+			score -= KingOpenFile;
+		}
+		if (FilesBrd[sq] == RANK_1) {
+			if (!(pos->pawns[BOTH] & FileBBMask[FILE_B])) {
+				score -= KingOpenFile;
+			} 
+		} else {
+			if (!(pos->pawns[BOTH] & FileBBMask[FILE_G])) {
+				score -= KingOpenFile;
+			} 
+		}
+	} else {
+		// For general cases
+		for (int file = FilesBrd[sq] - 1; file <= FilesBrd[sq] + 1; ++file) {
+			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
+				score -= KingOpenFile;
+			} 
+		}
+	}
+
+	/*
+	--------
+	--------
+	--------
+	--------
+	--------
+	-----xxx
+	-----xxx
+	------K-
+	*/
+	/*
+	// Pawn shield
+	if (col == WHITE) {
+		// Nested-for loop for the 2x3 rectangle in front of the king
+		for (int rank = RanksBrd[sq] + 1; rank <= RanksBrd[sq] + 2; rank++) {
+			for (int file = FilesBrd[sq] - 1; file <= FilesBrd[sq] + 1; file++) {
+				if (pos->pieces[FR2SQ(file, rank)] == wP) {
+					// There's a pawn in this zone
+					score += PawnShield[rank - RanksBrd[sq] - 1];
+				} else {
+					if (rank == RanksBrd[sq] + 2) {
+						// There is no pawn shield within this file
+						score += PawnShield[2];
+					}
+				}	
+			}
+		} 
+	} else {
+		for (int rank = RanksBrd[sq] - 1; rank <= RanksBrd[sq] - 2; rank--) {
+			for (int file = FilesBrd[sq] - 1; file <= FilesBrd[sq] + 1; file++) {
+				if (pos->pieces[FR2SQ(file, rank)] == bP) {
+					// There's a pawn in this zone
+					score += PawnShield[RanksBrd[sq] - rank - 1];
+				} else {
+					if (rank == RanksBrd[sq] - 2) {
+						// There is no pawn shield within this zone (and by extension, file)
+						score += PawnShield[2];
+					}
+				}	
+			}
+		}
+	}
+	*/
+	/*return score * mat / 4039;*/ // king safety matters less when there's fewer pieces on the board
+	return score;
+
+}
+
 // Used for some sort of king eval tapering. Probably not very good, but an interesting approach. Kept for legacy
 // #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
 
 // Evaluation function
-int EvalPosition(const S_BOARD *pos) {
+inline int EvalPosition(const S_BOARD *pos) {
 
 	ASSERT(CheckBoard(pos));
 
@@ -242,21 +324,22 @@ int EvalPosition(const S_BOARD *pos) {
 	double score = 0;
 
 	// Material eval
-	double material = 0;
+	double whiteMaterial = 0;
+	double blackMaterial = 0;
 	for(int index = 0; index < BRD_SQ_NUM; ++index) {
 		int piece = pos->pieces[index];
 		ASSERT(PceValidEmptyOffbrd(piece));
-		if(piece!=OFFBOARD && piece!= EMPTY) {
+		if(piece != OFFBOARD && piece != EMPTY) {
 			int colour = PieceCol[piece];
 			ASSERT(SideValid(colour));
 			if (colour == WHITE)
-				material += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+				whiteMaterial += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
 			else 
-				material -= PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+				blackMaterial += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
 		}
 	}
 
-	score += material;
+	score += whiteMaterial - blackMaterial;
 
 	// Material draw
 	if(!pos->pceNum[wP] && !pos->pceNum[bP] && MaterialDraw(pos) == TRUE) {
@@ -424,12 +507,15 @@ int EvalPosition(const S_BOARD *pos) {
 	ASSERT(SqOnBoard(sq));
 	ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
 	score += KingMgTable[SQ64(sq)] * weight + KingEgTable[SQ64(sq)] * ( 1 - weight );
+	// score += kingSafetyScore(pos, sq, WHITE, blackMaterial - 50000);
 
 	pce = bK;
 	sq = pos->pList[pce][0];
 	ASSERT(SqOnBoard(sq));
 	ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
 	score -= KingMgTable[MIRROR64(SQ64(sq))] * weight + KingEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
+	// score -= kingSafetyScore(pos, sq, BLACK, whiteMaterial - 50000);
+
 
 	/****************
 	* Other bonuses *
