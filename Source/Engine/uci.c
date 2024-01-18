@@ -63,7 +63,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos) {
 		int phaseMoves = 0;
 
 		// Time trouble check
-		if (time < 20000 /* 20s */) {
+		if (time < 30000 /* 20s */) {
 			time /= 80;
 		} else {
 			// Opening phase
