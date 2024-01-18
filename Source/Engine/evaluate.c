@@ -9,6 +9,7 @@
 // Pos1 (startpos) [+0.2, e4/d4/Nf3/c4]
 // Pos2 (traxler) [+0.4, Nxe4]: r1bqk2r/pppp1Npp/2n2n2/4p3/2B1P3/8/PPPP1KPP/RNBQ3R b kq - 0 6
 // Pos3 (fried liver) [0.0 Na5]: r1bqkb1r/ppp2ppp/2n2n2/3Pp1N1/2B5/8/PPPP1PPP/RNBQK2R b KQkq - 0 5
+// Pos4 (king safety test): r1bqkbnr/pp1p1p1p/2n1p3/2p3p1/4P3/3B1N2/PPPP1PPP/RNBQ1RK1 w kq - 0 5
 
 // Temporary hack. Scales down the eval in case it's too high (assuming the code works fine)
 // #define squishFactor 0.35
@@ -19,7 +20,7 @@ const int PawnIsolated = -10;
 // Failed. Loses elo anyway. Reverted
 // original: 0, 5, 10, 20, 35, 60, 100, 200
 const int PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
-const uint8_t PawnShield[3] = { 0, -7, -20 };
+const int8_t PawnShield[4] = { 0, -15, -30, -75 }; // startpos, moved 1 sq, 2 sq, too far away / dead
 
 // Pieces
 const int RookOpenFile = 10;
@@ -29,7 +30,7 @@ const int QueenSemiOpenFile = 3;
 const int BishopPair = 30;
 
 // Kings
-const uint8_t KingOpenFile = 30;
+const int16_t KingOpenFile[3] = { -100, -150, -100 };
 
 /********************************
 * PesTO / Rofchade Piece Tables *
@@ -202,6 +203,7 @@ int MaterialDraw(const S_BOARD *pos) {
 
 	ASSERT(CheckBoard(pos));
 
+	// Minor piece endgame
     if (!pos->pceNum[wR] && !pos->pceNum[bR] && !pos->pceNum[wQ] && !pos->pceNum[bQ]) {
 	  if (!pos->pceNum[bB] && !pos->pceNum[wB]) {
 	      if (pos->pceNum[wN] < 3 && pos->pceNum[bN] < 3) {  return TRUE; }
@@ -231,7 +233,7 @@ int scaleScore(const S_BOARD *pos, int pc, int type) {
 	return score;
 }
 
-double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat) {
+inline double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat) {
 	// sq = kingSquare
 	// mat = enemy material excluding king
 
@@ -241,22 +243,22 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 	//    For edge cases
 	if (FilesBrd[sq] == FILE_A || FilesBrd[sq] == FILE_H) {
 		if (!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
-			score -= KingOpenFile;
+			score += KingOpenFile[1];
 		}
-		if (FilesBrd[sq] == RANK_1) {
+		if (FilesBrd[sq] == FILE_A) {
 			if (!(pos->pawns[BOTH] & FileBBMask[FILE_B])) {
-				score -= KingOpenFile;
+				score += KingOpenFile[1];
 			} 
 		} else {
 			if (!(pos->pawns[BOTH] & FileBBMask[FILE_G])) {
-				score -= KingOpenFile;
+				score += KingOpenFile[1];
 			} 
 		}
 	} else {
 		// For general cases
 		for (int file = FilesBrd[sq] - 1; file <= FilesBrd[sq] + 1; ++file) {
 			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
-				score -= KingOpenFile;
+				score += KingOpenFile[file - FilesBrd[sq] + 1];
 			} 
 		}
 	}
@@ -271,41 +273,41 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 	-----xxx
 	------K-
 	*/
-	/*
 	// Pawn shield
 	if (col == WHITE) {
-		// Nested-for loop for the 2x3 rectangle in front of the king
-		for (int rank = RanksBrd[sq] + 1; rank <= RanksBrd[sq] + 2; rank++) {
+		// Nested-for loop for the 3x3 rectangle in front of the king
+		for (int rank = RanksBrd[sq] + 1; rank <= RanksBrd[sq] + 3; rank++) {
 			for (int file = FilesBrd[sq] - 1; file <= FilesBrd[sq] + 1; file++) {
 				if (pos->pieces[FR2SQ(file, rank)] == wP) {
 					// There's a pawn in this zone
 					score += PawnShield[rank - RanksBrd[sq] - 1];
 				} else {
-					if (rank == RanksBrd[sq] + 2) {
+					if (rank == RanksBrd[sq] + 3) {
 						// There is no pawn shield within this file
-						score += PawnShield[2];
+						score += PawnShield[3];
 					}
 				}	
 			}
 		} 
 	} else {
-		for (int rank = RanksBrd[sq] - 1; rank <= RanksBrd[sq] - 2; rank--) {
+		for (int rank = RanksBrd[sq] - 1; rank >= RanksBrd[sq] - 3; rank--) {
 			for (int file = FilesBrd[sq] - 1; file <= FilesBrd[sq] + 1; file++) {
 				if (pos->pieces[FR2SQ(file, rank)] == bP) {
 					// There's a pawn in this zone
 					score += PawnShield[RanksBrd[sq] - rank - 1];
 				} else {
-					if (rank == RanksBrd[sq] - 2) {
+					if (rank == RanksBrd[sq] - 3) {
 						// There is no pawn shield within this zone (and by extension, file)
-						score += PawnShield[2];
+						score += PawnShield[3];
 					}
 				}	
 			}
 		}
 	}
-	*/
-	/*return score * mat / 4039;*/ // king safety matters less when there's fewer pieces on the board
-	return score;
+
+	// 0.5 v 1
+	return score * 0.5 * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
+	// return score;
 
 }
 
@@ -507,14 +509,14 @@ inline int EvalPosition(const S_BOARD *pos) {
 	ASSERT(SqOnBoard(sq));
 	ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
 	score += KingMgTable[SQ64(sq)] * weight + KingEgTable[SQ64(sq)] * ( 1 - weight );
-	// score += kingSafetyScore(pos, sq, WHITE, blackMaterial - 50000);
+	score += kingSafetyScore(pos, sq, WHITE, blackMaterial - 50000);
 
 	pce = bK;
 	sq = pos->pList[pce][0];
 	ASSERT(SqOnBoard(sq));
 	ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
 	score -= KingMgTable[MIRROR64(SQ64(sq))] * weight + KingEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
-	// score -= kingSafetyScore(pos, sq, BLACK, whiteMaterial - 50000);
+	score -= kingSafetyScore(pos, sq, BLACK, whiteMaterial - 50000);
 
 
 	/****************

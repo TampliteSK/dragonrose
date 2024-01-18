@@ -28,13 +28,14 @@ Evaluation:
 - Piece bonuses: Rook/queen open-file bonuses
 - Pawn bonuses: Passed pawns, isolated pawns
 
-## Changelogs:<br>
-### 0.x:<br>
-0.22: Improved time management (tested on Lichess). Slight speed boost.<br>
-0.21: Slight speed boost.<br>
-0.2: Fixed crash. Improved tapered eval. Elo gain: ~270<br>
-0.11: Added tapered eval to material (point values) <br>
-0.1: Added tapered eval to PSQT<br>
+## Changelogs: <br>
+### 0.x: <br>
+0.23: Added king safety to evaluation (pawn shield and punish open files near king). Elo gain: ~30. <br>
+0.22: Improved time management (tested on Lichess). Slight speed boost. <br>
+0.21: Slight speed boost. <br>
+0.2: Fixed crash. Improved tapered eval. Elo gain: ~270. <br>
+0.11: Added tapered eval to material (point values). <br>
+0.1: Added tapered eval to PSQT. <br>
 
 ## Bugs to fix:
 - The PickMove function needs a BestScore of -(very low) instead of 0
