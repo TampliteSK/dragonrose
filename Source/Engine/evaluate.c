@@ -20,7 +20,8 @@ const int PawnIsolated = -10;
 // Failed. Loses elo anyway. Reverted
 // original: 0, 5, 10, 20, 35, 60, 100, 200
 const int PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
-const int8_t PawnShield[4] = { 0, -15, -30, -75 }; // startpos, moved 1 sq, 2 sq, too far away / dead
+const int8_t PawnShield[4] = { 0, -10, -20, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
+const int8_t PawnStorm[3] = { -10, -20, -25 }; // from the persp of White: e.g. h5, h4, h3
 
 // Pieces
 const int RookOpenFile = 10;
@@ -30,7 +31,7 @@ const int QueenSemiOpenFile = 3;
 const int BishopPair = 30;
 
 // Kings
-const int16_t KingOpenFile[3] = { -100, -150, -100 };
+const int16_t KingOpenFile[3] = { -100, -120, -100 };
 
 /********************************
 * PesTO / Rofchade Piece Tables *
@@ -233,32 +234,36 @@ int scaleScore(const S_BOARD *pos, int pc, int type) {
 	return score;
 }
 
-inline double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat) {
+// King safety component
+double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat) {
 	// sq = kingSquare
 	// mat = enemy material excluding king
 
-	double score = 0;
+	uint8_t kingFile = FilesBrd[sq];
+	uint8_t kingRank = RanksBrd[sq];
+
+	double openLines = 0;
 
 	// Punish open files near king
 	//    For edge cases
-	if (FilesBrd[sq] == FILE_A || FilesBrd[sq] == FILE_H) {
-		if (!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
-			score += KingOpenFile[1];
+	if (kingFile == FILE_A || kingFile == FILE_H) {
+		if (!(pos->pawns[BOTH] & FileBBMask[kingFile])) {
+			openLines += KingOpenFile[1];
 		}
-		if (FilesBrd[sq] == FILE_A) {
+		if (kingFile == FILE_A) {
 			if (!(pos->pawns[BOTH] & FileBBMask[FILE_B])) {
-				score += KingOpenFile[1];
+				openLines += KingOpenFile[0];
 			} 
 		} else {
 			if (!(pos->pawns[BOTH] & FileBBMask[FILE_G])) {
-				score += KingOpenFile[1];
+				openLines += KingOpenFile[0];
 			} 
 		}
 	} else {
 		// For general cases
-		for (int file = FilesBrd[sq] - 1; file <= FilesBrd[sq] + 1; ++file) {
+		for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
 			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
-				score += KingOpenFile[file - FilesBrd[sq] + 1];
+				openLines += KingOpenFile[file - kingFile + 1];
 			} 
 		}
 	}
@@ -273,40 +278,71 @@ inline double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint1
 	-----xxx
 	------K-
 	*/
+
 	// Pawn shield
+	// An attempt was made to rewrite this in bitboard, but it turned out to be way worse
+	double shield = 0;
+	U64 castledKing = 0ULL;
+
 	if (col == WHITE) {
-		// Nested-for loop for the 3x3 rectangle in front of the king
-		for (int rank = RanksBrd[sq] + 1; rank <= RanksBrd[sq] + 3; rank++) {
-			for (int file = FilesBrd[sq] - 1; file <= FilesBrd[sq] + 1; file++) {
-				if (pos->pieces[FR2SQ(file, rank)] == wP) {
-					// There's a pawn in this zone
-					score += PawnShield[rank - RanksBrd[sq] - 1];
-				} else {
-					if (rank == RanksBrd[sq] + 3) {
-						// There is no pawn shield within this file
-						score += PawnShield[3];
-					}
-				}	
-			}
-		} 
+		castledKing = RankBBMask[RANK_1] & ~( (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)) );
+		// Pawn shield only applies to castled king
+		if (castledKing & (1ULL << SQ64(sq))) {
+			// Nested-for loop for the 3x3 rectangle in front of the king
+			for (int rank = kingRank + 1; rank <= kingRank + 3; rank++) {
+				for (int file = kingFile - 1; file <= kingFile + 1; file++) {
+					if (pos->pieces[FR2SQ(file, rank)] == wP) {
+						// There's a pawn in this zone
+						shield += PawnShield[rank - kingRank - 1];
+					} else {
+						if (rank == kingRank + 3) {
+							// There is no pawn shield within this file
+							shield += PawnShield[3];
+						}
+					}	
+				}
+			} 
+		}
 	} else {
-		for (int rank = RanksBrd[sq] - 1; rank >= RanksBrd[sq] - 3; rank--) {
-			for (int file = FilesBrd[sq] - 1; file <= FilesBrd[sq] + 1; file++) {
-				if (pos->pieces[FR2SQ(file, rank)] == bP) {
-					// There's a pawn in this zone
-					score += PawnShield[RanksBrd[sq] - rank - 1];
-				} else {
-					if (rank == RanksBrd[sq] - 3) {
-						// There is no pawn shield within this zone (and by extension, file)
-						score += PawnShield[3];
-					}
-				}	
+		castledKing = RankBBMask[RANK_8] & ~( (1ULL << SQ64(D8)) | (1ULL << SQ64(E8)) | (1ULL << SQ64(F8)) );
+		if (castledKing & (1ULL << SQ64(sq))) {
+			for (int rank = kingRank - 1; rank >= kingRank - 3; rank--) {
+				for (int file = kingFile - 1; file <= kingFile + 1; file++) {
+					if (pos->pieces[FR2SQ(file, rank)] == bP) {
+						// There's a pawn in this zone
+						shield += PawnShield[kingRank - rank - 1];
+					} else {
+						if (rank == kingRank - 3) {
+							// There is no pawn shield within this zone (and by extension, file)
+							shield += PawnShield[3];
+						}
+				}		
+				}
 			}
 		}
 	}
+	
+	/*
+	// Pawn storm
+	if (col == WHITE) {
+		U64 whitePawnStorm = ( FileBBMask[FILE_G] | FileBBMask[FILE_H] ) & ( RankBBMask[RANK_5] | RankBBMask[RANK_4] | RankBBMask[RANK_3] );
+		U64 mask = whitePawnStorm & pos->pawns[BLACK];
+		while (mask) {
+			uint8_t pawnSq = PopBit(mask);
+			score += PawnStorm[5 - RanksBrd[pawnSq]];
+		}
+	} else {
+		U64 blackPawnStorm = ( FileBBMask[FILE_G] | FileBBMask[FILE_H] ) & ( RankBBMask[RANK_4] | RankBBMask[RANK_5] | RankBBMask[RANK_6] );
+		U64 mask = blackPawnStorm & pos->pawns[WHITE];
+		while (mask) {
+			uint8_t pawnSq = PopBit(mask);
+			score += PawnStorm[RanksBrd[pawnSq] - 5];
+		}
+	}
+	*/
 
-	// 0.5 v 1
-	return score * 0.5 * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
+	// 1, 0.5
+	return (openLines * 1 + shield * 0.5) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
 	// return score;
 
 }

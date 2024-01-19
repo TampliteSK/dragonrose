@@ -5,6 +5,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/attack.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -20,6 +22,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/attack.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -30,6 +34,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/bitboards.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -45,6 +51,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/bitboards.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -55,6 +63,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/board.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -70,6 +80,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/board.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -80,6 +92,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/data.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -95,6 +109,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/data.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -135,6 +151,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/hashkeys.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -150,6 +168,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/hashkeys.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -160,6 +180,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/init.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -175,6 +197,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/init.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -185,6 +209,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/io.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -200,6 +226,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/io.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -210,6 +238,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/main.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -226,6 +256,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/main.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/string_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/string.h
@@ -237,6 +269,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/makemove.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -252,6 +286,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/makemove.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -344,6 +380,7 @@ CMakeFiles/Dragonrose.dir/Source/Engine/misc.c.obj
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/smmintrin.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tbmintrin.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tmmintrin.h
@@ -480,6 +517,7 @@ CMakeFiles/Dragonrose.dir/Source/Engine/misc.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/specstrings.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdarg.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stralign.h
@@ -532,6 +570,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/movegen.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -547,6 +587,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/movegen.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -557,6 +599,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/perft.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -572,6 +616,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/perft.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -582,6 +628,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/polybook.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -597,6 +645,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/polybook.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -608,6 +658,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/polykeys.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -623,6 +675,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/polykeys.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -634,6 +688,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/pvtable.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -649,6 +705,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/pvtable.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -659,6 +717,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/search.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -674,6 +734,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/search.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/swprintf.inl
@@ -684,6 +746,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/uci.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -701,6 +765,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/uci.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/string_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/string.h
@@ -712,6 +778,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/validate.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -728,6 +796,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/validate.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/string_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/string.h
@@ -739,6 +809,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/xboard.c.obj
  C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/_mingw_mac.h
@@ -755,6 +827,8 @@ CMakeFiles/Dragonrose.dir/Source/Engine/xboard.c.obj
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/sec_api/string_s.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stddef.h
+ C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdint.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdio.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/stdlib.h
  C:/w64devkit-1.21.0/w64devkit/x86_64-w64-mingw32/include/string.h
