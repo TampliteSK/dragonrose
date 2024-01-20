@@ -341,9 +341,7 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 	}
 	*/
 
-	// 1, 0.5
-	return (openLines * 1 + shield * 0.5) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
-	// return score;
+	return (openLines * 0.9 + shield * 0.2) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
 
 }
 
