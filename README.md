@@ -30,7 +30,7 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.23: Added king safety to evaluation (pawn shield and punish open files near king). Elo gain: ~40. <br>
+0.23: Added king safety to evaluation (pawn shield and punish open files near king). Elo gain: ~-20. <br>
 0.22: Improved time management (tested on Lichess). Slight speed boost. <br>
 0.21: Slight speed boost. <br>
 0.2: Fixed crash. Improved tapered eval. Elo gain: ~270. <br>
@@ -38,5 +38,6 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## Bugs to fix:
+- Doesn't castle in some positions where O-O is superior
 - The PickMove function needs a BestScore of -(very low) instead of 0
 - ID loop needs to only exit when it has a legal move (i.e done depth 1 at least)
