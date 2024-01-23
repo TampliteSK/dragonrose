@@ -244,7 +244,10 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 
 	double openLines = 0;
 
-	// Punish open files near king
+	/***********************
+	* Open Files Near King *
+	***********************/
+
 	//    For edge cases
 	if (kingFile == FILE_A || kingFile == FILE_H) {
 		if (!(pos->pawns[BOTH] & FileBBMask[kingFile])) {
@@ -268,6 +271,10 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 		}
 	}
 
+	/***********************
+	***** Pawn Shield ******
+	***********************/
+
 	/*
 	--------
 	--------
@@ -279,7 +286,6 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 	------K-
 	*/
 
-	// Pawn shield
 	// An attempt was made to rewrite this in bitboard, but it turned out to be way worse
 	double shield = 0;
 	U64 castledKing = 0ULL;
@@ -322,8 +328,11 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 		}
 	}
 	
+	/***********************
+	****** Pawn Storm ******
+	***********************/
+
 	/*
-	// Pawn storm
 	if (col == WHITE) {
 		U64 whitePawnStorm = ( FileBBMask[FILE_G] | FileBBMask[FILE_H] ) & ( RankBBMask[RANK_5] | RankBBMask[RANK_4] | RankBBMask[RANK_3] );
 		U64 mask = whitePawnStorm & pos->pawns[BLACK];
@@ -341,7 +350,8 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 	}
 	*/
 
-	return (openLines * 0.9 + shield * 0.2) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
+	// 0.85, 0.15
+	return (openLines * 0.85 + shield * 0.15) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
 
 }
 
