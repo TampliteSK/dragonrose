@@ -97,18 +97,27 @@ static int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
 		return EvalPosition(pos);
 	}
 
-	int Score = EvalPosition(pos);
+	int Score = EvalPosition(pos); // stand-pat score
 
 	ASSERT(Score>-INFINITE && Score<INFINITE);
 
+	// Beta cutoff
 	if(Score >= beta) {
 		return beta;
+	}
+
+	// Delta pruning
+	uint16_t delta = 1025; // arbitrarily large value (queen mg value)
+	// We stop searching if it's much lower than alpha
+	if (Score < alpha - delta) {
+		return alpha;
 	}
 
 	if(Score > alpha) {
 		alpha = Score;
 	}
 
+	// Delta pruning fails, and we have to search moves
 	S_MOVELIST list[1];
     GenerateAllCaps(pos,list);
 
@@ -328,7 +337,7 @@ void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 			}
 			if(info->GAME_MODE == UCIMODE || info->POST_THINKING == TRUE) {
 				pvMoves = GetPvLine(currentDepth, pos);
-				if(!info->GAME_MODE == XBOARDMODE) {
+				if((!info->GAME_MODE) == XBOARDMODE) {
 					printf("pv");
 				}
 				for(pvNum = 0; pvNum < pvMoves; ++pvNum) {

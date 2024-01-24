@@ -11,6 +11,9 @@
 // Pos3 (fried liver) [0.0 Na5]: r1bqkb1r/ppp2ppp/2n2n2/3Pp1N1/2B5/8/PPPP1PPP/RNBQK2R b KQkq - 0 5
 // Pos4 (king safety test): r1bqkbnr/pp1p1p1p/2n1p3/2p3p1/4P3/3B1N2/PPPP1PPP/RNBQ1RK1 w kq - 0 5
 
+// Pos5 (h6 blunders): 8/8/6R1/5ppP/5k2/3r1P2/8/6K1 w - - 9 57
+// Pos6 
+
 // Temporary hack. Scales down the eval in case it's too high (assuming the code works fine)
 // #define squishFactor 0.35
 
@@ -171,6 +174,10 @@ const int KingEgTable[64] = {
   -12,   17,   14,   17,   17,   38,   23,   11,
   -74,  -35,  -18,  -18,  -11,   15,    4,  -17
 };
+
+/********************************
+***** Evaluation components *****
+********************************/
 
 // Applying gamePhase at startpos
 #define openingPhase 64
@@ -356,6 +363,10 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 // Used for some sort of king eval tapering. Probably not very good, but an interesting approach. Kept for legacy
 // #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
 
+/********************************
+*** Main Evaluation Function ****
+********************************/
+
 // Evaluation function
 inline int EvalPosition(const S_BOARD *pos) {
 
@@ -445,7 +456,6 @@ inline int EvalPosition(const S_BOARD *pos) {
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
 		score += KnightMgTable[SQ64(sq)] * weight + KnightEgTable[SQ64(sq)] * ( 1 - weight );
 
-
 		// Punish knights in front of c-pawn
 		U64 mask = pos->pawns[WHITE] & FileBBMask[FilesBrd[sq]];
 		int pawnSq = PopBit(&mask);
@@ -498,7 +508,7 @@ inline int EvalPosition(const S_BOARD *pos) {
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
 		score -= BishopMgTable[MIRROR64(SQ64(sq))] * weight + BishopEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
-
+		
 		// Punish bishops in front of e- or d-pawn
 		U64 mask = pos->pawns[BLACK] & FileBBMask[FilesBrd[sq]];
 		int pawnSq = PopBit(&mask);
