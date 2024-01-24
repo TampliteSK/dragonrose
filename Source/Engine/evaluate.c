@@ -20,18 +20,14 @@ const int PawnIsolated = -10;
 // Failed. Loses elo anyway. Reverted
 // original: 0, 5, 10, 20, 35, 60, 100, 200
 const int PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
-const int8_t PawnShield[4] = { 0, -10, -20, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
-const int8_t PawnStorm[3] = { -10, -20, -25 }; // from the persp of White: e.g. h5, h4, h3
 
 // Pieces
+const int BishopPair = 30;
+const int8_t PieceBlocksPawn = -15;
 const int RookOpenFile = 10;
 const int RookSemiOpenFile = 5;
 const int QueenOpenFile = 5;
 const int QueenSemiOpenFile = 3;
-const int BishopPair = 30;
-
-// Kings
-const int16_t KingOpenFile[3] = { -100, -120, -100 };
 
 /********************************
 * PesTO / Rofchade Piece Tables *
@@ -194,7 +190,7 @@ double evalWeight(const S_BOARD *pos) {
 
 	// not sure if linear is the best, but it is the norm
 	// sqrt() is strictly worse
-	return sqrt(gamePhase / (double)openingPhase);
+	return gamePhase / (double)openingPhase;
 
 }
 
@@ -238,6 +234,9 @@ int scaleScore(const S_BOARD *pos, int pc, int type) {
 double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat) {
 	// sq = kingSquare
 	// mat = enemy material excluding king
+	const int8_t PawnShield[4] = { 0, -10, -20, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
+	const int8_t PawnStorm[3] = { -10, -20, -25 }; // from the persp of White: e.g. h5, h4, h3
+	const int16_t KingOpenFile[3] = { -100, -120, -100 };
 
 	uint8_t kingFile = FilesBrd[sq];
 	uint8_t kingRank = RanksBrd[sq];
@@ -350,7 +349,6 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 	}
 	*/
 
-	// 0.85, 0.15
 	return (openLines * 0.85 + shield * 0.15) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
 
 }
@@ -446,6 +444,14 @@ inline int EvalPosition(const S_BOARD *pos) {
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
 		score += KnightMgTable[SQ64(sq)] * weight + KnightEgTable[SQ64(sq)] * ( 1 - weight );
+
+
+		// Punish knights in front of c-pawn
+		U64 mask = pos->pawns[WHITE] & FileBBMask[FilesBrd[sq]];
+		int pawnSq = PopBit(&mask);
+		if ( (SQ64(sq) - pawnSq == 8) && (FilesBrd[sq] == FILE_C) ) {
+			score += PieceBlocksPawn;
+		}
 	}
 
 	pce = bN;
@@ -454,6 +460,13 @@ inline int EvalPosition(const S_BOARD *pos) {
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
 		score -= KnightMgTable[MIRROR64(SQ64(sq))] * weight + KnightEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
+
+		// Punish knights in front of c-pawn
+		U64 mask = pos->pawns[BLACK] & FileBBMask[FilesBrd[sq]];
+		int pawnSq = PopBit(&mask);
+		if ( (pawnSq - SQ64(sq) == 8) && (FilesBrd[sq] == FILE_C) ) {
+			score -= PieceBlocksPawn;
+		}
 	}
 
 	/************
@@ -466,6 +479,17 @@ inline int EvalPosition(const S_BOARD *pos) {
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
 		score += BishopMgTable[SQ64(sq)] * weight + BishopEgTable[SQ64(sq)] * ( 1 - weight );
+
+		// Punish bishops in front of e- or d-pawn
+		U64 mask = pos->pawns[WHITE] & FileBBMask[FilesBrd[sq]];
+		int pawnSq = PopBit(&mask);
+		if ( (SQ64(sq) - pawnSq == 8) && (FilesBrd[sq] == FILE_D)) {
+			score += PieceBlocksPawn;
+		} else {
+			if ( (SQ64(sq) - pawnSq == 8) && (FilesBrd[sq] == FILE_E) ) {
+				score += PieceBlocksPawn;
+			}
+		}
 	}
 
 	pce = bB;
@@ -474,6 +498,17 @@ inline int EvalPosition(const S_BOARD *pos) {
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
 		score -= BishopMgTable[MIRROR64(SQ64(sq))] * weight + BishopEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
+
+		// Punish bishops in front of e- or d-pawn
+		U64 mask = pos->pawns[BLACK] & FileBBMask[FilesBrd[sq]];
+		int pawnSq = PopBit(&mask);
+		if ( (pawnSq - SQ64(sq) == 8) && (FilesBrd[sq] == FILE_D)) {
+			score -= PieceBlocksPawn;
+		} else {
+			if ( (pawnSq - SQ64(sq) == 8) && (FilesBrd[sq] == FILE_E) ) {
+				score -= PieceBlocksPawn;
+			}
+		}
 	}
 	
 	/************
