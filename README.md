@@ -13,6 +13,7 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 Search:
 - Negamax Alpha-beta search
 - Quiesence search
+  - Delta pruning
 - Iterative deepening
 - Transposition table
   - Always replace
@@ -30,22 +31,22 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.24: Added punishments for minor pieces in front of pawns. Added delta pruning. Elo gain: ~40. <br>
+0.24b: Fixed delta pruning. Optimised memory (variable sizes). | Elo gain: ~10. <br>
+0.24: Added delta pruning. Added punishments for minor pieces in front of pawns. | Elo gain: ~40. <br>
 0.23: Added king safety to evaluation (pawn shield and punish open files near king). <br>
 0.22: Improved time management (tested on Lichess). Slight speed boost. <br>
 0.21: Slight speed boost. <br>
-0.2: Fixed crash. Improved tapered eval. Elo gain: ~240. <br>
+0.2: Fixed crash. Improved tapered eval. | Elo gain: ~240. <br>
 0.11: Added tapered eval to material (point values). <br>
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Optimise memory
+- Tweak pieceBlockPawn
 - Pawn / bishop interaction
-- Pawn storm
-- Add aspiration windows
-- Add SEE
 - Additional VICE features 
-- Optimise movegen
+- Add SEE
+- Add aspiration windows
+- Optimise movegen (magic bitboar)
 
 ## Bugs to fix:
 - Doesn't castle in some positions where O-O is superior

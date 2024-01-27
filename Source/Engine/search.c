@@ -79,7 +79,7 @@ static void ClearForSearch(S_BOARD *pos, S_SEARCHINFO *info) {
 	info->fhf = 0;
 }
 
-static int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
+static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
 
 	ASSERT(CheckBoard(pos));
 	ASSERT(beta>alpha);
@@ -97,7 +97,7 @@ static int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
 		return EvalPosition(pos);
 	}
 
-	int Score = EvalPosition(pos); // stand-pat score
+	int32_t Score = EvalPosition(pos); // stand-pat score
 
 	ASSERT(Score>-INFINITE && Score<INFINITE);
 
@@ -105,11 +105,11 @@ static int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
 	if(Score >= beta) {
 		return beta;
 	}
-
-	// Delta pruning
-	uint16_t delta = 1025; // arbitrarily large value (queen mg value)
-	// We stop searching if it's much lower than alpha
-	if (Score < alpha - delta) {
+	
+	// Delta pruning (dead lost scenario)
+	uint16_t big_delta = 936; // queen eg value
+	// It is unlikely we can gain much back if we're dead lost, so we can stop searching
+	if (Score < alpha - big_delta) {
 		return alpha;
 	}
 
@@ -124,10 +124,24 @@ static int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
     int MoveNum = 0;
 	int Legal = 0;
 	Score = -INFINITE;
+	
+	// Delta pruning buffer. Default: 180
+	#define DELTA_BUFFER 225
 
 	for(MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 
-		PickNextMove(MoveNum, list);
+		PickNextMove(MoveNum, list); // finds highest-scoring move between MoveNum index and count-1 index
+
+		// Delta pruning (general case)
+		// int mask = 0xFFFFFFFF & (0b1111 << 14);
+		// int capturedPiece = (list->moves[MoveNum].move & mask) >> 14;
+		int capturedPiece = CAPTURED(list->moves[MoveNum].move);
+		int delta = PieceValMg[capturedPiece]; // mg values
+		// If the gain from capturing a piece is too low (not enough to improve alpha), we skip make/undo moves and evalaution
+		// buffer: 180
+		if (delta + DELTA_BUFFER <= alpha) {
+			return alpha;
+		}
 
         if ( !MakeMove(pos,list->moves[MoveNum].move))  {
             continue;

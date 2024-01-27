@@ -10,6 +10,7 @@
 // Pos2 (traxler) [+0.4, Nxe4]: r1bqk2r/pppp1Npp/2n2n2/4p3/2B1P3/8/PPPP1KPP/RNBQ3R b kq - 0 6
 // Pos3 (fried liver) [0.0 Na5]: r1bqkb1r/ppp2ppp/2n2n2/3Pp1N1/2B5/8/PPPP1PPP/RNBQK2R b KQkq - 0 5
 // Pos4 (king safety test): r1bqkbnr/pp1p1p1p/2n1p3/2p3p1/4P3/3B1N2/PPPP1PPP/RNBQ1RK1 w kq - 0 5
+// Pos5 (king safety test) [-0.47, Qd2]: r2Nk2r/ppp5/2np1n2/2b1p3/2B1P1b1/3P2p1/PPP2PPP/RN1Q1RK1 w kq - 1 12
 
 // Pos5 (h6 blunders): 8/8/6R1/5ppP/5k2/3r1P2/8/6K1 w - - 9 57
 // Pos6 (Qc6/Qe7/Be7) [+0.6]: rnb1kb1r/pppp1ppp/5n2/8/4q3/5N2/PPPPBPPP/RNBQK2R b KQkq - 1 5
@@ -18,24 +19,25 @@
 // #define squishFactor 0.35
 
 /* Pawns */
-const int PawnIsolated = -10;
+const int8_t PawnIsolated = -10;
 // Basic passed pawn bonus. Values from Stockfish and then averaged
 // Failed. Loses elo anyway. Reverted
 // original: 0, 5, 10, 20, 35, 60, 100, 200
-const int PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
+const uint8_t PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
 
 // Pieces
-const int BishopPair = 30;
+const uint8_t BishopPair = 30;
 const int8_t PieceBlocksPawn = -15;
-const int RookOpenFile = 10;
-const int RookSemiOpenFile = 5;
-const int QueenOpenFile = 5;
-const int QueenSemiOpenFile = 3;
+const uint8_t RookOpenFile = 10;
+const uint8_t RookSemiOpenFile = 5;
+const uint8_t QueenOpenFile = 5;
+const uint8_t QueenSemiOpenFile = 3;
 
 /********************************
 * PesTO / Rofchade Piece Tables *
 ********************************/
 // Note: All these tables are flipped to match the VICE implementation
+// Attempting to change int[] to int16_t[] will break things
 
 
 
@@ -203,7 +205,7 @@ double evalWeight(const S_BOARD *pos) {
 
 // Test position: 8/6R1/2k5/6P1/8/8/4nP2/6K1 w - - 1 41
 // Determins if the position is a draw by material (doesn't include pawns)
-int MaterialDraw(const S_BOARD *pos) {
+uint8_t MaterialDraw(const S_BOARD *pos) {
 
 	ASSERT(CheckBoard(pos));
 
@@ -228,27 +230,17 @@ int MaterialDraw(const S_BOARD *pos) {
   return FALSE;
 }
 
-// Debug function. To be used with a snippet in xboard.c consleLoop()
-int scaleScore(const S_BOARD *pos, int pc, int type) {
-	double score = PieceValMg[pc] * evalWeight(pos) + PieceValEg[pc] * ( 1 - evalWeight(pos) );
-	if (type == 0) return PieceValMg[pc];
-	if (type == 1) return PieceValEg[pc];
-	if (type == 2) return score;
-	return score;
-}
-
 // King safety component
-double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat) {
+double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
 	// sq = kingSquare
 	// mat = enemy material excluding king
 	const int8_t PawnShield[4] = { 0, -10, -20, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
-	const int8_t PawnStorm[3] = { -10, -20, -25 }; // from the persp of White: e.g. h5, h4, h3
 	const int16_t KingOpenFile[3] = { -100, -120, -100 };
 
-	uint8_t kingFile = FilesBrd[sq];
-	uint8_t kingRank = RanksBrd[sq];
+	uint8_t kingFile = FilesBrd[kingSq];
+	uint8_t kingRank = RanksBrd[kingSq];
 
-	double openLines = 0;
+	int16_t openLines = 0;
 
 	/***********************
 	* Open Files Near King *
@@ -293,13 +285,13 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 	*/
 
 	// An attempt was made to rewrite this in bitboard, but it turned out to be way worse
-	double shield = 0;
+	int16_t shield = 0;
 	U64 castledKing = 0ULL;
 
 	if (col == WHITE) {
 		castledKing = RankBBMask[RANK_1] & ~( (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)) );
 		// Pawn shield only applies to castled king
-		if (castledKing & (1ULL << SQ64(sq))) {
+		if (castledKing & (1ULL << SQ64(kingSq))) {
 			// Nested-for loop for the 3x3 rectangle in front of the king
 			for (int rank = kingRank + 1; rank <= kingRank + 3; rank++) {
 				for (int file = kingFile - 1; file <= kingFile + 1; file++) {
@@ -317,7 +309,7 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 		}
 	} else {
 		castledKing = RankBBMask[RANK_8] & ~( (1ULL << SQ64(D8)) | (1ULL << SQ64(E8)) | (1ULL << SQ64(F8)) );
-		if (castledKing & (1ULL << SQ64(sq))) {
+		if (castledKing & (1ULL << SQ64(kingSq))) {
 			for (int rank = kingRank - 1; rank >= kingRank - 3; rank--) {
 				for (int file = kingFile - 1; file <= kingFile + 1; file++) {
 					if (pos->pieces[FR2SQ(file, rank)] == bP) {
@@ -334,29 +326,30 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 		}
 	}
 	
-	/***********************
-	****** Pawn Storm ******
-	***********************/
-
-	/*
-	if (col == WHITE) {
-		U64 whitePawnStorm = ( FileBBMask[FILE_G] | FileBBMask[FILE_H] ) & ( RankBBMask[RANK_5] | RankBBMask[RANK_4] | RankBBMask[RANK_3] );
-		U64 mask = whitePawnStorm & pos->pawns[BLACK];
-		while (mask) {
-			uint8_t pawnSq = PopBit(mask);
-			score += PawnStorm[5 - RanksBrd[pawnSq]];
-		}
-	} else {
-		U64 blackPawnStorm = ( FileBBMask[FILE_G] | FileBBMask[FILE_H] ) & ( RankBBMask[RANK_4] | RankBBMask[RANK_5] | RankBBMask[RANK_6] );
-		U64 mask = blackPawnStorm & pos->pawns[WHITE];
-		while (mask) {
-			uint8_t pawnSq = PopBit(mask);
-			score += PawnStorm[RanksBrd[pawnSq] - 5];
-		}
-	}
-	*/
 
 	return (openLines * 0.85 + shield * 0.15) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
+
+}
+
+// Material eval
+inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat) {
+	
+	*whiteMat = 0;
+	*blackMat = 0;
+	for(int index = 0; index < BRD_SQ_NUM; ++index) {
+		int piece = pos->pieces[index];
+		ASSERT(PceValidEmptyOffbrd(piece));
+		if(piece != OFFBOARD && piece != EMPTY) {
+			int colour = PieceCol[piece];
+			ASSERT(SideValid(colour));
+			if (colour == WHITE)
+				*whiteMat += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+			else 
+				*blackMat += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+		}
+	}
+
+	return *whiteMat - *blackMat;
 
 }
 
@@ -368,40 +361,27 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat
 ********************************/
 
 // Evaluation function
-inline int EvalPosition(const S_BOARD *pos) {
+inline int16_t EvalPosition(const S_BOARD *pos) {
 
 	ASSERT(CheckBoard(pos));
 
-	int pce;
+	uint8_t pce;
 	int pceNum;
-	int sq;
+	uint8_t sq;
 
 	double score = 0;
 
 	// Material eval
 	double whiteMaterial = 0;
 	double blackMaterial = 0;
-	for(int index = 0; index < BRD_SQ_NUM; ++index) {
-		int piece = pos->pieces[index];
-		ASSERT(PceValidEmptyOffbrd(piece));
-		if(piece != OFFBOARD && piece != EMPTY) {
-			int colour = PieceCol[piece];
-			ASSERT(SideValid(colour));
-			if (colour == WHITE)
-				whiteMaterial += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
-			else 
-				blackMaterial += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
-		}
-	}
-
-	score += whiteMaterial - blackMaterial;
+	score += CountMaterial(pos, &whiteMaterial, &blackMaterial);
 
 	// Material draw
 	if(!pos->pceNum[wP] && !pos->pceNum[bP] && MaterialDraw(pos) == TRUE) {
 		return 0;
 	}
 
-	// Tapered eval weight. Calculated only once
+	// Tapered eval weight. Calculated only once to save resources
 	double weight = evalWeight(pos);
 
 	/************

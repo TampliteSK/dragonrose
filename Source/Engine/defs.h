@@ -80,41 +80,40 @@ enum { WKCA = 1, WQCA = 2, BKCA = 4, BQCA = 8 };
 // Move struct. See below for format of move
 typedef struct {
 	int move;
-	int score;
+	int32_t score; // goes up to 2,000,000 for hash moves
 } S_MOVE;
 
 typedef struct {
-	S_MOVE moves[MAXPOSITIONMOVES];
+	S_MOVE moves[MAXPOSITIONMOVES]; // [280]
 	int count;
 } S_MOVELIST;
 
-enum {  HFNONE, HFALPHA, HFBETA, HFEXACT};
+enum { HFNONE, HFALPHA, HFBETA, HFEXACT };
 
+// 19 bytes
 typedef struct {
 	U64 posKey;
 	int move;
-	int score;
-	int depth;
+	int32_t score; // goes up to 2,000,000 for hash moves
+	uint8_t depth; // max 64
 	int flags;
 } S_HASHENTRY;
 
 typedef struct {
 	S_HASHENTRY *pTable;
-	int numEntries;
+	int numEntries; // max 1024 MB, or 56,512,726 entries (26 bits to store)
 	int newWrite;
 	int overWrite;
-	int hit;
-	int cut;
+	int hit; // tracks the number of entires probed
+	int cut; // max number of probes allowed before hash table is full (to avoid collision of entries)
 } S_HASHTABLE;
 
 typedef struct {
-
 	int move;
-	int castlePerm;
-	int enPas;
+	uint8_t castlePerm;
+	uint8_t enPas; // en passant square
 	int fiftyMove;
 	U64 posKey;
-
 } S_UNDO;
 
 typedef struct {
@@ -134,13 +133,14 @@ typedef struct {
 	// int material[2];
 
 	int KingSq[2];
-	int side;
-	int enPas;
-	int fiftyMove;
-	int castlePerm;
+	uint8_t side;
+	uint8_t enPas;
+	uint8_t fiftyMove;
+	uint8_t castlePerm;
 
-	int ply;
-	int hisPly;
+	// Max game moves: 2048
+	uint16_t ply;
+	uint16_t hisPly;
 
 	S_UNDO history[MAXGAMEMOVES];
 	S_HASHTABLE HashTable[1];
@@ -157,9 +157,9 @@ typedef struct {
 
 	int starttime;
 	int stoptime;
-	int depth;
+	uint8_t depth;
 	int timeset;
-	int movestogo;
+	uint16_t movestogo;
 
 	long nodes;
 
@@ -177,7 +177,7 @@ typedef struct {
 
 // UCI options struct
 typedef struct {
-	int UseBook;
+	uint8_t UseBook; // TRUE / FALSE
 } S_OPTIONS;
 
 
@@ -191,6 +191,10 @@ typedef struct {
 0000 0000 1000 0000 0000 0000 0000 -> Pawn Start 0x80000 (1 bit)
 0000 1111 0000 0000 0000 0000 0000 -> Promoted Piece >> 20, 0xF (4 bits)
 0001 0000 0000 0000 0000 0000 0000 -> Castle 0x1000000 (1 bit)
+
+Mask to get captured:
+0000 0000 0011 1111 1111 1111 1111
+0x3FFFF
 */
 
 // Macros for obtaining info from move
@@ -304,7 +308,7 @@ extern int CheckBoard(const S_BOARD *pos);
 extern void MirrorBoard(S_BOARD *pos);
 
 // attack.c
-extern int SqAttacked(const int sq, const int side, const S_BOARD *pos);
+extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
 
 // io.c
 extern char *PrMove(const int move);
@@ -359,7 +363,8 @@ extern void ClearHashTable(S_HASHTABLE *table);
 extern int scaleScore(const S_BOARD *pos, int sq, int type);
 extern double evalWeight(const S_BOARD *pos);
 extern double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat);
-extern int EvalPosition(const S_BOARD *pos);
+extern double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat);
+extern int16_t EvalPosition(const S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos);
 
 // uci.c
