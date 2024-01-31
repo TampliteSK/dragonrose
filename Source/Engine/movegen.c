@@ -44,12 +44,13 @@ const int NumDir[13] = {
 };
 
 /*
+=== Move Ordering ===
 PV Move
 Cap -> MvvLVA
 Killers
 HistoryScore
-
 */
+
 const int VictimScore[13] = { 0, 100, 200, 300, 400, 500, 600, 100, 200, 300, 400, 500, 600 };
 static int MvvLvaScores[13][13];
 
@@ -289,6 +290,7 @@ void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list) {
 	int index = 0;
 	int pceIndex = 0;
 
+	/* Pawns */
 	if(side == WHITE) {
 
 		for(pceNum = 0; pceNum < pos->pceNum[wP]; ++pceNum) {
@@ -390,9 +392,11 @@ void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list) {
 		ASSERT(PieceValid(pce));
 
 		for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
+			// Get the square of the piece
 			sq = pos->pList[pce][pceNum];
 			ASSERT(SqOnBoard(sq));
 
+			// Loop through NumDir iteratively to generate moves
 			for(index = 0; index < NumDir[pce]; ++index) {
 				dir = PceDir[pce][index];
 				t_sq = sq + dir;
@@ -401,10 +405,14 @@ void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list) {
 					// BLACK ^ 1 == WHITE       WHITE ^ 1 == BLACK
 					if(pos->pieces[t_sq] != EMPTY) {
 						if( PieceCol[pos->pieces[t_sq]] == (side ^ 1)) {
+							// The square is not empty and the piece belongs to the opponent 
+							// Generate capture move
 							AddCaptureMove(pos, MOVE(sq, t_sq, pos->pieces[t_sq], EMPTY, 0), list);
 						}
 						break;
 					}
+					// The square is empty
+					// Generate quiet move
 					AddQuietMove(pos, MOVE(sq, t_sq, EMPTY, EMPTY, 0), list);
 					t_sq += dir;
 				}
@@ -414,7 +422,7 @@ void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list) {
 		pce = LoopSlidePce[pceIndex++];
 	}
 
-	/* Loop for non slide */
+	/* Loop for non slide (knights and kings)*/
 	pceIndex = LoopNonSlideIndex[side];
 	pce = LoopNonSlidePce[pceIndex++];
 
@@ -436,10 +444,14 @@ void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list) {
 				// BLACK ^ 1 == WHITE       WHITE ^ 1 == BLACK
 				if(pos->pieces[t_sq] != EMPTY) {
 					if( PieceCol[pos->pieces[t_sq]] == (side ^ 1)) {
+						// The square is not empty and the piece belongs to the opponent 
+						// Generate capture move
 						AddCaptureMove(pos, MOVE(sq, t_sq, pos->pieces[t_sq], EMPTY, 0), list);
 					}
 					continue;
 				}
+				// The square is empty
+				// Generate quiet move
 				AddQuietMove(pos, MOVE(sq, t_sq, EMPTY, EMPTY, 0), list);
 			}
 		}
@@ -519,9 +531,11 @@ void GenerateAllCaps(const S_BOARD *pos, S_MOVELIST *list) {
 		ASSERT(PieceValid(pce));
 
 		for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
+			// Get the square of the piece
 			sq = pos->pList[pce][pceNum];
 			ASSERT(SqOnBoard(sq));
 
+			// Loop through NumDir iteratively to generate moves
 			for(index = 0; index < NumDir[pce]; ++index) {
 				dir = PceDir[pce][index];
 				t_sq = sq + dir;
@@ -542,7 +556,7 @@ void GenerateAllCaps(const S_BOARD *pos, S_MOVELIST *list) {
 		pce = LoopSlidePce[pceIndex++];
 	}
 
-	/* Loop for non slide */
+	/* Loop for non slide (knights and kings) */
 	pceIndex = LoopNonSlideIndex[side];
 	pce = LoopNonSlidePce[pceIndex++];
 

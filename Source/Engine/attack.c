@@ -8,10 +8,11 @@ const int RkDir[4] = { -1, -10,	1, 10 }; // at one square
 const int BiDir[4] = { -9, -11, 11, 9 }; // at one square
 const int KiDir[8] = { -1, -10,	1, 10, -9, -11, 11, 9 };
 
+// Used for check detection / determining castling privileges
 // Returns 1 if a given square is attacked
 uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 
-	int pce,index,t_sq,dir;
+	int pce,t_sq,dir;
 	
 	ASSERT(SqOnBoard(sq));
 	ASSERT(SideValid(side));
@@ -29,7 +30,7 @@ uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 	}
 	
 	// knights
-	for(index = 0; index < 8; ++index) {		
+	for(int index = 0; index < 8; ++index) {		
 		pce = pos->pieces[sq + KnDir[index]];
 		ASSERT(PceValidEmptyOffbrd(pce));
 		if(pce != OFFBOARD && IsKn(pce) && PieceCol[pce]==side) {
@@ -38,7 +39,7 @@ uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 	}
 	
 	// rooks, queens
-	for(index = 0; index < 4; ++index) {		
+	for(int index = 0; index < 4; ++index) {		
 		dir = RkDir[index];
 		t_sq = sq + dir;
 		ASSERT(SqIs120(t_sq));
@@ -58,7 +59,7 @@ uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 	}
 	
 	// bishops, queens
-	for(index = 0; index < 4; ++index) {		
+	for(int index = 0; index < 4; ++index) {		
 		dir = BiDir[index];
 		t_sq = sq + dir;
 		ASSERT(SqIs120(t_sq));
@@ -78,7 +79,7 @@ uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 	}
 	
 	// kings
-	for(index = 0; index < 8; ++index) {		
+	for(int index = 0; index < 8; ++index) {		
 		pce = pos->pieces[sq + KiDir[index]];
 		ASSERT(PceValidEmptyOffbrd(pce));
 		if(pce != OFFBOARD && IsKi(pce) && PieceCol[pce]==side) {

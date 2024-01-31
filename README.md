@@ -41,7 +41,6 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Tweak pieceBlockPawn
 - Pawn / bishop interaction
 - Additional VICE features 
 - Add SEE

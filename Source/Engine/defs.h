@@ -360,7 +360,8 @@ extern int GetPvLine(const int depth, S_BOARD *pos);
 extern void ClearHashTable(S_HASHTABLE *table);
 
 // evaluate.c
-extern int scaleScore(const S_BOARD *pos, int sq, int type);
+extern uint8_t isLightSq(uint8_t sq);
+extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
 extern double evalWeight(const S_BOARD *pos);
 extern double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat);
 extern double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat);

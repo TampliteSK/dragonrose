@@ -125,8 +125,8 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 	int Legal = 0;
 	Score = -INFINITE;
 	
-	// Delta pruning buffer. Default: 180
-	#define DELTA_BUFFER 225
+	// Delta pruning buffer.
+	#define DELTA_BUFFER 180
 
 	for(MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 

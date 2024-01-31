@@ -13,7 +13,7 @@ add_compile_options(-march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4
 add_executable(Dragonrose "")
 
 #[[
-target_link_libraries(Quanticade
+target_link_libraries(Dragonrose
     PRIVATE
         nnue
         m

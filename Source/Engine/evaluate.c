@@ -27,7 +27,8 @@ const uint8_t PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
 
 // Pieces
 const uint8_t BishopPair = 30;
-const int8_t PieceBlocksPawn = -15;
+const int8_t KnightBlocksPawn = -15;
+const int8_t BishopBlocksPawn = -35;
 const uint8_t RookOpenFile = 10;
 const uint8_t RookSemiOpenFile = 5;
 const uint8_t QueenOpenFile = 5;
@@ -184,6 +185,29 @@ const int KingEgTable[64] = {
 // Applying gamePhase at startpos
 #define openingPhase 64
 
+// Returns 1 if it's a light square
+uint8_t isLightSq(uint8_t sq) {
+	return !( (sq % 2) ^ ( ( sq / 10 ) % 2) );
+}
+
+// Gives bonuses if bishop and pawns are of different colour complexes
+uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col) {
+
+	uint8_t subscore = 0;
+	uint8_t bonus = 5;
+	uint8_t pce = (col == WHITE) ? wP : bP;
+
+	for (int pawn = 0; pawn < 8; ++pawn) {
+		uint8_t pawnSq = pos->pList[pce][pawn];
+		if ( isLightSq(bishopSq) != isLightSq(pawnSq) ) {
+			subscore += bonus;
+		}
+	}
+	
+	return subscore;
+
+}
+
 // Calculates the weight of tapered eval. 
 double evalWeight(const S_BOARD *pos) {
 	// PesTO has its own tapered eval but it's 17 +/-22 elo worse than Caissa's
@@ -232,7 +256,6 @@ uint8_t MaterialDraw(const S_BOARD *pos) {
 
 // King safety component
 double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
-	// sq = kingSquare
 	// mat = enemy material excluding king
 	const int8_t PawnShield[4] = { 0, -10, -20, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
 	const int16_t KingOpenFile[3] = { -100, -120, -100 };
@@ -440,7 +463,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		U64 mask = pos->pawns[WHITE] & FileBBMask[FilesBrd[sq]];
 		int pawnSq = PopBit(&mask);
 		if ( (SQ64(sq) - pawnSq == 8) && (FilesBrd[sq] == FILE_C) ) {
-			score += PieceBlocksPawn;
+			score += KnightBlocksPawn;
 		}
 	}
 
@@ -455,7 +478,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		U64 mask = pos->pawns[BLACK] & FileBBMask[FilesBrd[sq]];
 		int pawnSq = PopBit(&mask);
 		if ( (pawnSq - SQ64(sq) == 8) && (FilesBrd[sq] == FILE_C) ) {
-			score -= PieceBlocksPawn;
+			score -= KnightBlocksPawn;
 		}
 	}
 
@@ -465,6 +488,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 
 	pce = wB;
 	for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
+
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
@@ -474,16 +498,21 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		U64 mask = pos->pawns[WHITE] & FileBBMask[FilesBrd[sq]];
 		int pawnSq = PopBit(&mask);
 		if ( (SQ64(sq) - pawnSq == 8) && (FilesBrd[sq] == FILE_D)) {
-			score += PieceBlocksPawn;
+			score += BishopBlocksPawn;
 		} else {
 			if ( (SQ64(sq) - pawnSq == 8) && (FilesBrd[sq] == FILE_E) ) {
-				score += PieceBlocksPawn;
+				score += BishopBlocksPawn;
 			}
 		}
+
+		// Bonus for bishop-pawn interaction
+		// score += bishopPawnComplex(pos, sq, WHITE);
+	
 	}
 
 	pce = bB;
 	for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
+
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
@@ -493,12 +522,16 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		U64 mask = pos->pawns[BLACK] & FileBBMask[FilesBrd[sq]];
 		int pawnSq = PopBit(&mask);
 		if ( (pawnSq - SQ64(sq) == 8) && (FilesBrd[sq] == FILE_D)) {
-			score -= PieceBlocksPawn;
+			score -= BishopBlocksPawn;
 		} else {
 			if ( (pawnSq - SQ64(sq) == 8) && (FilesBrd[sq] == FILE_E) ) {
-				score -= PieceBlocksPawn;
+				score -= BishopBlocksPawn;
 			}
 		}
+
+		// Bonus for bishop-pawn interaction
+		// score -= bishopPawnComplex(pos, sq, BLACK);
+
 	}
 	
 	/************
