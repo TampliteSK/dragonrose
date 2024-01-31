@@ -141,8 +141,6 @@ void ParsePosition(char* lineIn, S_BOARD *pos) {
 
 void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 
-	info->GAME_MODE = UCIMODE;
-
 	setbuf(stdin, NULL);
     setbuf(stdout, NULL);
 
@@ -174,6 +172,9 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
         } else if (!strncmp(line, "go", 2)) {
             printf("Seen Go..\n");
             ParseGo(line, info, pos);
+		} else if (!strncmp(line, "run", 3)) {
+            ParseFen(START_FEN, pos);
+            ParseGo("go infinite", info, pos);
         } else if (!strncmp(line, "quit", 4)) {
             info->quit = TRUE;
             break;

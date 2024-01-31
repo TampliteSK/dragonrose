@@ -176,7 +176,6 @@ int ConvertPolyMoveToInternalMove(unsigned short polyMove, S_BOARD *board) {
 }
 
 int GetBookMove(S_BOARD *board) {
-	int index = 0;
 	S_POLY_BOOK_ENTRY *entry;
 	unsigned short move;
 	const int MAXBOOKMOVES = 32;

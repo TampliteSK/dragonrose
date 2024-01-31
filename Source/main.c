@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     	}
     }
 
-	printf("Welcome to Dragonrose! Type 'console' for console mode...\n");
+	printf("Welcome to Dragonrose! Type 'uci' to start...\n");
 
 	char line[256];
 	while (TRUE) {
@@ -43,14 +43,6 @@ int main(int argc, char *argv[]) {
 			continue;
 		if (!strncmp(line, "uci",3)) {
 			Uci_Loop(pos, info);
-			if(info->quit == TRUE) break;
-			continue;
-		} else if (!strncmp(line, "xboard",6))	{
-			XBoard_Loop(pos, info);
-			if(info->quit == TRUE) break;
-			continue;
-		} else if (!strncmp(line, "console",4))	{
-			Console_Loop(pos, info);
 			if(info->quit == TRUE) break;
 			continue;
 		} else if(!strncmp(line, "quit",4))	{

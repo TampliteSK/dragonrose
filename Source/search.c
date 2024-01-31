@@ -99,7 +99,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 
 	int32_t Score = EvalPosition(pos); // stand-pat score
 
-	ASSERT(Score>-INFINITE && Score<INFINITE);
+	ASSERT(Score>-INF_BOUND && Score<INF_BOUND);
 
 	// Beta cutoff
 	if(Score >= beta) {
@@ -123,7 +123,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 
     int MoveNum = 0;
 	int Legal = 0;
-	Score = -INFINITE;
+	Score = -INF_BOUND;
 	
 	// Delta pruning buffer.
 	#define DELTA_BUFFER 180
@@ -167,8 +167,6 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 		}
     }
 
-	ASSERT(alpha >= OldAlpha);
-
 	return alpha;
 }
 
@@ -203,7 +201,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
 		depth++;
 	}
 
-	int Score = -INFINITE;
+	int Score = -INF_BOUND;
 	int PvMove = NOMOVE;
 
 	if( ProbeHashEntry(pos, &PvMove, &Score, alpha, beta, depth) == TRUE ) {
@@ -212,7 +210,8 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
 	}
 
 	// Null-move pruning
-	if( DoNull && !InCheck && pos->ply && (pos->bigPce[pos->side] > 0) && depth >= 4) {
+	//                                     Note kings are considered bigPce, so we have to set the range to >1
+	if( DoNull && !InCheck && pos->ply && (pos->bigPce[pos->side] > 1) && depth >= 4) {
 		MakeNullMove(pos);
 		Score = -AlphaBeta( -beta, -beta + 1, depth-4, pos, info, FALSE);
 		TakeNullMove(pos);
@@ -234,9 +233,9 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
 	int OldAlpha = alpha;
 	int BestMove = NOMOVE;
 
-	int BestScore = -INFINITE;
+	int BestScore = -INF_BOUND;
 
-	Score = -INFINITE;
+	Score = -INF_BOUND;
 
 	if( PvMove != NOMOVE) {
 		for(MoveNum = 0; MoveNum < list->count; ++MoveNum) {
@@ -293,7 +292,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
 
 	if(Legal == 0) {
 		if(InCheck) {
-			return -INFINITE + pos->ply;
+			return -INF_BOUND + pos->ply;
 		} else {
 			return 0;
 		}
@@ -313,7 +312,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
 void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 
 	int bestMove = NOMOVE;
-	int bestScore = -INFINITE;
+	int bestScore = -INF_BOUND;
 	int currentDepth = 0;
 	int pvMoves = 0;
 	int pvNum = 0;
@@ -331,7 +330,7 @@ void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 		for( currentDepth = 1; currentDepth <= info->depth; ++currentDepth ) {
 								// alpha	 beta
 			rootDepth = currentDepth;
-			bestScore = AlphaBeta(-INFINITE, INFINITE, currentDepth, pos, info, TRUE);
+			bestScore = AlphaBeta(-INF_BOUND, INF_BOUND, currentDepth, pos, info, TRUE);
 
 			if(info->stopped == TRUE) {
 				break;
@@ -339,42 +338,18 @@ void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 
 			pvMoves = GetPvLine(currentDepth, pos);
 			bestMove = pos->PvArray[0];
-			if(info->GAME_MODE == UCIMODE) {
-				printf("info score cp %d depth %d nodes %ld time %d ",
-					bestScore,currentDepth,info->nodes,GetTimeMs()-info->starttime);
-			} else if(info->GAME_MODE == XBOARDMODE && info->POST_THINKING == TRUE) {
-				printf("%d %d %d %ld ",
-					currentDepth,bestScore,(GetTimeMs()-info->starttime)/10,info->nodes);
-			} else if(info->POST_THINKING == TRUE) {
-				printf("score:%d depth:%d nodes:%ld time:%d(ms) ",
-					bestScore,currentDepth,info->nodes,GetTimeMs()-info->starttime);
-			}
-			if(info->GAME_MODE == UCIMODE || info->POST_THINKING == TRUE) {
-				pvMoves = GetPvLine(currentDepth, pos);
-				if((!info->GAME_MODE) == XBOARDMODE) {
-					printf("pv");
-				}
-				for(pvNum = 0; pvNum < pvMoves; ++pvNum) {
-					printf(" %s",PrMove(pos->PvArray[pvNum]));
-				}
-				printf("\n");
-			}
+			printf("info score cp %d depth %d nodes %ld time %d ",
+				bestScore,currentDepth,info->nodes,GetTimeMs()-info->starttime);
 
-			//printf("Hits:%d Overwrite:%d NewWrite:%d Cut:%d\nOrdering %.2f NullCut:%d\n",pos->HashTable->hit,pos->HashTable->overWrite,pos->HashTable->newWrite,pos->HashTable->cut,
-			//(info->fhf/info->fh)*100,info->nullCut);
+			pvMoves = GetPvLine(currentDepth, pos);
+			for(pvNum = 0; pvNum < pvMoves; ++pvNum) {
+				printf(" %s",PrMove(pos->PvArray[pvNum]));
+			}
+			printf("\n");
 		}
 	}
 
-	if(info->GAME_MODE == UCIMODE) {
-		printf("bestmove %s\n",PrMove(bestMove));
-	} else if(info->GAME_MODE == XBOARDMODE) {
-		printf("move %s\n",PrMove(bestMove));
-		MakeMove(pos, bestMove);
-	} else {
-		printf("\n\n***!! Draongorse makes move %s !!***\n\n",PrMove(bestMove));
-		MakeMove(pos, bestMove);
-		PrintBoard(pos);
-	}
+	printf("bestmove %s\n",PrMove(bestMove));
 
 }
 
