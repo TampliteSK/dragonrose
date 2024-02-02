@@ -1,6 +1,7 @@
 // search.c
 
 #include "stdio.h"
+#include "string.h"
 #include "defs.h"
 
 
@@ -11,8 +12,6 @@ static void CheckUp(S_SEARCHINFO *info) {
 	if(info->timeset == TRUE && GetTimeMs() > info->stoptime) {
 		info->stopped = TRUE;
 	}
-
-	ReadInput(info);
 }
 
 static void PickNextMove(int moveNum, S_MOVELIST *list) {
@@ -339,10 +338,9 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 
 			pvMoves = GetPvLine(currentDepth, pos, table);
 			bestMove = pos->PvArray[0];
-			printf("info score cp %d depth %d nodes %ld time %d ",
+			printf("info score cp %d depth %d nodes %ld time %d pv",
 				bestScore,currentDepth,info->nodes,GetTimeMs()-info->starttime);
 
-			printf("pv");
 			for(pvNum = 0; pvNum < pvMoves; ++pvNum) {
 				printf(" %s",PrMove(pos->PvArray[pvNum]));
 			}
@@ -354,22 +352,12 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int SearchPosition_Thread(void *data) {
+	S_SEARCH_THREAD_DATA *searchData = (S_SEARCH_THREAD_DATA *)data;
+	S_BOARD *pos = malloc(sizeof(S_BOARD));
+	memcpy(pos, searchData->originalPos, sizeof(S_BOARD)); // Copying the position
+	SearchPosition(pos, searchData->ttable, searchData->info);
+	free(pos);
+	// printf("Freed\n");
+	return 0;
+}

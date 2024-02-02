@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(Dragonrose VERSION 0.21 LANGUAGES C)
+project(Dragonrose VERSION 0.24 LANGUAGES C)
 
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -20,35 +20,35 @@ target_link_libraries(Dragonrose
 ) ]]
 
 set(DRAGONROSE_SOURCES
-    "../Source/Engine/attack.c"
-    "../Source/Engine/bitboards.c"
-    "../Source/Engine/board.c"
-    "../Source/Engine/data.c"
-    "../Source/Engine/evaluate.c"
-    "../Source/Engine/hashkeys.c"
-    "../Source/Engine/init.c"
-    "../Source/Engine/io.c"
-    "../Source/Engine/main.c"
-    "../Source/Engine/makemove.c"
-    "../Source/Engine/misc.c"
-    "../Source/Engine/movegen.c"
-    "../Source/Engine/perft.c"
-    "../Source/Engine/polybook.c"
-    "../Source/Engine/polykeys.c"
-    "../Source/Engine/pvtable.c"
-    "../Source/Engine/search.c"
-    "../Source/Engine/uci.c"
-    "../Source/Engine/validate.c"
-    "../Source/Engine/xboard.c"
+    "../Source/attack.c"
+    "../Source/bitboards.c"
+    "../Source/board.c"
+    "../Source/data.c"
+    "../Source/evaluate.c"
+    "../Source/hashkeys.c"
+    "../Source/init.c"
+    "../Source/io.c"
+    "../Source/main.c"
+    "../Source/makemove.c"
+    "../Source/misc.c"
+    "../Source/movegen.c"
+    "../Source/perft.c"
+    "../Source/polybook.c"
+    "../Source/polykeys.c"
+    "../Source/pvtable.c"
+    "../Source/search.c"
+    "../Source/uci.c"
+    "../Source/validate.c"
+    "../Source/xboard.c"
 )
 
 set(DRAGONROSE_HEADERS
-    "../Source/Engine/defs.h"
-    "../Source/Engine/polykeys.h"
+    "../Source/defs.h"
+    "../Source/polykeys.h"
 )
 
-set(DRAGONROSE_TEXTFILES
-    "../Source/Engine/performance.bin"
+set(DRAGONROSE_BOOK
+    "../Source/performance.bin"
 )
 
 target_sources(Dragonrose
@@ -56,5 +56,5 @@ target_sources(Dragonrose
         ${DRAGONROSE_SOURCES}
     PUBLIC
         ${DRAGONROSE_HEADERS}
-        ${DRAGONROSE_TEXTFILES}
+        ${DRAGONROSE_BOOK}
 )

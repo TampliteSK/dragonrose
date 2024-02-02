@@ -29,9 +29,16 @@ Evaluation:
 - Piece bonuses: Rook/queen open-file bonuses
 - Pawn bonuses: Passed pawns, isolated pawns
 
+## Credits
+- Richard Allbert (Bluefever Software) for VICE code and video playlist. The entire reason this engine even exists.
+- Marcus Johnson for [TinyCThread](https://github.com/tinycthread/tinycthread/tree/master). Used to make input/search threads.
+- Chess Programming [Wiki](https://www.chessprogramming.org/Main_Page). Great resource in general to learn concepts.
+- Witek902 for [Caissa](https://github.com/Witek902/Caissa) chess engine. I borrowed tapered eval from there.
+
 ## Changelogs: <br>
 ### 0.x: <br>
-0.24b: Fixed delta pruning. Optimised memory (variable sizes). | Elo gain: ~10. <br>
+0.25: Added search thread. Fixed hash entry / PV truncation issues. | Elo gain: ~60. <br>
+0.24b: Fixed delta pruning. Optimised memory (variable sizes). <br>
 0.24: Added delta pruning. Added punishments for minor pieces in front of pawns. | Elo gain: ~40. <br>
 0.23: Added king safety to evaluation (pawn shield and punish open files near king). <br>
 0.22: Improved time management (tested on Lichess). Slight speed boost. <br>
