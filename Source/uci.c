@@ -76,8 +76,6 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 
 	info->starttime = GetTimeMs();
 	info->depth = depth;
-
-	// #define bufferMoves 25
 	
 	if(time != -1) {
 
