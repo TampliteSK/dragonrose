@@ -99,7 +99,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos) {
 
 	printf("time:%d start:%d stop:%d depth:%d timeset:%d\n",
 		time,info->starttime,info->stoptime,info->depth,info->timeset);
-	SearchPosition(pos, info);
+	SearchPosition(pos, HashTable, info);
 }
 
 // position fen fenstr
@@ -168,6 +168,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
         } else if (!strncmp(line, "position", 8)) {
             ParsePosition(line, pos);
         } else if (!strncmp(line, "ucinewgame", 10)) {
+			ClearHashTable(HashTable);
             ParsePosition("position startpos\n", pos);
         } else if (!strncmp(line, "go", 2)) {
             printf("Seen Go..\n");
@@ -183,14 +184,14 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
             printf("id author Tamplite Siphron Kents\n");
             printf("uciok\n");
         } else if (!strncmp(line, "debug", 4)) {
-            DebugAnalysisTest(pos,info);
+            DebugAnalysisTest(pos, HashTable, info);
             break;
         } else if (!strncmp(line, "setoption name Hash value ", 26)) {			
 			sscanf(line,"%*s %*s %*s %*s %d",&MB);
 			if(MB < 4) MB = 4;
 			if(MB > MAX_HASH) MB = MAX_HASH;
 			printf("Set Hash to %d MB\n",MB);
-			InitHashTable(pos->HashTable, MB);
+			InitHashTable(HashTable, MB); // using the global variable
 		} else if (!strncmp(line, "setoption name Book value ", 26)) {			
 			char *ptrTrue = NULL;
 			ptrTrue = strstr(line, "true");

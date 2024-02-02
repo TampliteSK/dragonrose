@@ -30,7 +30,7 @@ exit(1);}
 
 typedef unsigned long long U64;
 
-#define NAME "Dragonrose 0.21"
+#define NAME "Dragonrose 0.24"
 #define BRD_SQ_NUM 120
 // Maximum hash size
 #define MAX_HASH 1024
@@ -89,22 +89,24 @@ typedef struct {
 
 enum { HFNONE, HFALPHA, HFBETA, HFEXACT };
 
-// 19 bytes
+// 23 bytes
 typedef struct {
 	U64 posKey;
 	int move;
 	int32_t score; // goes up to 2,000,000 for hash moves
 	uint8_t depth; // max 64
 	int flags;
+	int age; // indicates how new an entry is
 } S_HASHENTRY;
 
 typedef struct {
 	S_HASHENTRY *pTable;
-	int numEntries; // max 1024 MB, or 56,512,726 entries (26 bits to store)
+	int numEntries; // max 1024 MB, or 46,684,427 entries
 	int newWrite;
 	int overWrite;
 	int hit; // tracks the number of entires probed
 	int cut; // max number of probes allowed before hash table is full (to avoid collision of entries)
+	int currentAge; // increments every move
 } S_HASHTABLE;
 
 typedef struct {
@@ -142,7 +144,6 @@ typedef struct {
 	uint16_t hisPly;
 
 	S_UNDO history[MAXGAMEMOVES];
-	S_HASHTABLE HashTable[1];
 	int PvArray[MAXDEPTH];
 
 	int searchHistory[13][BRD_SQ_NUM];
@@ -281,6 +282,7 @@ extern U64 IsolatedMask[64];
 
 // main.c, init.c, uci.c, search.c, polybook.c,
 extern S_OPTIONS EngineOptions[1];
+extern S_HASHTABLE HashTable[1]; // brought out from board struct to make it global (to make Lazy SMP work)
 
 /* FUNCTIONS */
 
@@ -322,7 +324,7 @@ extern void MirrorEvalTest(S_BOARD *pos);
 extern int SqIs120(const int sq);
 extern int PceValidEmptyOffbrd(const int pce);
 extern int MoveListOk(const S_MOVELIST *list,  const S_BOARD *pos);
-extern void DebugAnalysisTest(S_BOARD *pos, S_SEARCHINFO *info);
+extern void DebugAnalysisTest(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info);
 
 // movegen.c
 extern void GenerateSliders(const S_BOARD *pos, S_MOVELIST *list);
@@ -341,7 +343,7 @@ extern void TakeNullMove(S_BOARD *pos);
 extern void PerftTest(int depth, S_BOARD *pos);
 
 // search.c
-extern void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info);
+extern void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info);
 
 // misc.c
 extern int GetTimeMs();
@@ -349,10 +351,10 @@ extern void ReadInput(S_SEARCHINFO *info);
 
 // pvtable.c
 extern void InitHashTable(S_HASHTABLE *table, const int MB);
-extern void StoreHashEntry(S_BOARD *pos, const int move, int score, const int flags, const int depth);
-extern int ProbeHashEntry(S_BOARD *pos, int *move, int *score, int alpha, int beta, int depth);
-extern int ProbePvMove(const S_BOARD *pos);
-extern int GetPvLine(const int depth, S_BOARD *pos);
+extern void StoreHashEntry(S_BOARD *pos, S_HASHTABLE *table, const int move, int score, const int flags, const int depth);
+extern int ProbeHashEntry(S_BOARD *pos, S_HASHTABLE *table, int *move, int *score, int alpha, int beta, int depth);
+extern int ProbePvMove(const S_BOARD *pos, S_HASHTABLE *table);
+extern int GetPvLine(const int depth, S_BOARD *pos, S_HASHTABLE *table);
 extern void ClearHashTable(S_HASHTABLE *table);
 
 // evaluate.c

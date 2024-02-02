@@ -51,7 +51,7 @@ static int IsRepetition(const S_BOARD *pos) {
 	return FALSE;
 }
 
-static void ClearForSearch(S_BOARD *pos, S_SEARCHINFO *info) {
+static void ClearForSearch(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 
 	int index = 0;
 	int index2 = 0;
@@ -68,10 +68,11 @@ static void ClearForSearch(S_BOARD *pos, S_SEARCHINFO *info) {
 		}
 	}
 
-	pos->HashTable->overWrite=0;
-	pos->HashTable->hit=0;
-	pos->HashTable->cut=0;
+	table->overWrite=0;
+	table->hit=0;
+	table->cut=0;
 	pos->ply = 0;
+	table->currentAge++;
 
 	info->stopped = 0;
 	info->nodes = 0;
@@ -170,7 +171,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 	return alpha;
 }
 
-static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEARCHINFO *info, int DoNull) {
+static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info, int DoNull) {
 
 	ASSERT(CheckBoard(pos));
 	ASSERT(beta>alpha);
@@ -204,8 +205,8 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
 	int Score = -INF_BOUND;
 	int PvMove = NOMOVE;
 
-	if( ProbeHashEntry(pos, &PvMove, &Score, alpha, beta, depth) == TRUE ) {
-		pos->HashTable->cut++;
+	if( ProbeHashEntry(pos, table, &PvMove, &Score, alpha, beta, depth) == TRUE ) {
+		table->cut++;
 		return Score;
 	}
 
@@ -213,7 +214,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
 	//                                     Note kings are considered bigPce, so we have to set the range to >1
 	if( DoNull && !InCheck && pos->ply && (pos->bigPce[pos->side] > 1) && depth >= 4) {
 		MakeNullMove(pos);
-		Score = -AlphaBeta( -beta, -beta + 1, depth-4, pos, info, FALSE);
+		Score = -AlphaBeta( -beta, -beta + 1, depth-4, pos, table, info, FALSE);
 		TakeNullMove(pos);
 		if(info->stopped == TRUE) {
 			return 0;
@@ -256,7 +257,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
         }
 
 		Legal++;
-		Score = -AlphaBeta( -beta, -alpha, depth-1, pos, info, TRUE);
+		Score = -AlphaBeta( -beta, -alpha, depth-1, pos, table, info, TRUE);
 		TakeMove(pos);
 
 		if(info->stopped == TRUE) {
@@ -277,7 +278,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
 						pos->searchKillers[0][pos->ply] = list->moves[MoveNum].move;
 					}
 
-					StoreHashEntry(pos, BestMove, beta, HFBETA, depth);
+					StoreHashEntry(pos, table, BestMove, beta, HFBETA, depth);
 
 					return beta;
 				}
@@ -301,15 +302,15 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_SEAR
 	ASSERT(alpha>=OldAlpha);
 
 	if(alpha != OldAlpha) {
-		StoreHashEntry(pos, BestMove, BestScore, HFEXACT, depth);
+		StoreHashEntry(pos, table, BestMove, BestScore, HFEXACT, depth);
 	} else {
-		StoreHashEntry(pos, BestMove, alpha, HFALPHA, depth);
+		StoreHashEntry(pos, table, BestMove, alpha, HFALPHA, depth);
 	}
 
 	return alpha;
 }
 
-void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
+void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 
 	int bestMove = NOMOVE;
 	int bestScore = -INF_BOUND;
@@ -317,7 +318,7 @@ void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 	int pvMoves = 0;
 	int pvNum = 0;
 
-	ClearForSearch(pos,info);
+	ClearForSearch(pos, table, info);
 	
 	if(EngineOptions->UseBook == TRUE) {
 		bestMove = GetBookMove(pos);
@@ -330,18 +331,18 @@ void SearchPosition(S_BOARD *pos, S_SEARCHINFO *info) {
 		for( currentDepth = 1; currentDepth <= info->depth; ++currentDepth ) {
 								// alpha	 beta
 			rootDepth = currentDepth;
-			bestScore = AlphaBeta(-INF_BOUND, INF_BOUND, currentDepth, pos, info, TRUE);
+			bestScore = AlphaBeta(-INF_BOUND, INF_BOUND, currentDepth, pos, table, info, TRUE);
 
 			if(info->stopped == TRUE) {
 				break;
 			}
 
-			pvMoves = GetPvLine(currentDepth, pos);
+			pvMoves = GetPvLine(currentDepth, pos, table);
 			bestMove = pos->PvArray[0];
 			printf("info score cp %d depth %d nodes %ld time %d ",
 				bestScore,currentDepth,info->nodes,GetTimeMs()-info->starttime);
 
-			pvMoves = GetPvLine(currentDepth, pos);
+			printf("pv");
 			for(pvNum = 0; pvNum < pvMoves; ++pvNum) {
 				printf(" %s",PrMove(pos->PvArray[pvNum]));
 			}
