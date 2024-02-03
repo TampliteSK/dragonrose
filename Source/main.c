@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
 	S_BOARD pos[1];
     S_SEARCHINFO info[1];
     info->quit = FALSE;
-	HashTable->pTable = NULL;
-    InitHashTable(HashTable, 64);
+	pos->HashTable->pTable = NULL;
+    InitHashTable(pos->HashTable, 64);
 	setbuf(stdin, NULL);
     setbuf(stdout, NULL);
     
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     	}
     }
 
-	printf("Welcome to Dragonrose! Type 'uci' to start.\n");
+	printf("Welcome to Dragonrose! Type 'uci' to start...\n");
 
 	char line[256];
 	while (TRUE) {
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	free(HashTable->pTable);
+	free(pos->HashTable->pTable);
 	CleanPolyBook();
 	return 0;
 }
