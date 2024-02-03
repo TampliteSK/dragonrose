@@ -247,18 +247,35 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	for(MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 
 		PickNextMove(MoveNum, list);
+		
+		// Futility pruning
+		#define FUTILITY_MARGIN 365 
+		// We check if it is a frontier node (1 ply from horizon) and the eval is not close to mate
+		if (depth == 1 && abs(Score) < ISMATE) {
+			int currentEval = EvalPosition(pos);
+			int capturedPiece = CAPTURED(list->moves[MoveNum].move);
+			
+			// Check to make sure it's not a capture or check
+			if (capturedPiece == EMPTY && !SqAttacked(pos->KingSq[!pos->side], pos->side, pos)) {
+				// If the gain from capturing a piece is less than a minor piece, we skip this move
+				if (currentEval + FUTILITY_MARGIN <= alpha) {
+					continue;
+				}
+			}
+		}
 
         if ( !MakeMove(pos,list->moves[MoveNum].move))  {
             continue;
         }
 
 		Legal++;
-		Score = -AlphaBeta( -beta, -alpha, depth-1, pos, info, TRUE);
+		Score = -AlphaBeta( -beta, -alpha, depth-1, pos, table, info, TRUE);
 		TakeMove(pos);
 
 		if(info->stopped == TRUE) {
 			return 0;
 		}
+
 		if(Score > BestScore) {
 			BestScore = Score;
 			BestMove = list->moves[MoveNum].move;
@@ -337,8 +354,12 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			bestMove = pos->PvArray[0];
 
 			// Display mate if there's forced mate
-			if (fabs(bestScore) >= ISMATE) {
-				int8_t mateMoves = round( (INF_BOUND - fabs(bestScore)) / 2 ) * ( (bestScore > 0) ? 1 : -1 );
+			uint8_t mateFound = FALSE;
+			if (abs(bestScore) >= ISMATE) {
+				mateFound = TRUE;
+				// copysign(1.0, value) outputs +/- 1.0 depending on the sign of "value"
+				// this should be a cleaner way than a ternary
+				int8_t mateMoves = round( (INF_BOUND - fabs(bestScore)) / 2 ) * copysign(1.0, bestScore);
 				printf("info score mate %d depth %d nodes %ld time %d pv",
 					mateMoves,currentDepth,info->nodes,GetTimeMs()-info->starttime);
 			} else {
@@ -350,6 +371,11 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 				printf(" %s",PrMove(pos->PvArray[pvNum]));
 			}
 			printf("\n");
+
+			// Exit search if mate is found, in order to save time
+			if (mateFound) {
+				break;
+			}
 		}
 	}
 

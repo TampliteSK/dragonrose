@@ -21,7 +21,7 @@ void InitPolyBook() {
 
 	EngineOptions->UseBook = FALSE;
 	
-	FILE *pFile = fopen("performance.bin","rb");
+	FILE *pFile = fopen("VICEbook.bin","rb");
 	
 	if(pFile == NULL) {
 		printf("Book File Not Read\n");

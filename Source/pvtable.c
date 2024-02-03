@@ -84,7 +84,7 @@ int ProbeHashEntry(S_BOARD *pos, S_HASHTABLE *table, int *move, int *score, int 
 	if( table->pTable[index].posKey == pos->posKey ) {
 		*move = table->pTable[index].move;
 		if(table->pTable[index].depth >= depth){
-			pos->HashTable->hit++;
+			table->hit++;
 			
 			ASSERT(table->pTable[index].depth>=1 && table->pTable[index].depth<MAXDEPTH);
             ASSERT(table->pTable[index].flags>=HFALPHA && table->pTable[index].flags<=HFEXACT);

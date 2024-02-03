@@ -2,32 +2,10 @@
 
 #include <stdio.h>
 #include "defs.h"
-#include "tinycthread.h"
 #include <string.h>
 #include <math.h>
 
 #define INPUTBUFFER 400 * 6
-
-thrd_t mainSearchThread;
-
-// Starts the search thread after receiving go from uciloop
-thrd_t LaunchSearchThread(S_BOARD *pos, S_SEARCHINFO *info, S_HASHTABLE *table) {
-	S_SEARCH_THREAD_DATA *pSearchData = malloc(sizeof(S_SEARCH_THREAD_DATA));
-
-	pSearchData->originalPos = pos;
-	pSearchData->info = info;
-	pSearchData->ttable = table;
-
-	thrd_t th;
-	thrd_create(&th, &SearchPosition_Thread, (void *)pSearchData);
-	return th;
-}
-
-// Joins the thread after the search is halted by "quit"
-void JoinSearchThread(S_SEARCHINFO *info) {
-	thrd_join(mainSearchThread, NULL);
-	info->stopped = TRUE;
-}
 
 // go depth 6 wtime 180000 btime 100000 binc 1000 winc 1000 movetime 1000 movestogo 40
 void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
@@ -196,11 +174,8 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 		} else if (!strncmp(line, "run", 3)) {
             ParseFen(START_FEN, pos);
             ParseGo("go infinite", info, pos, HashTable);
-        } else if (!strncmp(line, "stop", 4)) {
-			JoinSearchThread(info);
         } else if (!strncmp(line, "quit", 4)) {
             info->quit = TRUE;
-			JoinSearchThread(info);
             break;
         } else if (!strncmp(line, "uci", 3)) {
             printf("id name %s\n",NAME);
