@@ -60,8 +60,11 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 		info->timeset = TRUE;
 		int phaseMoves = 0;
 
+		// Rose was having issues managing time when there was >=5s increment
+		time += inc / 2; // include increment in the allocation
+
 		// Time trouble check
-		if (time < 30000 /* 20s */) {
+		if (time < 30000 /* 30s */) {
 			time /= 80;
 		} else {
 			// Opening phase
@@ -88,7 +91,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 
 		// time /= movestogo;
 		time -= 50; // overhead
-		info->stoptime = info->starttime + time + inc;
+		info->stoptime = info->starttime + time;
 	}
 
 	if(depth == -1) {

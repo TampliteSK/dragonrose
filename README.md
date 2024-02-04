@@ -14,19 +14,21 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 
 Search:
 - Negamax Alpha-beta search
+  - PV-search
+  - Null-move pruning
+  - Futility pruning
 - Quiesence search
   - Delta pruning
 - Iterative deepening
 - Transposition table using "age"
 - MVV/LVA move ordering
-- Null-move pruning
 - Killer heuristics
 - Polyglot opening books
 
 Evaluation:
-- Material
-- Piece-square table bonuses
 - Tapered eval
+  - Material
+  - Piece-square table bonuses
 - Piece bonuses: Rook/queen open-file bonuses
 - Pawn bonuses: Passed pawns, isolated pawns
 
@@ -38,7 +40,7 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.25: Added futility pruning. | Elo gain: ~30. <br> 
+0.25: Added futility pruning. | Elo gain: ~20. <br> 
 0.24c: Enabled O3 optimisation. Added mate ouptut. <br>
 0.24b: Fixed delta pruning. Optimised memory (variable sizes). <br>
 0.24: Added delta pruning. Added punishments for minor pieces in front of pawns. | Elo gain: ~40. <br>
