@@ -33,6 +33,72 @@ U64 IsolatedMask[64];
 
 S_OPTIONS EngineOptions[1];
 
+// Attack tables
+U64 pawn_attacks[2][64]; // [side][square]
+U64 knight_attacks[64]; // [square]
+U64 king_attacks[64]; // [square]
+U64 bishop_masks[64]; // [square]
+U64 rook_masks[64]; // [square]
+U64 bishop_attacks[64][512]; // [square][occupancies]
+U64 rook_attacks[64][4096]; // [square][occupancies]
+
+/*********************
+* Board Manipulation *
+*********************/
+
+void InitFilesRanksBrd() {
+
+	for(int index = 0; index < BRD_SQ_NUM; ++index) {
+		FilesBrd[index] = OFFBOARD;
+		RanksBrd[index] = OFFBOARD;
+	}
+
+	for(int rank = RANK_1; rank <= RANK_8; ++rank) {
+		for(int file = FILE_A; file <= FILE_H; ++file) {
+			int sq = FR2SQ(file,rank);
+			FilesBrd[sq] = file;
+			RanksBrd[sq] = rank;
+		}
+	}
+
+}
+
+void InitSq120To64() {
+
+	for(int index = 0; index < BRD_SQ_NUM; ++index) {
+		Sq120ToSq64[index] = 65; // default value if off board
+	}
+
+	for(int index = 0; index < 64; ++index) {
+		Sq64ToSq120[index] = 120; // default value if off board
+	}
+	
+	int sq64 = 0;
+  	for(int rank = RANK_1; rank <= RANK_8; ++rank) {
+    	for(int file = FILE_A; file <= FILE_H; ++file) {
+      		int sq = FR2SQ(file,rank);
+      		Sq64ToSq120[sq64] = sq;
+      		Sq120ToSq64[sq] = sq64;
+      		sq64++;
+    	}
+  	}
+	
+}
+
+void InitBitMasks() {
+	int index = 0;
+
+	for(index = 0; index < 64; index++) {
+		SetMask[index] = 0ULL;
+		ClearMask[index] = 0ULL;
+	}
+
+	for(index = 0; index < 64; index++) {
+		SetMask[index] |= (1ULL << index);
+		ClearMask[index] = ~SetMask[index];
+	}
+}
+
 void InitEvalMasks() {
 
 	int sq, tsq, r, f;
@@ -104,22 +170,9 @@ void InitEvalMasks() {
 	}
 }
 
-void InitFilesRanksBrd() {
-
-	for(int index = 0; index < BRD_SQ_NUM; ++index) {
-		FilesBrd[index] = OFFBOARD;
-		RanksBrd[index] = OFFBOARD;
-	}
-
-	for(int rank = RANK_1; rank <= RANK_8; ++rank) {
-		for(int file = FILE_A; file <= FILE_H; ++file) {
-			int sq = FR2SQ(file,rank);
-			FilesBrd[sq] = file;
-			RanksBrd[sq] = rank;
-		}
-	}
-
-}
+/***********
+* Hashkeys *
+***********/
 
 void InitHashKeys() {
 
@@ -135,48 +188,96 @@ void InitHashKeys() {
 
 }
 
-void InitBitMasks() {
-	int index = 0;
+/****************
+* Attack tables *
+****************/
 
-	for(index = 0; index < 64; index++) {
-		SetMask[index] = 0ULL;
-		ClearMask[index] = 0ULL;
-	}
+// Initialises leaper attacks
+void InitLeapersAttacks() {
 
-	for(index = 0; index < 64; index++) {
-		SetMask[index] |= (1ULL << index);
-		ClearMask[index] = ~SetMask[index];
-	}
+    for (int square = 0; square < BRD_SQ_NUM; square++) {
+        // Pawn attacks
+        pawn_attacks[WHITE][square] = MaskPawnAttacks(WHITE, square);
+        pawn_attacks[BLACK][square] = MaskPawnAttacks(BLACK, square);
+
+        // Knight attacks
+        knight_attacks[square] = MaskKnightAttacks(square);
+
+        // King attacks
+        king_attacks[square] = MaskKingAttacks(square);
+    }
+
 }
 
-void InitSq120To64() {
+// Initialises slider attacks
+void InitSlidersAttacks() {
 
-	for(int index = 0; index < BRD_SQ_NUM; ++index) {
-		Sq120ToSq64[index] = 65; // default value if off board
-	}
+    // Bishop attacks
+    for (int square = 0; square < BRD_SQ_NUM; square++) {
+        bishop_masks[square] = MaskBishopOccupancies(square);
+        U64 bishop_occupancy_mask = bishop_masks[square];
+        int relevant_bits_count = CountBits(bishop_occupancy_mask); // Init relevant occupancy bit count
+        int occupancy_indicies = (1 << relevant_bits_count); // Init occupancy indices
 
-	for(int index = 0; index < 64; ++index) {
-		Sq64ToSq120[index] = 120; // default value if off board
-	}
-	
-	int sq64 = 0;
-  	for(int rank = RANK_1; rank <= RANK_8; ++rank) {
-    	for(int file = FILE_A; file <= FILE_H; ++file) {
-      		int sq = FR2SQ(file,rank);
-      		Sq64ToSq120[sq64] = sq;
-      		Sq120ToSq64[sq] = sq64;
-      		sq64++;
-    	}
-  	}
-	
+        // Loop over occupancy indicies
+        for (int index = 0; index < occupancy_indicies; index++) {
+                U64 blockers = SetBlockers(index, relevant_bits_count, bishop_mask); // Get the map for blockers (occupancies & mask)
+                // Init magic index     (blockers * magic)                        >> (64 - index_bits)
+                uint64_t magic_index = (blockers * bishop_magic_numbers[square]) >>
+                    (64 - bishop_relevant_bits[square]);
+                bishop_attacks[square][magic_index] = BishopAttacks(square, blockers); // Init bishop attacks (finally....)
+        }
+    }
+
+    // Rook attacks
+    for (int square = 0; square < Board_sq_num; square++) {
+        rook_masks[square] = MaskRookOccupancies(square);
+        U64 rook_mask = rook_masks[square];
+        int relevant_bits_count = CountBits(rook_mask); // Init relevant occupancy bit count
+        int occupancy_indicies = (1 << relevant_bits_count); // Init occupancy indices
+
+        // Loop over occupancy indicies
+        for (int index = 0; index < occupancy_indicies; index++) {
+            U64 blockers = SetBlockers(index, relevant_bits_count, rook_mask); // Get the map for blockers (occupancies & mask)
+			// Init magic index     (blockers * magic)                        >> (64 - index_bits)
+            uint64_t magic_index = (blockers * rook_magic_numbers[square]) >>
+                (64 - rook_relevant_bits[square]);
+            rook_attacks[square][magic_index] = MaskRookAttacks(square, blockers); // Init rook attacks (finally....)
+        }
+    }
+
+}
+
+// Uses
+void InitLookupTables() {
+    // initialize squares between table
+    Bitboard sqs;
+    for (int sq1 = 0; sq1 <= 63; ++sq1) {
+        for (int sq2 = 0; sq2 <= 63; ++sq2) {
+            sqs = (1ULL << sq1) | (1ULL << sq2);
+            if (get_file[sq1] == get_file[sq2] || (get_rank[sq1] == get_rank[sq2]))
+                SQUARES_BETWEEN_BB[sq1][sq2] =
+                GetRookAttacks(sq1, sqs) & GetRookAttacks(sq2, sqs);
+            else if ((get_diagonal[sq1] == get_diagonal[sq2]) ||
+                (get_antidiagonal(sq1) == get_antidiagonal(sq2)))
+                SQUARES_BETWEEN_BB[sq1][sq2] =
+                GetBishopAttacks(sq1, sqs) & GetBishopAttacks(sq2, sqs);
+        }
+    }
 }
 
 void AllInit() {
+	InitFilesRanksBrd();
 	InitSq120To64();
 	InitBitMasks();
-	InitHashKeys();
-	InitFilesRanksBrd();
 	InitEvalMasks();
+	InitHashKeys();
+
+	// Attack tables
+	InitLeapersAttacks();
+	InitSlidersAttacks();
+
+	// From other sources
 	InitMvvLva();
 	InitPolyBook();
 }

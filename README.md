@@ -34,9 +34,12 @@ Evaluation:
 
 ## Credits
 - Richard Allbert (Bluefever Software) for VICE code and video playlist. The entire reason this engine even exists.
-- nemequ, mbitsnbites, zhuyie et al. for [TinyCThread](https://github.com/tinycthread/tinycthread/tree/master).
+- PGG106 et al. for [Alexandria](https://github.com/PGG106/Alexandria/tree/master). Inspiration for attackgen.
 - Chess Programming [Wiki](https://www.chessprogramming.org/Main_Page). Great resource in general to learn concepts.
+- nemequ et al. for [TinyCThread](https://github.com/tinycthread/tinycthread/tree/master).
 - Witek902 for [Caissa](https://github.com/Witek902/Caissa) chess engine. I borrowed tapered eval from there.
+
+- Analog Hors for a comprehensive [guide](https://analog-hors.github.io/site/magic-bitboards/) on magic bitboards. Clicks better than other resources I found.
 
 ## Changelogs: <br>
 ### 0.x: <br>
@@ -52,8 +55,11 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
+- Mate distance pruning
 - Add SEE
 - Add aspiration windows
+- LMR
+- Razoring
 - Pawn / bishop interaction
 - Optimise movegen (magic bitboard)
 - Search thread / LazySMP

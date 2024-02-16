@@ -18,11 +18,13 @@
 // Temporary hack. Scales down the eval in case it's too high (assuming the code works fine)
 // #define squishFactor 0.35
 
+/*****************
+* Data Constants *
+*****************/
+
 /* Pawns */
 const int8_t PawnIsolated = -10;
-// Basic passed pawn bonus. Values from Stockfish and then averaged
-// Failed. Loses elo anyway. Reverted
-// original: 0, 5, 10, 20, 35, 60, 100, 200
+// Tried using Stockfish's tapered values for pased pawns, lost elo
 const uint8_t PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
 
 // Pieces
@@ -33,6 +35,20 @@ const uint8_t RookOpenFile = 10;
 const uint8_t RookSemiOpenFile = 5;
 const uint8_t QueenOpenFile = 5;
 const uint8_t QueenSemiOpenFile = 3;
+
+// Attack units (table scaled from Stockfish)
+static const int SafetyTable[100] = {
+    0,  0,   1,   2,   3,   5,   7,   9,  12,  15,
+  18,  22,  26,  30,  35,  39,  44,  50,  56,  62,
+  68,  75,  82,  85,  89,  97, 105, 113, 122, 131,
+ 140, 150, 169, 180, 191, 202, 213, 225, 237, 248,
+ 260, 272, 283, 295, 307, 319, 330, 342, 354, 366,
+ 377, 389, 401, 412, 424, 436, 448, 459, 471, 483,
+ 494, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+ 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+ 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+ 500, 500, 500, 500, 500, 500, 500, 500, 500, 500
+};
 
 /********************************
 * PesTO / Rofchade Piece Tables *
@@ -182,9 +198,6 @@ const int KingEgTable[64] = {
 ***** Evaluation components *****
 ********************************/
 
-// Applying gamePhase at startpos
-#define openingPhase 64
-
 // Returns 1 if it's a light square
 uint8_t isLightSq(uint8_t sq) {
 	return !( (sq % 2) ^ ( ( sq / 10 ) % 2) );
@@ -212,6 +225,7 @@ uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col) {
 double evalWeight(const S_BOARD *pos) {
 	// PesTO has its own tapered eval but it's 17 +/-22 elo worse than Caissa's
 	// Scaling by material is strictly worse, and is about 225-275 elo weaker.
+	#define openingPhase 64
 
 	ASSERT(CheckBoard(pos));
 
@@ -255,7 +269,7 @@ uint8_t MaterialDraw(const S_BOARD *pos) {
 }
 
 // King safety component
-double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
+inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
 	// mat = enemy material excluding king
 	const int8_t PawnShield[4] = { 0, -10, -20, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
 	const int16_t KingOpenFile[3] = { -100, -120, -100 };
@@ -348,31 +362,46 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t
 			}
 		}
 	}
+
+	/***********************
+	***** Attack Units *****
+	***********************/
+
+	/*
+	int attackUnitsSum = 0;
 	
-
-	return (openLines * 0.85 + shield * 0.15) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
-
-}
-
-// Material eval
-inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat) {
-	
-	*whiteMat = 0;
-	*blackMat = 0;
-	for(int index = 0; index < BRD_SQ_NUM; ++index) {
-		int piece = pos->pieces[index];
-		ASSERT(PceValidEmptyOffbrd(piece));
-		if(piece != OFFBOARD && piece != EMPTY) {
-			int colour = PieceCol[piece];
-			ASSERT(SideValid(colour));
-			if (colour == WHITE)
-				*whiteMat += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
-			else 
-				*blackMat += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+	if (col == WHITE) {
+		for (int rank = kingRank; rank <= kingRank + 2; ++rank) {
+    		for (int file = kingFile - 2; file <= kingFile + 2; ++file) {
+				// Range check to prevent crashes
+				if (rank >= RANK_1 && rank <= RANK_8 && file >= FILE_A && file <= FILE_H) {
+					uint8_t zoneSq = FR2SQ(file, rank);
+					// Check if it's offboard
+					if (SQ64(zoneSq) != 65) {
+						attackUnitsSum += AtkUnitsOnSq(pos, zoneSq, col);
+					}
+				}
+     		}
+		}
+	} else {
+		for (int rank = kingRank; rank >= kingRank - 2; --rank) {
+    		for (int file = kingFile - 2; file <= kingFile + 2; ++file) {
+				// Range check to prevent crashes
+				if (rank >= RANK_1 && rank <= RANK_8 && file >= FILE_A && file <= FILE_H) {
+					uint8_t zoneSq = FR2SQ(file, rank);
+					// Check if it's offboard
+					if (SQ64(zoneSq) != 65) {
+						attackUnitsSum += AtkUnitsOnSq(pos, zoneSq, col);
+					}
+				}
+     		}
 		}
 	}
+	
+	uint16_t attackSafety = SafetyTable[MIN(attackUnitsSum, 99)];
+	*/
 
-	return *whiteMat - *blackMat;
+	return (openLines * 0.85 + shield * 0.15 + /* attackSafety * 0.5 */ ) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
 
 }
 
@@ -397,7 +426,21 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	// Material eval
 	double whiteMaterial = 0;
 	double blackMaterial = 0;
-	score += CountMaterial(pos, &whiteMaterial, &blackMaterial);
+
+	for(int index = 0; index < BRD_SQ_NUM; ++index) {
+		int piece = pos->pieces[index];
+		ASSERT(PceValidEmptyOffbrd(piece));
+		if(piece != OFFBOARD && piece != EMPTY) {
+			int colour = PieceCol[piece];
+			ASSERT(SideValid(colour));
+			if (colour == WHITE) {
+				whiteMaterial += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+			} else {
+				blackMaterial += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+			} 
+		}
+	}
+	score += whiteMaterial - blackMaterial;
 
 	// Material draw
 	if(!pos->pceNum[wP] && !pos->pceNum[bP] && MaterialDraw(pos) == TRUE) {
@@ -620,7 +663,6 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	score -= KingMgTable[MIRROR64(SQ64(sq))] * weight + KingEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
 	score -= kingSafetyScore(pos, sq, BLACK, whiteMaterial - 50000);
 
-
 	/****************
 	* Other bonuses *
 	****************/
@@ -639,22 +681,5 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	} else {
 		return -score;
 	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

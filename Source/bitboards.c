@@ -3,9 +3,6 @@
 #include <stdio.h>
 #include "defs.h"
 
-// to set a pawn:
-// bitboard |= (1ULL << SQ64(d2))
-
 const int BitTable[64] = {
   63, 30, 3, 32, 25, 41, 22, 33, 15, 50, 42, 13, 11, 53, 19, 34, 61, 29, 2,
   51, 21, 43, 45, 10, 18, 47, 1, 54, 9, 57, 0, 35, 62, 31, 40, 4, 49, 5, 52,
@@ -13,7 +10,7 @@ const int BitTable[64] = {
   58, 20, 37, 17, 36, 8
 };
 
-// Pops the last set bit and returns the index
+// Pops the last set bit (least significant bit) and returns the index
 int PopBit(U64 *bb) {
   U64 b = *bb ^ (*bb - 1);
   unsigned int fold = (unsigned) ((b & 0xffffffff) ^ (b >> 32));

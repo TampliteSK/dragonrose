@@ -114,6 +114,7 @@ int CheckBoard(const S_BOARD *pos) {
 void UpdateListsMaterial(S_BOARD *pos) {
 
 	int piece, sq, colour;
+	U64 occupancies = 0ULL;
 
 	for(int index = 0; index < BRD_SQ_NUM; ++index) {
 		sq = index;
@@ -131,6 +132,7 @@ void UpdateListsMaterial(S_BOARD *pos) {
 			
 			// Positions of the piece [pieceType] [no. of the piece] = the square
 			pos->pList[piece][pos->pceNum[piece]] = sq;
+			SETBIT(pos->occupancies, SQ64(sq));
 			pos->pceNum[piece]++; // tracks no of piece / pointer of pList
 
 			// Setting king square
@@ -214,6 +216,7 @@ int ParseFen(char *fen, S_BOARD *pos) {
 			sq120 = SQ120(sq64);
             if (piece != EMPTY) { // Skips a file if empty square
                 pos->pieces[sq120] = piece;
+				SETBIT(pos->occupancies, sq64);
             }
 			file++;
         }
@@ -284,6 +287,7 @@ void ResetBoard(S_BOARD *pos) {
 		// pos->material[index] = 0;
 	}
 	pos->pawns[2] = 0ULL;
+	pos->occupancies = 0ULL;
 
 	// Piece counts
 	for(int index = 0; index < 13; ++index) {

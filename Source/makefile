@@ -1,5 +1,5 @@
 SRCS = $(wildcard *.c)
-NAME = Dragonrose_025_20240203
+NAME = Dragonrose_025_20240206
 OPT_FLAGS = -O3 -march=native -mavx2
 
 all:
