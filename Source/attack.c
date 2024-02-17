@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "defs.h"
-#include "attacks.h"
+#include "attack.h"
 
 /*************************
 * Attack Masks (Leapers) *
@@ -14,7 +14,8 @@
 U64 MaskPawnAttacks(int side, int square) {
     U64 output = 0ULL;
     U64 pawnBoard = 0ULL;
-    SETBIT(&pawnBoard, SQ64(square));
+
+	pawnBoard |= (1ULL << SQ64(square));
 
     if (!side) {
 		// White pawns
@@ -27,7 +28,7 @@ U64 MaskPawnAttacks(int side, int square) {
 		// Black pawns
         if ((pawnBoard << 7) & NOT_H_FILE)
             output |= (pawnBoard << 7);
-        if ((knightBoard << 9) & NOT_A_FILE)
+        if ((pawnBoard << 9) & NOT_A_FILE)
             output |= (pawnBoard << 9);
     }
 
@@ -41,7 +42,7 @@ U64 MaskKingAttacks(int sq120) {
   	for (int index = 0; index < 8; ++index) {
     	int sq = sq120 + KiDir[index];
     	if (SQ64(sq) != 65) {
-      		SETBIT(&output, SQ64(sq));
+			output |= (1ULL << SQ64(sq120));
     	}
   	}
 
@@ -55,7 +56,7 @@ U64 MaskKnightAttacks(int sq120) {
   	for (int index = 0; index < 8; ++index) {
     	int sq = sq120 + KnDir[index];
     	if (SQ64(sq) != 65) {
-      		SETBIT(&output, SQ64(sq));
+      		output |= (1ULL << SQ64(sq120));
     	}
   	}
 
@@ -147,13 +148,12 @@ U64 MaskBishopAttacks(int square, U64 blockers) {
 
 // Generate rook attacks on the fly
 // Will be used to generate lookup tables for search
-U64 MaskRookAttacks(int square, Bitboard blockers) {
+U64 MaskRookAttacks(int square, U64 blockers) {
     U64 output = 0ULL;
 
     // Target rank & files
     int tr = square / 8;
     int tf = square % 8;
-
 
     for (int r = tr + 1; r <= 7; r++) {
         output |= (1ULL << (r * 8 + tf));
@@ -208,7 +208,7 @@ U64 GetBishopAttacks(const int square, U64 occupancy) {
 }
 
 // Get rook attacks from table
-U64 GetRookAttacks(const int square, Bitboard occupancy) {
+U64 GetRookAttacks(const int square, U64 occupancy) {
 
 	// Apply the same calculation as before
 	uint64_t magicIndex = (occupancy & rook_masks[square]) * rook_magic_numbers[square] >>
@@ -218,7 +218,7 @@ U64 GetRookAttacks(const int square, Bitboard occupancy) {
 }
 
 // Get queen attacks from table-ish
-U64 GetQueenAttacks(const int square, Bitboard occupancy) {
+U64 GetQueenAttacks(const int square, U64 occupancy) {
     return GetBishopAttacks(square, occupancy) | GetRookAttacks(square, occupancy);
 }
 

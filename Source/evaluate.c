@@ -401,7 +401,7 @@ inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, u
 	uint16_t attackSafety = SafetyTable[MIN(attackUnitsSum, 99)];
 	*/
 
-	return (openLines * 0.85 + shield * 0.15 + /* attackSafety * 0.5 */ ) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
+	return (openLines * 0.85 + shield * 0.15 /*+ attackSafety * 0.5 */ ) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
 
 }
 

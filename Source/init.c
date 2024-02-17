@@ -1,8 +1,9 @@
 // init.c
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "defs.h"
-#include "stdio.h"
-#include "stdlib.h"
+#include "attack.h"
 
 // Randomisation is separated as rand() is only 4 bytes
 #define RAND_64 	((U64)rand() | \
@@ -195,7 +196,7 @@ void InitHashKeys() {
 // Initialises leaper attacks
 void InitLeapersAttacks() {
 
-    for (int square = 0; square < BRD_SQ_NUM; square++) {
+    for (int square = 0; square < 64; square++) {
         // Pawn attacks
         pawn_attacks[WHITE][square] = MaskPawnAttacks(WHITE, square);
         pawn_attacks[BLACK][square] = MaskPawnAttacks(BLACK, square);
@@ -213,7 +214,7 @@ void InitLeapersAttacks() {
 void InitSlidersAttacks() {
 
     // Bishop attacks
-    for (int square = 0; square < BRD_SQ_NUM; square++) {
+    for (int square = 0; square < 64; square++) {
         bishop_masks[square] = MaskBishopOccupancies(square);
         U64 bishop_occupancy_mask = bishop_masks[square];
         int relevant_bits_count = CountBits(bishop_occupancy_mask); // Init relevant occupancy bit count
@@ -221,24 +222,24 @@ void InitSlidersAttacks() {
 
         // Loop over occupancy indicies
         for (int index = 0; index < occupancy_indicies; index++) {
-                U64 blockers = SetBlockers(index, relevant_bits_count, bishop_mask); // Get the map for blockers (occupancies & mask)
+                U64 blockers = SetBlockers(index, relevant_bits_count, bishop_occupancy_mask); // Get the map for blockers (occupancies & mask)
                 // Init magic index     (blockers * magic)                        >> (64 - index_bits)
                 uint64_t magic_index = (blockers * bishop_magic_numbers[square]) >>
                     (64 - bishop_relevant_bits[square]);
-                bishop_attacks[square][magic_index] = BishopAttacks(square, blockers); // Init bishop attacks (finally....)
+                bishop_attacks[square][magic_index] = MaskBishopAttacks(square, blockers); // Init bishop attacks (finally....)
         }
     }
 
     // Rook attacks
-    for (int square = 0; square < Board_sq_num; square++) {
+    for (int square = 0; square < 64; square++) {
         rook_masks[square] = MaskRookOccupancies(square);
-        U64 rook_mask = rook_masks[square];
-        int relevant_bits_count = CountBits(rook_mask); // Init relevant occupancy bit count
+        U64 rook_occupancy_mask = rook_masks[square];
+        int relevant_bits_count = CountBits(rook_occupancy_mask); // Init relevant occupancy bit count
         int occupancy_indicies = (1 << relevant_bits_count); // Init occupancy indices
 
         // Loop over occupancy indicies
         for (int index = 0; index < occupancy_indicies; index++) {
-            U64 blockers = SetBlockers(index, relevant_bits_count, rook_mask); // Get the map for blockers (occupancies & mask)
+            U64 blockers = SetBlockers(index, relevant_bits_count, rook_occupancy_mask); // Get the map for blockers (occupancies & mask)
 			// Init magic index     (blockers * magic)                        >> (64 - index_bits)
             uint64_t magic_index = (blockers * rook_magic_numbers[square]) >>
                 (64 - rook_relevant_bits[square]);
@@ -246,24 +247,6 @@ void InitSlidersAttacks() {
         }
     }
 
-}
-
-// Uses
-void InitLookupTables() {
-    // initialize squares between table
-    Bitboard sqs;
-    for (int sq1 = 0; sq1 <= 63; ++sq1) {
-        for (int sq2 = 0; sq2 <= 63; ++sq2) {
-            sqs = (1ULL << sq1) | (1ULL << sq2);
-            if (get_file[sq1] == get_file[sq2] || (get_rank[sq1] == get_rank[sq2]))
-                SQUARES_BETWEEN_BB[sq1][sq2] =
-                GetRookAttacks(sq1, sqs) & GetRookAttacks(sq2, sqs);
-            else if ((get_diagonal[sq1] == get_diagonal[sq2]) ||
-                (get_antidiagonal(sq1) == get_antidiagonal(sq2)))
-                SQUARES_BETWEEN_BB[sq1][sq2] =
-                GetBishopAttacks(sq1, sqs) & GetBishopAttacks(sq2, sqs);
-        }
-    }
 }
 
 void AllInit() {

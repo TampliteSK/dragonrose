@@ -319,11 +319,16 @@ extern void MirrorBoard(S_BOARD *pos);
 extern U64 MaskPawnAttacks(int side, int square);
 extern U64 MaskKingAttacks(int sq120);
 extern U64 MaskKnightAttacks(int sq120);
+
 extern U64 MaskBishopOccupancies(int sq120);
 extern U64 MaskRookOccupancies(int square);
 extern U64 MaskBishopAttacks(int square, U64 blockers);
 extern U64 MaskRookAttacks(int square, U64 blockers);
 extern U64 SetBlockers(int index, int mask_bit_count, U64 occupancy_mask);
+
+extern U64 GetBishopAttacks(const int square, U64 occupancy);
+extern U64 GetRookAttacks(const int square, U64 occupancy);
+extern U64 GetQueenAttacks(const int square, U64 occupancy);
 
 extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
 extern uint16_t AtkUnitsOnSq(const S_BOARD *pos, uint8_t sq, const uint8_t side);
@@ -393,43 +398,3 @@ extern void CleanPolyBook();
 extern void InitPolyBook() ;
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
