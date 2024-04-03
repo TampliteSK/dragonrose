@@ -15,6 +15,7 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 Search:
 - Negamax Alpha-beta search
   - PV-search
+  - Mate-distance pruning
   - Null-move pruning
   - Futility pruning
 - Quiesence search
@@ -55,13 +56,14 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Mate distance pruning
-- Add SEE
+- Magic bitboards
+- Attack king zone
 - Add aspiration windows
 - LMR
 - Razoring
 - Pawn / bishop interaction
-- Optimise movegen (magic bitboard)
+- Syzygy tablebase support
+- SEE
 - Search thread / LazySMP
 
 ## Bugs to fix:

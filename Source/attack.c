@@ -222,6 +222,20 @@ U64 GetQueenAttacks(const int square, U64 occupancy) {
     return GetBishopAttacks(square, occupancy) | GetRookAttacks(square, occupancy);
 }
 
+// Test function
+U64 GetOccupancy(const S_BOARD *pos) {
+	U64 occupancy = 0ULL;
+	for (int pce = wP; pce <= bK; ++pce) {
+		for (int num = 0; num < 10; ++num) {
+			if (num < pos->pceNum[pce]) {
+				int sq = SQ64(pos->pList[pce][num]);
+				occupancy |= (1ULL << sq);
+			}
+		}
+	}
+	return occupancy;
+}
+
 /****************
 * Attack checks *
 *****************/
@@ -230,7 +244,9 @@ U64 GetQueenAttacks(const int square, U64 occupancy) {
 // Returns 1 if a given square is attacked
 uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 
-	int pce,t_sq,dir;
+	int pce, count, t_sq, dir;
+	U64 mask = 1ULL << SQ64(sq);
+	U64 occupancy = GetOccupancy(pos);
 	
 	ASSERT(SqOnBoard(sq));
 	ASSERT(SideValid(side));
@@ -256,6 +272,37 @@ uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 		}
 	}
 	
+	// Bishops
+	pce = (side == WHITE) ? wB : bB;
+	count = pos->pceNum[pce];
+    for (int num = 0; num < count; ++num) {
+        int pceSq = SQ64(pos->pList[pce][num]);
+        if (GetBishopAttacks(pceSq, occupancy) & mask) {
+            return TRUE;
+        }
+    }
+
+	// Rooks
+	pce = (side == WHITE) ? wR : bR;
+	count = pos->pceNum[pce];
+    for (int num = 0; num < count; ++num) {
+        int pceSq = SQ64(pos->pList[pce][num]);
+        if (GetRookAttacks(pceSq, occupancy) & mask) {
+            return TRUE;
+        }
+    }
+
+	// Queens
+	pce = (side == WHITE) ? wQ : bQ;
+	count = pos->pceNum[pce];
+    for (int num = 0; num < count; ++num) {
+        int pceSq = SQ64(pos->pList[pce][num]);
+        if (GetQueenAttacks(pceSq, occupancy) & mask) {
+            return TRUE;
+        }
+    }
+
+	/*
 	// rooks, queens
 	for(int index = 0; index < 4; ++index) {		
 		dir = RkDir[index];
@@ -295,6 +342,7 @@ uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 			pce = pos->pieces[t_sq];
 		}
 	}
+	*/
 	
 	// kings
 	for(int index = 0; index < 8; ++index) {		

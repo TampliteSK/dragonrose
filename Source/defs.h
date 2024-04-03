@@ -33,6 +33,7 @@ typedef unsigned long long U64;
 
 #define NAME "Dragonrose 0.25"
 #define BRD_SQ_NUM 120
+#define DEFAULT_HASH 128
 #define MAX_HASH 1024
 #define MAXGAMEMOVES 2048 // max number of moves in a game
 #define MAXDEPTH 64
