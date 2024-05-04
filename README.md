@@ -58,11 +58,12 @@ Evaluation:
 ## To-do list:
 - Magic bitboards
 - Attack king zone
+- Contempt
 - Add aspiration windows
 - LMR
 - Razoring
 - Pawn / bishop interaction
-- Syzygy tablebase support
+- Syzygy tablebase support with Fathom
 - SEE
 - Search thread / LazySMP
 
