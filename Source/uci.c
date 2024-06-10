@@ -55,6 +55,10 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 	info->starttime = GetTimeMs();
 	info->depth = depth;
 	
+	/**********************
+	*** Time Management ***
+	**********************/
+	
 	if(time != -1) {
 
 		info->timeset = TRUE;
