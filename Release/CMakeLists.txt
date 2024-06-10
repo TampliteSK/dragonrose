@@ -20,35 +20,35 @@ target_link_libraries(Dragonrose
 ) ]]
 
 set(DRAGONROSE_SOURCES
-    "Source/attack.c"
-    "Source/bitboards.c"
-    "Source/board.c"
-    "Source/data.c"
-    "Source/evaluate.c"
-    "Source/hashkeys.c"
-    "Source/init.c"
-    "Source/io.c"
-    "Source/main.c"
-    "Source/makemove.c"
-    "Source/misc.c"
-    "Source/movegen.c"
-    "Source/perft.c"
-    "Source/polybook.c"
-    "Source/polykeys.c"
-    "Source/pvtable.c"
-    "Source/search.c"
-    "Source/uci.c"
-    "Source/validate.c"
+    "../Source/attack.c"
+    "../Source/bitboards.c"
+    "../Source/board.c"
+    "../Source/data.c"
+    "../Source/evaluate.c"
+    "../Source/hashkeys.c"
+    "../Source/init.c"
+    "../Source/io.c"
+    "../Source/main.c"
+    "../Source/makemove.c"
+    "../Source/misc.c"
+    "../Source/movegen.c"
+    "../Source/perft.c"
+    "../Source/polybook.c"
+    "../Source/polykeys.c"
+    "../Source/pvtable.c"
+    "../Source/search.c"
+    "../Source/uci.c"
+    "../Source/validate.c"
+    "../Source/xboard.c"
 )
 
 set(DRAGONROSE_HEADERS
-    "Source/defs.h"
-    "Source/attack.h"
-    "Source/polykeys.h"
+    "../Source/defs.h"
+    "../Source/polykeys.h"
 )
 
 set(DRAGONROSE_BOOK
-    "Source/VICEbook.bin"
+    "../Source/performance.bin"
 )
 
 target_sources(Dragonrose

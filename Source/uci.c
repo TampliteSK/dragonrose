@@ -60,6 +60,9 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 		info->timeset = TRUE;
 		int phaseMoves = 0;
 
+		// Rose was having issues managing time when there was >=5s increment
+		time += inc / 2; // include increment in the allocation
+
 		// Time trouble check
 		if (time < 30000 /* 30s */) {
 			time /= 80;
@@ -88,7 +91,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 
 		// time /= movestogo;
 		time -= 50; // overhead
-		info->stoptime = info->starttime + time + inc / 2; // increment is divided by 2 to prevent spending too much time
+		info->stoptime = info->starttime + time;
 	}
 
 	if(depth == -1) {
@@ -145,11 +148,11 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 	char line[INPUTBUFFER];
     printf("id name %s\n",NAME);
     printf("id author Tamplite Siphron Kents\n");
-	printf("option name Hash type spin default %d min 4 max %d\n", DEFAULT_HASH, MAX_HASH);
+	printf("option name Hash type spin default 64 min 4 max %d\n",MAX_HASH);
 	printf("option name Book type check default true\n");
     printf("uciok\n");
 	
-	int MB = DEFAULT_HASH;
+	int MB = 128; // default hash 128 MB
 
 	while (TRUE) {
 		memset(&line[0], 0, sizeof(line));

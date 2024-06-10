@@ -249,9 +249,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		PickNextMove(MoveNum, list);
 		
 		// Futility pruning
-		// Theoretically the margin should be approx. minor piece value
-		// Too low: prunes too much
-		#define FUTILITY_MARGIN 400
+		#define FUTILITY_MARGIN 365 
 		// We check if it is a frontier node (1 ply from horizon) and the eval is not close to mate
 		if (depth == 1 && abs(Score) < ISMATE) {
 			int currentEval = EvalPosition(pos);

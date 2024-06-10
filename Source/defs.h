@@ -1,4 +1,3 @@
-// defs.h
 #ifndef DEFS_H
 #define DEFS_H
 
@@ -33,14 +32,16 @@ typedef unsigned long long U64;
 
 #define NAME "Dragonrose 0.25"
 #define BRD_SQ_NUM 120
-#define DEFAULT_HASH 128
+// Maximum hash size
 #define MAX_HASH 1024
-#define MAXGAMEMOVES 2048 // max number of moves in a game
+// Maximum number of moves in a game
+#define MAXGAMEMOVES 2048
 #define MAXDEPTH 64
 
+// Maximum expected legal moves
 // Position that breaks 256 limit: (credit to Caissa and Quanticade)
 // QQQQQQBk/Q6B/Q6Q/Q6Q/Q6Q/Q6Q/Q6Q/KQQQQQQQ w - - 0 1 (265 moves)
-#define MAXPOSITIONMOVES 280 // maximum expected legal moves in a given position
+#define MAXPOSITIONMOVES 280
 
 #define START_FEN  "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
@@ -120,7 +121,6 @@ typedef struct {
 
 	int pieces[BRD_SQ_NUM];
 	U64 pawns[3];
-	U64 occupancies; // holds the position of every piece on the board
 
 	// piece list
 	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
@@ -216,9 +216,6 @@ Mask to get captured:
 ****** Macros ******
 *******************/
 
-#define MIN(a, b) ( ( a < b ) ? a : b )
-#define MAX(a, b) ( ( a > b ) ? a : b )
-
 #define FR2SQ(f,r) ( (21 + (f) ) + ( (r) * 10 ) )
 #define SQ64(sq120) (Sq120ToSq64[(sq120)])
 #define SQ120(sq64) (Sq64ToSq120[(sq64)])
@@ -286,15 +283,6 @@ extern U64 IsolatedMask[64];
 extern S_OPTIONS EngineOptions[1];
 extern S_HASHTABLE HashTable[1]; // brought out from board struct to make it global (to make Lazy SMP work)
 
-// attack.c, init.c
-extern U64 pawn_attacks[2][64]; // [side][square]
-extern U64 knight_attacks[64]; // [square]
-extern U64 king_attacks[64]; // [square]
-extern U64 bishop_masks[64]; // [square]
-extern U64 rook_masks[64]; // [square]
-extern U64 bishop_attacks[64][512]; // [square][occupancies]
-extern U64 rook_attacks[64][4096]; // [square][occupancies]
-
 /* FUNCTIONS */
 
 // init.c
@@ -317,27 +305,7 @@ extern int CheckBoard(const S_BOARD *pos);
 extern void MirrorBoard(S_BOARD *pos);
 
 // attack.c
-extern U64 MaskPawnAttacks(int side, int square);
-extern U64 MaskKingAttacks(int sq120);
-extern U64 MaskKnightAttacks(int sq120);
-
-extern U64 MaskBishopAttacks(int square);
-// extern U64 MaskBishopOccupancies(int sq120);
-extern U64 MaskRookAttacks(int square);
-// extern U64 MaskRookOccupancies(int square);
-extern U64 BishopAttacksOnTheFly(int square, U64 block);
-// extern U64 MaskBishopAttacks(int square, U64 blockers);
-extern U64 RookAttacksOnTheFly(int square, U64 block);
-// extern U64 MaskRookAttacks(int square, U64 blockers);
-extern U64 SetOccupancy(int index, int bits_in_mask, U64 attack_mask);
-// extern U64 SetBlockers(int index, int mask_bit_count, U64 occupancy_mask);
-
-extern U64 GetBishopAttacks(const int square, U64 occupancy);
-extern U64 GetRookAttacks(const int square, U64 occupancy);
-// extern U64 GetQueenAttacks(const int square, U64 occupancy);
-
 extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
-extern uint16_t AtkUnitsOnSq(const S_BOARD *pos, uint8_t sq, const uint8_t side);
 
 // io.c
 extern char *PrMove(const int move);
@@ -392,6 +360,7 @@ extern uint8_t isLightSq(uint8_t sq);
 extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
 extern double evalWeight(const S_BOARD *pos);
 extern double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat);
+extern double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat);
 extern int16_t EvalPosition(const S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos);
 
@@ -404,3 +373,43 @@ extern void CleanPolyBook();
 extern void InitPolyBook() ;
 
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
