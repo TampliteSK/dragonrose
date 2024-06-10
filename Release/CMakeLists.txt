@@ -39,7 +39,6 @@ set(DRAGONROSE_SOURCES
     "../Source/search.c"
     "../Source/uci.c"
     "../Source/validate.c"
-    "../Source/xboard.c"
 )
 
 set(DRAGONROSE_HEADERS
@@ -48,7 +47,7 @@ set(DRAGONROSE_HEADERS
 )
 
 set(DRAGONROSE_BOOK
-    "../Source/performance.bin"
+    "../Source/VICEbook.bin"
 )
 
 target_sources(Dragonrose

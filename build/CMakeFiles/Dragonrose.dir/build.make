@@ -69,336 +69,320 @@ include CMakeFiles/Dragonrose.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Dragonrose.dir/flags.make
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.s
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj: CMakeFiles/Dragonrose.dir/flags.make
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.i
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.i"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.i
 
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.s
-
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.obj: CMakeFiles/Dragonrose.dir/flags.make
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.obj: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.obj: CMakeFiles/Dragonrose.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.obj"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.obj -MF CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.obj.d -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c
-
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.i"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c > CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.i
-
-CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.s"
-	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.s
+CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.s"
+	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.s
 
 # Object files for target Dragonrose
 Dragonrose_OBJECTS = \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.obj" \
-"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.obj"
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj" \
+"CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj"
 
 # External object files for target Dragonrose
 Dragonrose_EXTERNAL_OBJECTS =
 
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/attack.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/bitboards.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/board.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/data.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/evaluate.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/hashkeys.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/init.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/io.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/main.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/makemove.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/misc.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/movegen.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/perft.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polybook.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/polykeys.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/pvtable.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/search.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/uci.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/validate.c.obj
-Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/Engine/xboard.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj
+Dragonrose.exe: CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj
 Dragonrose.exe: CMakeFiles/Dragonrose.dir/build.make
 Dragonrose.exe: CMakeFiles/Dragonrose.dir/linkLibs.rsp
 Dragonrose.exe: CMakeFiles/Dragonrose.dir/objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking C executable Dragonrose.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Linking C executable Dragonrose.exe"
 	"C:/Program Files/CMake/bin/cmake.exe" -E rm -f CMakeFiles/Dragonrose.dir/objects.a
 	C:/w64devkit-1.21.0/w64devkit/bin/ar.exe qc CMakeFiles/Dragonrose.dir/objects.a @CMakeFiles/Dragonrose.dir/objects1.rsp
 	C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe -g -Wl,--whole-archive CMakeFiles/Dragonrose.dir/objects.a -Wl,--no-whole-archive -o Dragonrose.exe -Wl,--out-implib,libDragonrose.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/Dragonrose.dir/linkLibs.rsp
