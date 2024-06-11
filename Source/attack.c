@@ -90,3 +90,93 @@ uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 	return FALSE;
 	
 }
+
+// Outputs a weight of the attack based on what enemy pieces are attacking that square
+uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos) {
+
+	int pce,t_sq,dir;
+	
+	ASSERT(SqOnBoard(sq));
+	ASSERT(SideValid(side));
+	ASSERT(CheckBoard(pos));
+	
+	// pawns
+	if(side == WHITE) {
+		if(pos->pieces[sq-11] == wP || pos->pieces[sq-9] == wP) {
+			return 0;
+		}
+	} else {
+		if(pos->pieces[sq+11] == bP || pos->pieces[sq+9] == bP) {
+			return 0;
+		}	
+	}
+	
+	// knights
+	for(int index = 0; index < 8; ++index) {		
+		pce = pos->pieces[sq + KnDir[index]];
+		ASSERT(PceValidEmptyOffbrd(pce));
+		if(pce != OFFBOARD && IsKn(pce) && PieceCol[pce]==side) {
+			return 20;
+		}
+	}
+	
+	// rooks, queens
+	for(int index = 0; index < 4; ++index) {		
+		dir = RkDir[index];
+		t_sq = sq + dir;
+		ASSERT(SqIs120(t_sq));
+		pce = pos->pieces[t_sq];
+		ASSERT(PceValidEmptyOffbrd(pce));
+		while(pce != OFFBOARD) {
+			if(pce != EMPTY) {
+				if(IsRQ(pce) && PieceCol[pce] == side) {
+					if ((pce == wR) || (pce == bR)) {
+						return 80;
+					} else {
+						return 40;
+					}
+				}
+				break;
+			}
+			t_sq += dir;
+			ASSERT(SqIs120(t_sq));
+			pce = pos->pieces[t_sq];
+		}
+	}
+	
+	// bishops, queens
+	for(int index = 0; index < 4; ++index) {		
+		dir = BiDir[index];
+		t_sq = sq + dir;
+		ASSERT(SqIs120(t_sq));
+		pce = pos->pieces[t_sq];
+		ASSERT(PceValidEmptyOffbrd(pce));
+		while(pce != OFFBOARD) {
+			if(pce != EMPTY) {
+				if(IsBQ(pce) && PieceCol[pce] == side) {
+					if ((pce == wB) || (pce == bB)) {
+						return 20;
+					} else {
+						return 80;
+					}
+				}
+				break;
+			}
+			t_sq += dir;
+			ASSERT(SqIs120(t_sq));
+			pce = pos->pieces[t_sq];
+		}
+	}
+	
+	// kings
+	for(int index = 0; index < 8; ++index) {		
+		pce = pos->pieces[sq + KiDir[index]];
+		ASSERT(PceValidEmptyOffbrd(pce));
+		if(pce != OFFBOARD && IsKi(pce) && PieceCol[pce]==side) {
+			return 0;
+		}
+	}
+	
+	return 0;
+	
+}

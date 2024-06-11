@@ -4,6 +4,7 @@
 #include <math.h>
 #include "defs.h"
 #include <stdint.h>
+#include <stdlib.h>
 
 // Test positions for evaluation
 // Pos1 (startpos) [+0.2, e4/d4/Nf3/c4]
@@ -254,20 +255,14 @@ uint8_t MaterialDraw(const S_BOARD *pos) {
   return FALSE;
 }
 
-// King safety component
-double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
-	// mat = enemy material excluding king
-	const int8_t PawnShield[4] = { 0, -10, -20, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
-	const int16_t KingOpenFile[3] = { -100, -120, -100 };
+/******************
+*** King Safety ***
+******************/
 
+inline int16_t punishOpenFiles(const S_BOARD *pos, uint8_t kingSq) {
 	uint8_t kingFile = FilesBrd[kingSq];
-	uint8_t kingRank = RanksBrd[kingSq];
-
+	const int16_t KingOpenFile[3] = { -100, -120, -100 };
 	int16_t openLines = 0;
-
-	/***********************
-	* Open Files Near King *
-	***********************/
 
 	//    For edge cases
 	if (kingFile == FILE_A || kingFile == FILE_H) {
@@ -292,9 +287,12 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t
 		}
 	}
 
-	/***********************
-	***** Pawn Shield ******
-	***********************/
+	return openLines;
+
+}
+
+inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
+	// An attempt was made to rewrite this in bitboard, but it turned out to be way worse
 
 	/*
 	--------
@@ -307,9 +305,11 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t
 	------K-
 	*/
 
-	// An attempt was made to rewrite this in bitboard, but it turned out to be way worse
-	int16_t shield = 0;
+	uint8_t kingFile = FilesBrd[kingSq];
+	uint8_t kingRank = RanksBrd[kingSq];
+	const int8_t PawnShield[4] = { 0, -10, -20, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
 	U64 castledKing = 0ULL;
+	int16_t shield = 0;
 
 	if (col == WHITE) {
 		castledKing = RankBBMask[RANK_1] & ~( (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)) );
@@ -330,7 +330,8 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t
 				}
 			} 
 		}
-	} else {
+	} 
+	else {
 		castledKing = RankBBMask[RANK_8] & ~( (1ULL << SQ64(D8)) | (1ULL << SQ64(E8)) | (1ULL << SQ64(F8)) );
 		if (castledKing & (1ULL << SQ64(kingSq))) {
 			for (int rank = kingRank - 1; rank >= kingRank - 3; rank--) {
@@ -348,9 +349,59 @@ double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t
 			}
 		}
 	}
-	
 
-	return (openLines * 0.85 + shield * 0.15) * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
+	return shield;
+
+}
+
+inline int dist_between_squares(int sq_1, int sq_2) {
+	uint8_t file_1 = FilesBrd[sq_1];
+	uint8_t rank_1 = RanksBrd[sq_1];
+	uint8_t file_2 = FilesBrd[sq_2];
+	uint8_t rank_2 = RanksBrd[sq_2];
+	return abs(file_1 - file_2) + abs(rank_1 - rank_2);
+}
+
+inline double kingTropism(const S_BOARD *pos, uint8_t col) {
+	// A coarse method to promote better attacks
+	// Seems to do better than Attacking King Zone or Attack Units for some reason
+	// Also less expensive to use (less drop in NPS)
+
+	double tropism = 0;
+	int opp_king_sq = 0;
+
+	// Obtain opponent's king square
+	if (col == WHITE) {
+		opp_king_sq = pos->pList[bK][0];
+	} else {
+		opp_king_sq = pos->pList[wK][0];
+	}
+
+	// Loop through every square and sum up weight distances 
+	for (int sq = 0; sq < BRD_SQ_NUM; ++sq) {
+		uint8_t pce = pos->pieces[sq];
+		if ( PieceCol[pce] == col ) {
+			if (PieceRBN[pce]) {
+				tropism += 5 * ( 15 - dist_between_squares(opp_king_sq, sq) );
+			}
+			if ((pce == wQ) || (pce == bQ)) {
+				tropism += 10 * ( 15 - dist_between_squares(opp_king_sq, sq) );
+			}
+		}
+	}
+	return tropism;
+}
+
+inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
+	// kingSq = your own king
+	// mat = enemy material excluding king
+	// The approach of this function is in terms of deductions to your own king
+
+	double kingSafety = punishOpenFiles(pos, kingSq) * 0.85;
+	kingSafety += pawnShield(pos, kingSq, col) * 0.15;
+	kingSafety += kingTropism(pos, col) * 0.5; // 0.75 -36
+
+	return kingSafety * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
 
 }
 

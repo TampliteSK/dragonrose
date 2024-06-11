@@ -249,7 +249,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		PickNextMove(MoveNum, list);
 		
 		// Futility pruning (default: 365 for normal. 225? for 0.25P)
-		#define FUTILITY_MARGIN 225
+		#define FUTILITY_MARGIN 270
 		// We check if it is a frontier node (1 ply from horizon) and the eval is not close to mate
 		if (depth == 1 && abs(Score) < ISMATE) {
 			int currentEval = EvalPosition(pos);
@@ -323,7 +323,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	return alpha;
 }
 
-/*************
+/*******************************
 *** Iterative Deepening Loop ***
 *******************************/
 
@@ -377,7 +377,7 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			printf("\n");
 
 			// Exit search if mate at current depth is found, in order to save time
-			if (bestScore + INF_BOUND == currentDepth) {
+			if (mateFound && ( (bestScore + INF_BOUND) == currentDepth ) ) {
 				break;
 				// Buggy if no search is performed before pruning immediately
 			}

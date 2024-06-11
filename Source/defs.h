@@ -231,6 +231,9 @@ Mask to get captured:
 
 #define MIRROR64(sq) (Mirror64[(sq)])
 
+#define min(x, y) ((x) > (y) ? (y) : (x))
+#define max(x, y) ((x) > (y) ? (x) : (y))
+
 /*******************
 ***** Globals ******
 *******************/
@@ -268,6 +271,7 @@ extern int PieceKnight[13];
 extern int PieceKing[13];
 extern int PieceRookQueen[13];
 extern int PieceBishopQueen[13];
+extern int PieceRBN[13];
 extern int PieceSlides[13];
 
 extern int Mirror64[64];
@@ -306,6 +310,7 @@ extern void MirrorBoard(S_BOARD *pos);
 
 // attack.c
 extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
+extern uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos);
 
 // io.c
 extern char *PrMove(const int move);
