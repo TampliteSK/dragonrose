@@ -29,6 +29,7 @@ Evaluation:
 - Tapered eval
   - Material
   - Piece-square table bonuses
+- King safety: pawn shield, open files, king tropism
 - Piece bonuses: Rook/queen open-file bonuses
 - Pawn bonuses: Passed pawns, isolated pawns
 
@@ -40,6 +41,7 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
+0.26: Added king tropism. Improved time management.
 0.25: Added futility pruning. | Elo gain: ~20. <br> 
 0.24c: Enabled O3 optimisation. Added mate ouptut. <br>
 0.24b: Fixed delta pruning. Optimised memory (variable sizes). <br>
@@ -59,6 +61,6 @@ Evaluation:
 - Search thread / LazySMP
 
 ## Bugs to fix:
-- Doesn't castle in some positions where O-O is superior
+- Doesn't castle in some positions where O-O is superior (should be relevant to poor king safety eval)
 - The PickMove function needs a BestScore of -(very low) instead of 0
 - ID loop needs to only exit when it has a legal move (i.e done depth 1 at least)
