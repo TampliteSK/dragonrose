@@ -95,7 +95,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 
 		// time /= movestogo;
 		time -= 50; // overhead
-		info->stoptime = info->starttime + time + inc;
+		info->stoptime = info->starttime + time + inc/2; // falsely believes you can spend the inc and gain it back, but flags regardless
 	}
 
 	if(depth == -1) {
