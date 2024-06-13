@@ -2,7 +2,7 @@
 **Dragonrose is a weak chess engine written in C.** This is merely a passion project of mine, and I certainly don't expect much to come out of it, but I hope to learn a bit more about C and programming in general through this experience. On top of this, the engine will be written with readability in mind, so 1) it
 is easier to understand and 2) I am not good enough to optimise the code much :P. <br>
 Although this engine is probably too trash for anyone to bother using as a reference, you are free to borrow and modify my code if you so wish, as long as you give credit to both me and Bluefever Software (see below for details). <br>
-To use the engine, either grab the binary from releases, or build the project locally. <br>
+To use the engine, either grab the binary from releases, or build the project locally. In the future I will consider releasing Linux builds. <br>
 
 ## Dragonrose and VICE
 
@@ -54,6 +54,7 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
+- Tune futility pruning
 - Add SEE
 - Add aspiration windows
 - Pawn / bishop interaction
@@ -61,6 +62,5 @@ Evaluation:
 - Search thread / LazySMP
 
 ## Bugs to fix:
-- Doesn't castle in some positions where O-O is superior (should be relevant to poor king safety eval)
 - The PickMove function needs a BestScore of -(very low) instead of 0
 - ID loop needs to only exit when it has a legal move (i.e done depth 1 at least)
