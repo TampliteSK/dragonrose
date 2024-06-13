@@ -41,7 +41,7 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.26: Added king tropism. Improved time management.
+0.26: Added king tropism. Improved time management. <br>
 0.25: Added futility pruning. | Elo gain: ~20. <br> 
 0.24c: Enabled O3 optimisation. Added mate ouptut. <br>
 0.24b: Fixed delta pruning. Optimised memory (variable sizes). <br>
