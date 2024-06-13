@@ -388,7 +388,7 @@ inline double kingTropism(const S_BOARD *pos, uint8_t col) {
 		uint8_t pce = pos->pieces[sq];
 		if ( PieceCol[pce] == col ) {
 			if (PieceRBN[pce]) {
-				if (pce == wB || bB) {
+				if ( (pce == wB) || (pce == bB) ) {
 					tropism += 10 * ( 7 - dist_between_squares(opp_king_sq, sq, FALSE) ); // bishop case
 				} else {
 					tropism += 5 * ( 15 - dist_between_squares(opp_king_sq, sq, TRUE) ); // rook knight case

@@ -250,6 +250,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		
 		// Futility pruning (default: 365 for normal. 225? for 0.25P)
 		#define FUTILITY_MARGIN 270
+		// [200, 225, 250, 275, 300, 325, 350] = []
 		// We check if it is a frontier node (1 ply from horizon) and the eval is not close to mate
 		if (depth == 1 && abs(Score) < ISMATE) {
 			int currentEval = EvalPosition(pos);
