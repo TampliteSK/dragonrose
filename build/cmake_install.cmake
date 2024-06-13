@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Release
+# Install script for directory: C:/Users/regen/Documents/Files/Programming/C/Dragonrose
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -1,116 +1,116 @@
 [
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/attack.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/attack.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/bitboards.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/bitboards.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/board.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/board.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/data.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/data.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/evaluate.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/evaluate.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/hashkeys.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/hashkeys.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/init.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/init.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/io.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/io.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/main.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/main.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/makemove.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/makemove.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/misc.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/misc.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/movegen.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/movegen.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/perft.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/perft.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/polybook.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/polybook.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/polykeys.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/polykeys.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/pvtable.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/pvtable.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/search.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/search.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/uci.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/uci.c.obj"
 },
 {
   "directory": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c",
+  "command": "C:/w64devkit-1.21.0/w64devkit/bin/gcc.exe   -g -std=gnu2x -Wall -Wextra -Wpedantic -Wno-error=vla -march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4.1 -DUSE_SSSE3 -mssse3 -DUSE_SSE2 -msse2 -DUSE_SSE -msse -DUSE_AVX2 -mavx2 -o CMakeFiles/Dragonrose.dir/Source/validate.c.obj -c C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c",
   "file": "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c",
-  "output": "CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj"
+  "output": "CMakeFiles/Dragonrose.dir/Source/validate.c.obj"
 }
 ]

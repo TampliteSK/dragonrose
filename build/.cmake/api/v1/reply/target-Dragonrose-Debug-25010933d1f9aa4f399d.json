@@ -47,7 +47,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 53,
+				"line" : 46,
 				"parent" : 0
 			}
 		]
@@ -237,130 +237,130 @@
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c",
+			"path" : "Source/attack.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c",
+			"path" : "Source/bitboards.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c",
+			"path" : "Source/board.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c",
+			"path" : "Source/data.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c",
+			"path" : "Source/evaluate.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c",
+			"path" : "Source/hashkeys.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c",
+			"path" : "Source/init.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c",
+			"path" : "Source/io.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c",
+			"path" : "Source/main.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c",
+			"path" : "Source/makemove.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c",
+			"path" : "Source/misc.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c",
+			"path" : "Source/movegen.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c",
+			"path" : "Source/perft.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c",
+			"path" : "Source/polybook.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c",
+			"path" : "Source/polykeys.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c",
+			"path" : "Source/pvtable.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c",
+			"path" : "Source/search.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c",
+			"path" : "Source/uci.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c",
+			"path" : "Source/validate.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/defs.h",
+			"path" : "Source/defs.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.h",
+			"path" : "Source/polykeys.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/VICEbook.bin",
+			"path" : "Source/VICEbook.bin",
 			"sourceGroupIndex" : 2
 		}
 	],

@@ -6,7 +6,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles/3.28.1/CMakeSystem.cmake"
+			"path" : "build/CMakeFiles/3.28.1/CMakeSystem.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -20,7 +20,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles/3.28.1/CMakeCCompiler.cmake"
+			"path" : "build/CMakeFiles/3.28.1/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -84,7 +84,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build/CMakeFiles/3.28.1/CMakeRCCompiler.cmake"
+			"path" : "build/CMakeFiles/3.28.1/CMakeRCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -99,11 +99,6 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
-			"path" : "C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-GNU-C-ABI.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
 			"path" : "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake"
 		}
 	],
@@ -111,7 +106,7 @@
 	"paths" : 
 	{
 		"build" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-		"source" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Release"
+		"source" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose"
 	},
 	"version" : 
 	{

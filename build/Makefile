@@ -57,7 +57,7 @@ RM = "C:/Program Files/CMake/bin/cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Release
+CMAKE_SOURCE_DIR = C:/Users/regen/Documents/Files/Programming/C/Dragonrose
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build
@@ -129,461 +129,461 @@ Dragonrose/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/build
 .PHONY : Dragonrose/fast
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.obj
+Source/attack.obj: Source/attack.c.obj
+.PHONY : Source/attack.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.obj
+Source/attack.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/attack.c.obj
+.PHONY : Source/attack.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.i
+Source/attack.i: Source/attack.c.i
+.PHONY : Source/attack.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.i
+Source/attack.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/attack.c.i
+.PHONY : Source/attack.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.s
+Source/attack.s: Source/attack.c.s
+.PHONY : Source/attack.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.c.s
+Source/attack.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/attack.c.s
+.PHONY : Source/attack.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.obj
+Source/bitboards.obj: Source/bitboards.c.obj
+.PHONY : Source/bitboards.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.obj
+Source/bitboards.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/bitboards.c.obj
+.PHONY : Source/bitboards.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.i
+Source/bitboards.i: Source/bitboards.c.i
+.PHONY : Source/bitboards.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.i
+Source/bitboards.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/bitboards.c.i
+.PHONY : Source/bitboards.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.s
+Source/bitboards.s: Source/bitboards.c.s
+.PHONY : Source/bitboards.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.c.s
+Source/bitboards.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/bitboards.c.s
+.PHONY : Source/bitboards.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.obj
+Source/board.obj: Source/board.c.obj
+.PHONY : Source/board.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.obj
+Source/board.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/board.c.obj
+.PHONY : Source/board.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.i
+Source/board.i: Source/board.c.i
+.PHONY : Source/board.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.i
+Source/board.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/board.c.i
+.PHONY : Source/board.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.s
+Source/board.s: Source/board.c.s
+.PHONY : Source/board.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.c.s
+Source/board.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/board.c.s
+.PHONY : Source/board.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.obj
+Source/data.obj: Source/data.c.obj
+.PHONY : Source/data.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.obj
+Source/data.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/data.c.obj
+.PHONY : Source/data.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.i
+Source/data.i: Source/data.c.i
+.PHONY : Source/data.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.i
+Source/data.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/data.c.i
+.PHONY : Source/data.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.s
+Source/data.s: Source/data.c.s
+.PHONY : Source/data.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.c.s
+Source/data.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/data.c.s
+.PHONY : Source/data.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.obj
+Source/evaluate.obj: Source/evaluate.c.obj
+.PHONY : Source/evaluate.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.obj
+Source/evaluate.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/evaluate.c.obj
+.PHONY : Source/evaluate.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.i
+Source/evaluate.i: Source/evaluate.c.i
+.PHONY : Source/evaluate.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.i
+Source/evaluate.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/evaluate.c.i
+.PHONY : Source/evaluate.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.s
+Source/evaluate.s: Source/evaluate.c.s
+.PHONY : Source/evaluate.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.c.s
+Source/evaluate.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/evaluate.c.s
+.PHONY : Source/evaluate.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.obj
+Source/hashkeys.obj: Source/hashkeys.c.obj
+.PHONY : Source/hashkeys.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.obj
+Source/hashkeys.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/hashkeys.c.obj
+.PHONY : Source/hashkeys.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.i
+Source/hashkeys.i: Source/hashkeys.c.i
+.PHONY : Source/hashkeys.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.i
+Source/hashkeys.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/hashkeys.c.i
+.PHONY : Source/hashkeys.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.s
+Source/hashkeys.s: Source/hashkeys.c.s
+.PHONY : Source/hashkeys.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.c.s
+Source/hashkeys.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/hashkeys.c.s
+.PHONY : Source/hashkeys.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.obj
+Source/init.obj: Source/init.c.obj
+.PHONY : Source/init.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.obj
+Source/init.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/init.c.obj
+.PHONY : Source/init.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.i
+Source/init.i: Source/init.c.i
+.PHONY : Source/init.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.i
+Source/init.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/init.c.i
+.PHONY : Source/init.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.s
+Source/init.s: Source/init.c.s
+.PHONY : Source/init.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.c.s
+Source/init.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/init.c.s
+.PHONY : Source/init.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.obj
+Source/io.obj: Source/io.c.obj
+.PHONY : Source/io.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.obj
+Source/io.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/io.c.obj
+.PHONY : Source/io.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.i
+Source/io.i: Source/io.c.i
+.PHONY : Source/io.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.i
+Source/io.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/io.c.i
+.PHONY : Source/io.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.s
+Source/io.s: Source/io.c.s
+.PHONY : Source/io.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.c.s
+Source/io.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/io.c.s
+.PHONY : Source/io.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.obj
+Source/main.obj: Source/main.c.obj
+.PHONY : Source/main.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.obj
+Source/main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/main.c.obj
+.PHONY : Source/main.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.i
+Source/main.i: Source/main.c.i
+.PHONY : Source/main.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.i
+Source/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/main.c.i
+.PHONY : Source/main.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.s
+Source/main.s: Source/main.c.s
+.PHONY : Source/main.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.c.s
+Source/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/main.c.s
+.PHONY : Source/main.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.obj
+Source/makemove.obj: Source/makemove.c.obj
+.PHONY : Source/makemove.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.obj
+Source/makemove.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/makemove.c.obj
+.PHONY : Source/makemove.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.i
+Source/makemove.i: Source/makemove.c.i
+.PHONY : Source/makemove.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.i
+Source/makemove.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/makemove.c.i
+.PHONY : Source/makemove.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.s
+Source/makemove.s: Source/makemove.c.s
+.PHONY : Source/makemove.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.c.s
+Source/makemove.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/makemove.c.s
+.PHONY : Source/makemove.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.obj
+Source/misc.obj: Source/misc.c.obj
+.PHONY : Source/misc.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.obj
+Source/misc.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/misc.c.obj
+.PHONY : Source/misc.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.i
+Source/misc.i: Source/misc.c.i
+.PHONY : Source/misc.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.i
+Source/misc.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/misc.c.i
+.PHONY : Source/misc.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.s
+Source/misc.s: Source/misc.c.s
+.PHONY : Source/misc.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.c.s
+Source/misc.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/misc.c.s
+.PHONY : Source/misc.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.obj
+Source/movegen.obj: Source/movegen.c.obj
+.PHONY : Source/movegen.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.obj
+Source/movegen.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/movegen.c.obj
+.PHONY : Source/movegen.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.i
+Source/movegen.i: Source/movegen.c.i
+.PHONY : Source/movegen.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.i
+Source/movegen.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/movegen.c.i
+.PHONY : Source/movegen.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.s
+Source/movegen.s: Source/movegen.c.s
+.PHONY : Source/movegen.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.c.s
+Source/movegen.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/movegen.c.s
+.PHONY : Source/movegen.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.obj
+Source/perft.obj: Source/perft.c.obj
+.PHONY : Source/perft.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.obj
+Source/perft.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/perft.c.obj
+.PHONY : Source/perft.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.i
+Source/perft.i: Source/perft.c.i
+.PHONY : Source/perft.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.i
+Source/perft.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/perft.c.i
+.PHONY : Source/perft.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.s
+Source/perft.s: Source/perft.c.s
+.PHONY : Source/perft.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.c.s
+Source/perft.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/perft.c.s
+.PHONY : Source/perft.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.obj
+Source/polybook.obj: Source/polybook.c.obj
+.PHONY : Source/polybook.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.obj
+Source/polybook.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/polybook.c.obj
+.PHONY : Source/polybook.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.i
+Source/polybook.i: Source/polybook.c.i
+.PHONY : Source/polybook.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.i
+Source/polybook.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/polybook.c.i
+.PHONY : Source/polybook.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.s
+Source/polybook.s: Source/polybook.c.s
+.PHONY : Source/polybook.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.c.s
+Source/polybook.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/polybook.c.s
+.PHONY : Source/polybook.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.obj
+Source/polykeys.obj: Source/polykeys.c.obj
+.PHONY : Source/polykeys.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.obj
+Source/polykeys.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/polykeys.c.obj
+.PHONY : Source/polykeys.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.i
+Source/polykeys.i: Source/polykeys.c.i
+.PHONY : Source/polykeys.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.i
+Source/polykeys.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/polykeys.c.i
+.PHONY : Source/polykeys.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.s
+Source/polykeys.s: Source/polykeys.c.s
+.PHONY : Source/polykeys.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.c.s
+Source/polykeys.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/polykeys.c.s
+.PHONY : Source/polykeys.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.obj
+Source/pvtable.obj: Source/pvtable.c.obj
+.PHONY : Source/pvtable.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.obj
+Source/pvtable.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/pvtable.c.obj
+.PHONY : Source/pvtable.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.i
+Source/pvtable.i: Source/pvtable.c.i
+.PHONY : Source/pvtable.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.i
+Source/pvtable.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/pvtable.c.i
+.PHONY : Source/pvtable.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.s
+Source/pvtable.s: Source/pvtable.c.s
+.PHONY : Source/pvtable.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.c.s
+Source/pvtable.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/pvtable.c.s
+.PHONY : Source/pvtable.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.obj
+Source/search.obj: Source/search.c.obj
+.PHONY : Source/search.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.obj
+Source/search.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/search.c.obj
+.PHONY : Source/search.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.i
+Source/search.i: Source/search.c.i
+.PHONY : Source/search.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.i
+Source/search.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/search.c.i
+.PHONY : Source/search.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.s
+Source/search.s: Source/search.c.s
+.PHONY : Source/search.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.c.s
+Source/search.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/search.c.s
+.PHONY : Source/search.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.obj
+Source/uci.obj: Source/uci.c.obj
+.PHONY : Source/uci.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.obj
+Source/uci.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/uci.c.obj
+.PHONY : Source/uci.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.i
+Source/uci.i: Source/uci.c.i
+.PHONY : Source/uci.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.i
+Source/uci.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/uci.c.i
+.PHONY : Source/uci.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.s
+Source/uci.s: Source/uci.c.s
+.PHONY : Source/uci.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.c.s
+Source/uci.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/uci.c.s
+.PHONY : Source/uci.c.s
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.obj: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.obj
+Source/validate.obj: Source/validate.c.obj
+.PHONY : Source/validate.obj
 
 # target to build an object file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.obj
+Source/validate.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/validate.c.obj
+.PHONY : Source/validate.c.obj
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.i: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.i
+Source/validate.i: Source/validate.c.i
+.PHONY : Source/validate.i
 
 # target to preprocess a source file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.i
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.i
+Source/validate.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/validate.c.i
+.PHONY : Source/validate.c.i
 
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.s: C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.s
+Source/validate.s: Source/validate.c.s
+.PHONY : Source/validate.s
 
 # target to generate assembly for a file
-C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.s
-.PHONY : C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.c.s
+Source/validate.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dragonrose.dir/build.make CMakeFiles/Dragonrose.dir/Source/validate.c.s
+.PHONY : Source/validate.c.s
 
 # Help Target
 help:
@@ -594,63 +594,63 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Dragonrose"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/attack.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/bitboards.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/board.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/data.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/evaluate.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/hashkeys.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/init.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/io.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/main.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/makemove.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/misc.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/movegen.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/perft.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polybook.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/polykeys.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/pvtable.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/search.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/uci.s"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.obj"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.i"
-	@echo "... C_/Users/regen/Documents/Files/Programming/C/Dragonrose/Source/validate.s"
+	@echo "... Source/attack.obj"
+	@echo "... Source/attack.i"
+	@echo "... Source/attack.s"
+	@echo "... Source/bitboards.obj"
+	@echo "... Source/bitboards.i"
+	@echo "... Source/bitboards.s"
+	@echo "... Source/board.obj"
+	@echo "... Source/board.i"
+	@echo "... Source/board.s"
+	@echo "... Source/data.obj"
+	@echo "... Source/data.i"
+	@echo "... Source/data.s"
+	@echo "... Source/evaluate.obj"
+	@echo "... Source/evaluate.i"
+	@echo "... Source/evaluate.s"
+	@echo "... Source/hashkeys.obj"
+	@echo "... Source/hashkeys.i"
+	@echo "... Source/hashkeys.s"
+	@echo "... Source/init.obj"
+	@echo "... Source/init.i"
+	@echo "... Source/init.s"
+	@echo "... Source/io.obj"
+	@echo "... Source/io.i"
+	@echo "... Source/io.s"
+	@echo "... Source/main.obj"
+	@echo "... Source/main.i"
+	@echo "... Source/main.s"
+	@echo "... Source/makemove.obj"
+	@echo "... Source/makemove.i"
+	@echo "... Source/makemove.s"
+	@echo "... Source/misc.obj"
+	@echo "... Source/misc.i"
+	@echo "... Source/misc.s"
+	@echo "... Source/movegen.obj"
+	@echo "... Source/movegen.i"
+	@echo "... Source/movegen.s"
+	@echo "... Source/perft.obj"
+	@echo "... Source/perft.i"
+	@echo "... Source/perft.s"
+	@echo "... Source/polybook.obj"
+	@echo "... Source/polybook.i"
+	@echo "... Source/polybook.s"
+	@echo "... Source/polykeys.obj"
+	@echo "... Source/polykeys.i"
+	@echo "... Source/polykeys.s"
+	@echo "... Source/pvtable.obj"
+	@echo "... Source/pvtable.i"
+	@echo "... Source/pvtable.s"
+	@echo "... Source/search.obj"
+	@echo "... Source/search.i"
+	@echo "... Source/search.s"
+	@echo "... Source/uci.obj"
+	@echo "... Source/uci.i"
+	@echo "... Source/uci.s"
+	@echo "... Source/validate.obj"
+	@echo "... Source/validate.i"
+	@echo "... Source/validate.s"
 .PHONY : help
 
 

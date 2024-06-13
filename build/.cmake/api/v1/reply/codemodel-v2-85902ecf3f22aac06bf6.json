@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Dragonrose::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Dragonrose-Debug-35d343f9a7fd996d9c1f.json",
+					"jsonFile" : "target-Dragonrose-Debug-25010933d1f9aa4f399d.json",
 					"name" : "Dragonrose",
 					"projectIndex" : 0
 				}
@@ -50,7 +50,7 @@
 	"paths" : 
 	{
 		"build" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/build",
-		"source" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Release"
+		"source" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose"
 	},
 	"version" : 
 	{

@@ -506,18 +506,6 @@
 			"value" : ""
 		},
 		{
-			"name" : "CMAKE_GNUtoMS",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Convert GNU import libraries to MS format (requires Visual Studio)"
-				}
-			],
-			"type" : "BOOL",
-			"value" : "OFF"
-		},
-		{
 			"name" : "CMAKE_HOME_DIRECTORY",
 			"properties" : 
 			[
@@ -527,7 +515,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Release"
+			"value" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1247,7 +1235,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose/Release"
+			"value" : "C:/Users/regen/Documents/Files/Programming/C/Dragonrose"
 		},
 		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",
