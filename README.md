@@ -62,5 +62,6 @@ Evaluation:
 - Search thread / LazySMP
 
 ## Bugs to fix:
+- May blunder threefold in a winning position due to how threefold is implemented
 - The PickMove function needs a BestScore of -(very low) instead of 0
 - ID loop needs to only exit when it has a legal move (i.e done depth 1 at least)
