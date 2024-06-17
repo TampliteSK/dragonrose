@@ -10,7 +10,19 @@ Dragonrose is based on VICE, a chess engine written by Richard Allbert (Bluefeve
 
 You can find the playlist here: [Link to playlist](https://www.youtube.com/playlist?list=PLZ1QII7yudbc-Ky058TEaOstZHVbT-2hg)
 
-## Main features:
+## How to Use:
+
+- Challenge it on Lichess [here](https://lichess.org/@/DragonroseDev)
+- Windows: Download the binary from releases and plug it into a chess GUI such as Arena or Cutechess
+- Other OS or getting latest version: Build it locally on your machine by downloading the repo
+
+## Playing Strength:
+
+- Latest version is about 2350 CCRL in strength. At the moment it is quite inconsistent in tests, so the estimate may not be accurate.
+- It is about 2050-2200 on Lichess from playing against mostly bots, depending on time control.
+- WIP: Estimate Chesscom strength
+
+## Main Features:
 
 Search:
 - Negamax Alpha-beta search
@@ -55,8 +67,8 @@ Evaluation:
 
 ## To-do list:
 - Tune futility pruning
-- Add SEE
 - Add aspiration windows
+- Add SEE
 - Pawn / bishop interaction
 - Optimise movegen (magic bitboard)
 - Search thread / LazySMP
@@ -65,3 +77,4 @@ Evaluation:
 - May blunder threefold in a winning position due to how threefold is implemented
 - The PickMove function needs a BestScore of -(very low) instead of 0
 - ID loop needs to only exit when it has a legal move (i.e done depth 1 at least)
+- Obscure illegal move bug that occurs once every 100-200 games. Not replicable just with FEN.

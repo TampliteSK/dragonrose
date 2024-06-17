@@ -394,7 +394,7 @@ inline double kingTropism(const S_BOARD *pos, uint8_t col) {
 					tropism += 5 * ( 15 - dist_between_squares(opp_king_sq, sq, TRUE) ); // rook knight case
 				}
 			}
-			if ((pce == wQ) || (pce == bQ)) {
+			if ( (pce == wQ) || (pce == bQ) ) {
 				tropism += 10 * ( 15 - dist_between_squares(opp_king_sq, sq, TRUE) ); // queen case
 			}
 		}
