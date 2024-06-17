@@ -66,7 +66,6 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Tune futility pruning
 - Add aspiration windows
 - Add SEE
 - Pawn / bishop interaction

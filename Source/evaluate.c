@@ -355,16 +355,14 @@ inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 }
 
 // Manhattan distance
-inline int dist_between_squares(uint8_t sq_1, uint8_t sq_2, uint8_t isSum) {
+inline int dist_between_squares(uint8_t sq_1, uint8_t sq_2) {
 	uint8_t file_1 = FilesBrd[sq_1];
 	uint8_t rank_1 = RanksBrd[sq_1];
 	uint8_t file_2 = FilesBrd[sq_2];
 	uint8_t rank_2 = RanksBrd[sq_2];
 
-	if (isSum)
-		return abs(file_1 - file_2) + abs(rank_1 - rank_2); // standard definition
-	else
-		return max( abs(file_1 - file_2), abs(rank_1 - rank_2) ); // alternative definition, to be used for bishops
+	return abs(file_1 - file_2) + abs(rank_1 - rank_2); // standard definition
+	// return max( abs(file_1 - file_2), abs(rank_1 - rank_2) ); // alternative definition, to be used for bishops
 }
 
 
@@ -388,14 +386,10 @@ inline double kingTropism(const S_BOARD *pos, uint8_t col) {
 		uint8_t pce = pos->pieces[sq];
 		if ( PieceCol[pce] == col ) {
 			if (PieceRBN[pce]) {
-				if ( (pce == wB) || (pce == bB) ) {
-					tropism += 10 * ( 7 - dist_between_squares(opp_king_sq, sq, FALSE) ); // bishop case
-				} else {
-					tropism += 5 * ( 15 - dist_between_squares(opp_king_sq, sq, TRUE) ); // rook knight case
-				}
+				tropism += 5 * ( 15 - dist_between_squares(opp_king_sq, sq) ); // rook knight case
 			}
 			if ( (pce == wQ) || (pce == bQ) ) {
-				tropism += 10 * ( 15 - dist_between_squares(opp_king_sq, sq, TRUE) ); // queen case
+				tropism += 10 * ( 15 - dist_between_squares(opp_king_sq, sq) ); // queen case
 			}
 		}
 	}
