@@ -1,6 +1,7 @@
 // search.c
 
 #include "stdio.h"
+#include <stdlib.h>
 #include <math.h>
 #include "string.h"
 #include "defs.h"
@@ -332,9 +333,14 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 
 	int bestMove = NOMOVE;
 	int bestScore = -INF_BOUND;
-	int currentDepth = 0;
 	int pvMoves = 0;
 	int pvNum = 0;
+
+	// Aspiration windows variables
+	#define WINDOW_SIZE 25
+	int guess = -INF_BOUND;
+	int alpha = -INF_BOUND;
+	int beta = INF_BOUND;
 
 	ClearForSearch(pos, table, info);
 	
@@ -346,10 +352,37 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 	//printf("Search depth:%d\n",info->depth);
 
 	if(bestMove == NOMOVE) {
-		for( currentDepth = 1; currentDepth <= info->depth; ++currentDepth ) {
-								// alpha	 beta
+		for( int currentDepth = 1; currentDepth <= info->depth; ++currentDepth ) {
+
 			rootDepth = currentDepth;
-			bestScore = AlphaBeta(-INF_BOUND, INF_BOUND, currentDepth, pos, table, info, TRUE);
+
+			// Do a full search on the first depth
+			if (currentDepth == 1) {
+				bestScore = AlphaBeta(-INF_BOUND, INF_BOUND, currentDepth, pos, table, info, TRUE);
+			} 
+			else {
+				
+				// Aspiration windows
+				alpha = guess - WINDOW_SIZE;
+				beta = guess + WINDOW_SIZE;
+
+				uint8_t reSearch = TRUE;
+				while (reSearch) {
+					bestScore = AlphaBeta(alpha, beta, currentDepth, pos, table, info, TRUE);
+
+					// Re-search with a full window if fail-low or fail-high
+					if (bestScore <= alpha || bestScore >= beta) {
+						alpha = -INF_BOUND;
+						beta = INF_BOUND;
+					} else {
+						// Successful search, exit re-search loop
+						reSearch = FALSE;
+					}
+            	}
+			}
+            
+			guess = bestScore;
+			
 
 			if(info->stopped == TRUE) {
 				break;
@@ -382,6 +415,10 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 				break;
 				// Buggy if no search is performed before pruning immediately
 			}
+
+			// Update aspiration windows
+			alpha = bestScore - guess_window;
+			beta = bestScore + guess_window;
 		}
 	}
 

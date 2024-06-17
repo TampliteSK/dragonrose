@@ -67,6 +67,7 @@ Evaluation:
 
 ## To-do list:
 - Add aspiration windows
+- Improve draw detection for material draws
 - Add SEE
 - Pawn / bishop interaction
 - Optimise movegen (magic bitboard)
