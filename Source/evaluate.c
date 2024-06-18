@@ -693,6 +693,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	if(pos->pceNum[wB] >= 2) score += BishopPair;
 	if(pos->pceNum[bB] >= 2) score -= BishopPair;
 
+	/*
 	// Opposite-coloured bishop endgame adjustment
 	if (is_opposite_bishop(pos) && netMaterial < 310) {
 		// Drawishness increases with less (non-king) material on the board
@@ -700,6 +701,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		drawish_factor = log(drawish_factor) / 2.8 + 1; // slope increases as the fraction goes from 1 to 0
 		score = (int)(score * drawish_factor);
 	}
+	*/
 
 	// No good way of calculating mobility
 	// Kinda counted already by PSQT and open files / bishop pair bonuses. 

@@ -44,7 +44,7 @@ Evaluation:
 - King safety: pawn shield, open files, king tropism
 - Piece bonuses: Rook/queen open-file bonuses
 - Pawn bonuses: Passed pawns, isolated pawns
-- Drawn endgame detection: Basic material draw (e.g. K+R v K+B), Opposite-coloured bishop adjustment
+- Drawn endgame detection: Basic material draw (e.g. K+R v K+B)
 
 ## Credits
 - Richard Allbert (Bluefever Software) for VICE code and video playlist. The entire reason this engine even exists.
