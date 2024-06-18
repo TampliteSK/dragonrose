@@ -44,6 +44,7 @@ Evaluation:
 - King safety: pawn shield, open files, king tropism
 - Piece bonuses: Rook/queen open-file bonuses
 - Pawn bonuses: Passed pawns, isolated pawns
+- Drawn endgame detection: Basic material draw (e.g. K+R v K+B), Opposite-coloured bishop adjustment
 
 ## Credits
 - Richard Allbert (Bluefever Software) for VICE code and video playlist. The entire reason this engine even exists.
@@ -53,8 +54,8 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.27: Improved drawn endgame detection.
-0.26d: Added aspiration windows.
+0.27: Improved drawn endgame detection. <br>
+0.26d: Added aspiration windows. <vr>
 0.26: Added king tropism. Improved time management. <br>
 0.25: Added futility pruning. | Elo gain: ~20. <br> 
 0.24c: Enabled O3 optimisation. Added mate ouptut. <br>
