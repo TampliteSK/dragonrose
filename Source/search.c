@@ -337,7 +337,7 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 	int pvNum = 0;
 
 	// Aspiration windows variables
-	#define WINDOW_SIZE 25
+	#define WINDOW_SIZE 50
 	int guess = -INF_BOUND;
 	int alpha = -INF_BOUND;
 	int beta = INF_BOUND;
@@ -415,10 +415,6 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 				break;
 				// Buggy if no search is performed before pruning immediately
 			}
-
-			// Update aspiration windows
-			alpha = bestScore - guess_window;
-			beta = bestScore + guess_window;
 		}
 	}
 

@@ -20,7 +20,7 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 
 - Latest version is about 2350 CCRL in strength. At the moment it is quite inconsistent in tests, so the estimate may not be accurate.
 - It is about 2050-2200 on Lichess from playing against mostly bots, depending on time control.
-- WIP: Estimate Chesscom strength
+- Based on its games against humans it should be about 2400-2500 Chesscom strength (for rapid, blitz and bullet)
 
 ## Main Features:
 
