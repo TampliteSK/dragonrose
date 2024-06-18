@@ -54,7 +54,7 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.27: Improved drawn endgame detection. <br>
+0.27: Added late move pruning. Improved drawn endgame detection. <br>
 0.26d: Added aspiration windows. <vr>
 0.26: Added king tropism. Improved time management. <br>
 0.25: Added futility pruning. | Elo gain: ~20. <br> 

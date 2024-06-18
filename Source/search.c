@@ -189,12 +189,14 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		return 0;
 	}
 
+	// Max depth reached
 	if(pos->ply > MAXDEPTH - 1) {
 		return EvalPosition(pos);
 	}
 
 	int InCheck = SqAttacked(pos->KingSq[pos->side],pos->side^1,pos);
 
+	// Extend depth for checks
 	if(InCheck == TRUE) {
 		depth++;
 	}
@@ -271,7 +273,26 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
         }
 
 		Legal++;
-		Score = -AlphaBeta( -beta, -alpha, depth-1, pos, table, info, TRUE);
+
+		// Late Move Reductions
+		int currentDepth = depth - 1; // We move further into the tree
+		// Do not reduce if there's mate (otherwise buggy)
+		if (abs(Score) < ISMATE) {
+				//                              Not in check,              Not a capture,                           Not a check
+			if (MoveNum > 3 && depth > 3 && !InCheck && !(list->moves[MoveNum].move & MFLAGCAP) && !SqAttacked(pos->KingSq[!pos->side], pos->side, pos)) {
+				// Formula based on Senpai engine by Fabien Letouzey
+				if (MoveNum <= 8) {
+					currentDepth--;
+				} else {
+					currentDepth -= depth / 4;
+				}
+				currentDepth = max(currentDepth, 1);
+        	}
+		}
+		
+
+
+		Score = -AlphaBeta( -beta, -alpha, currentDepth, pos, table, info, TRUE);
 		TakeMove(pos);
 
 		if(info->stopped == TRUE) {
