@@ -53,6 +53,8 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
+0.27: Improved drawn endgame detection.
+0.26d: Added aspiration windows.
 0.26: Added king tropism. Improved time management. <br>
 0.25: Added futility pruning. | Elo gain: ~20. <br> 
 0.24c: Enabled O3 optimisation. Added mate ouptut. <br>
@@ -66,7 +68,6 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Add aspiration windows
 - Improve draw detection for material draws
 - Add SEE
 - Pawn / bishop interaction

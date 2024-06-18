@@ -1,10 +1,10 @@
 // evaluate.c
 
 #include <stdio.h>
-#include <math.h>
-#include "defs.h"
-#include <stdint.h>
 #include <stdlib.h>
+#include <math.h>
+#include <stdint.h>
+#include "defs.h"
 
 // Test positions for evaluation
 // Pos1 (startpos) [+0.2, e4/d4/Nf3/c4]
@@ -210,7 +210,7 @@ uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col) {
 }
 
 // Calculates the weight of tapered eval. 
-double evalWeight(const S_BOARD *pos) {
+inline double evalWeight(const S_BOARD *pos) {
 	// PesTO has its own tapered eval but it's 17 +/-22 elo worse than Caissa's
 	// Scaling by material is strictly worse, and is about 225-275 elo weaker.
 
@@ -226,33 +226,6 @@ double evalWeight(const S_BOARD *pos) {
 	// sqrt() is strictly worse
 	return gamePhase / (double)openingPhase;
 
-}
-
-// Test position: 8/6R1/2k5/6P1/8/8/4nP2/6K1 w - - 1 41
-// Determins if the position is a draw by material (doesn't include pawns)
-uint8_t MaterialDraw(const S_BOARD *pos) {
-
-	ASSERT(CheckBoard(pos));
-
-	// Minor piece endgame
-    if (!pos->pceNum[wR] && !pos->pceNum[bR] && !pos->pceNum[wQ] && !pos->pceNum[bQ]) {
-	  if (!pos->pceNum[bB] && !pos->pceNum[wB]) {
-	      if (pos->pceNum[wN] < 3 && pos->pceNum[bN] < 3) {  return TRUE; }
-	  } else if (!pos->pceNum[wN] && !pos->pceNum[bN]) {
-	     if (abs(pos->pceNum[wB] - pos->pceNum[bB]) < 2) { return TRUE; }
-	  } else if ((pos->pceNum[wN] < 3 && !pos->pceNum[wB]) || (pos->pceNum[wB] == 1 && !pos->pceNum[wN])) {
-	    if ((pos->pceNum[bN] < 3 && !pos->pceNum[bB]) || (pos->pceNum[bB] == 1 && !pos->pceNum[bN]))  { return TRUE; }
-	  }
-	} else if (!pos->pceNum[wQ] && !pos->pceNum[bQ]) {
-        if (pos->pceNum[wR] == 1 && pos->pceNum[bR] == 1) {
-            if ((pos->pceNum[wN] + pos->pceNum[wB]) < 2 && (pos->pceNum[bN] + pos->pceNum[bB]) < 2)	{ return TRUE; }
-        } else if (pos->pceNum[wR] == 1 && !pos->pceNum[bR]) {
-            if ((pos->pceNum[wN] + pos->pceNum[wB] == 0) && (((pos->pceNum[bN] + pos->pceNum[bB]) == 1) || ((pos->pceNum[bN] + pos->pceNum[bB]) == 2))) { return TRUE; }
-        } else if (pos->pceNum[bR] == 1 && !pos->pceNum[wR]) {
-            if ((pos->pceNum[bN] + pos->pceNum[bB] == 0) && (((pos->pceNum[wN] + pos->pceNum[wB]) == 1) || ((pos->pceNum[wN] + pos->pceNum[wB]) == 2))) { return TRUE; }
-        }
-    }
-  return FALSE;
 }
 
 /******************
@@ -409,6 +382,13 @@ inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, u
 
 }
 
+/*************************
+*** Endgame Adjustment ***
+*************************/
+
+// Used for some sort of king eval tapering. Probably not very good, but an interesting approach. Kept for legacy
+// #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
+
 // Material eval
 inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat) {
 	
@@ -431,8 +411,36 @@ inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackM
 
 }
 
-// Used for some sort of king eval tapering. Probably not very good, but an interesting approach. Kept for legacy
-// #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
+// Test position: 8/6R1/2k5/6P1/8/8/4nP2/6K1 w - - 1 41
+// Determins if the position is a draw by material (with no pawns)
+inline uint8_t MaterialDraw(int net_material) {
+
+	ASSERT(CheckBoard(pos));
+	
+	// Upper bound of a bishop's value in the endgame (slightly higher than actual value due to tapered eval)
+	#define MAX_MINOR_PIECE 310
+
+	// Seems to replace VICE MaterialDraw() and a few more cases, such as K+Q v K+R+B+B
+	if (net_material <= MAX_MINOR_PIECE) {
+		return TRUE;
+	}
+
+  	return FALSE;
+}
+
+// Detects if it's an opposite-coloured bishop endgame, and used to apply a drawish factor
+inline uint8_t is_opposite_bishop(const S_BOARD *pos) {
+
+	// Determines if any side has more than one bishop
+	if ( (pos->pceNum[wB] == 1) && (pos->pceNum[bB] == 1) ) {
+		uint8_t wB_sq = pos->pList[wB][0];
+		uint8_t bB_sq = pos->pList[bB][0];
+		return ( isLightSq(wB_sq) != isLightSq(bB_sq) );
+	} else {
+		return FALSE;
+	}
+
+}
 
 /********************************
 *** Main Evaluation Function ****
@@ -454,8 +462,9 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	double blackMaterial = 0;
 	score += CountMaterial(pos, &whiteMaterial, &blackMaterial);
 
-	// Material draw
-	if(!pos->pceNum[wP] && !pos->pceNum[bP] && MaterialDraw(pos) == TRUE) {
+	// Material draw (checks if there are no pawns as well)
+	int netMaterial = abs(whiteMaterial - blackMaterial);
+	if(!pos->pceNum[wP] && !pos->pceNum[bP] && MaterialDraw(netMaterial) == TRUE) {
 		return 0;
 	}
 
@@ -683,6 +692,14 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	// Bishop pair bonus
 	if(pos->pceNum[wB] >= 2) score += BishopPair;
 	if(pos->pceNum[bB] >= 2) score -= BishopPair;
+
+	// Opposite-coloured bishop endgame adjustment
+	if (is_opposite_bishop(pos) && netMaterial < 310) {
+		// Drawishness increases with less (non-king) material on the board
+		double drawish_factor = (whiteMaterial + blackMaterial - 100000) / (4039 * 2);
+		drawish_factor = log(drawish_factor) / 2.8 + 1; // slope increases as the fraction goes from 1 to 0
+		score = (int)(score * drawish_factor);
+	}
 
 	// No good way of calculating mobility
 	// Kinda counted already by PSQT and open files / bishop pair bonuses. 
