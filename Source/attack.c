@@ -10,6 +10,7 @@ const int KiDir[8] = { -1, -10,	1, 10, -9, -11, 11, 9 };
 
 // Used for check detection / determining castling privileges
 // Returns 1 if a given square is attacked
+
 uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 
 	int pce,t_sq,dir;
@@ -87,6 +88,79 @@ uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 		}
 	}
 	
+	return FALSE;
+	
+}
+
+// Sort of inverse of SqAttacked(). Considering the perspective of the piece rather than the square
+uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos) {
+	// sq = Landing square of the move
+
+	int attacked_sq, dir;
+	
+	ASSERT(SqOnBoard(sq));
+	ASSERT(CheckBoard(pos));
+
+	uint8_t side = PieceCol[pce]; // moving side
+	#define get_piece_col(Sq) PieceCol[ pos->pieces[Sq] ]
+	
+	// pawns
+	if (pce == wP) {
+		if((get_piece_col(sq-11) != side) || (get_piece_col(sq-9) != side)) {
+			return TRUE;
+		}
+	}
+	if (pce == bP) {
+		if((get_piece_col(sq+11) != side) || (get_piece_col(sq+9) != side)) {
+			return TRUE;
+		}	
+	}
+	
+	// knights
+	if (PieceKnight[pce]) {
+		for(int index = 0; index < 8; ++index) {	
+			attacked_sq = sq + KnDir[index];
+			if( (attacked_sq >= 0) && (attacked_sq < BRD_SQ_NUM) && (get_piece_col(attacked_sq) != side)) {
+				return TRUE;
+			}
+		}
+	}
+	
+	
+	// rooks, queens
+	if (PieceRookQueen[pce]) {
+		for(int index = 0; index < 4; ++index) {		
+			dir = RkDir[index];
+			attacked_sq = sq + dir;
+			ASSERT(SqIs120(t_sq));
+			while((attacked_sq >= 0) && (attacked_sq < BRD_SQ_NUM)) {
+				if(get_piece_col(attacked_sq) != side) {
+					return TRUE;
+				}
+				attacked_sq += dir;
+			}
+		}
+	}
+	
+	
+	// bishops, queens
+	if (PieceBishopQueen[pce]) {
+		for(int index = 0; index < 4; ++index) {		
+			dir = BiDir[index];
+			attacked_sq = sq + dir;
+			ASSERT(SqIs120(t_sq));
+			while (attacked_sq >= 0 && attacked_sq < BRD_SQ_NUM) {
+				if(get_piece_col(attacked_sq) != side) {
+					return TRUE;
+				}
+				attacked_sq += dir;
+			}
+		}	
+	}
+	
+	
+	// kings cannot attack
+
 	return FALSE;
 	
 }

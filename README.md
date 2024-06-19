@@ -19,8 +19,13 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 ## Playing Strength:
 
 - Latest version is about 2350 CCRL in strength. At the moment it is quite inconsistent in tests, so the estimate may not be accurate.
-- It is about 2050-2200 on Lichess from playing against mostly bots, depending on time control.
-- Based on its games against humans it should be about 2400-2500 Chesscom strength (for rapid, blitz and bullet)
+- The Chesscom rating is estimated based on its games against human players (1800 - 2500). However it suffers greatly from small sample size, so take it with a grain of salt.
+
+| Metric | Rapid | Blitz | Bullet |
+| --- | --- | --- | --- |
+| CCRL | 2350? | N/A | 2350? |
+| Lichess (BOT) | 2196 ± 53 | 2099 ± 45 | 2114 ± 45 |
+| Chesscom (est.) | 2654? | 2836 ± 256 | 2638 ± 300 |
 
 ## Main Features:
 
@@ -29,6 +34,7 @@ Search:
   - PV-search
   - Null-move pruning
   - Futility pruning
+  - Late move pruning
 - Quiesence search
   - Delta pruning
 - Iterative deepening

@@ -348,12 +348,8 @@ inline double kingTropism(const S_BOARD *pos, uint8_t col) {
 	int opp_king_sq = 0;
 
 	// Obtain opponent's king square
-	if (col == WHITE) {
-		opp_king_sq = pos->pList[bK][0];
-	} else {
-		opp_king_sq = pos->pList[wK][0];
-	}
-
+	opp_king_sq = pos->KingSq[!pos->side];
+	
 	// Loop through every square and sum up weight distances 
 	for (int sq = 0; sq < BRD_SQ_NUM; ++sq) {
 		uint8_t pce = pos->pieces[sq];

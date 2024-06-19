@@ -310,6 +310,7 @@ extern void MirrorBoard(S_BOARD *pos);
 
 // attack.c
 extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
+extern uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos);
 extern uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos);
 
 // io.c
@@ -364,6 +365,7 @@ extern void ClearHashTable(S_HASHTABLE *table);
 extern uint8_t isLightSq(uint8_t sq);
 extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
 extern double evalWeight(const S_BOARD *pos);
+extern int dist_between_squares(uint8_t sq_1, uint8_t sq_2);
 extern double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat);
 extern double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat);
 extern int16_t EvalPosition(const S_BOARD *pos);
