@@ -195,7 +195,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	}
 
 	// Move category
-	uint8_t InCheck = SqAttacked(pos->KingSq[pos->side],pos->side^1,pos);
+	uint8_t InCheck = SqAttacked(pos->KingSq[pos->side],!pos->side,pos);
 
 	// Extend depth for checks
 	if(InCheck == TRUE) {
@@ -280,7 +280,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		// Late Move Reductions
 		// We calculate less promising moves at lower depths
 
-		int currentDepth = depth - 1; // We move further into the tree
+		int reduced_depth = depth - 1; // We move further into the tree
 		// Do not reduce if there's mate (otherwise buggy)
 		if (abs(Score) < ISMATE) {
 			// Check if it's a late move
@@ -295,28 +295,32 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 
 				int IsPromotion = list->moves[MoveNum].move & MFLAGPROM;
 				int IsCapture = list->moves[MoveNum].move & MFLAGCAP;
-				uint8_t MoveIsAttack = IsAttack(moving_pce, target_sq, pos);
+				// uint8_t MoveIsAttack = IsAttack(moving_pce, target_sq, pos);
 				uint8_t IsPawn = (moving_pce == wP) || (moving_pce == bP);
-				uint8_t target_sq_within_king_zone = dist_between_squares(self_king_sq, target_sq) <= 2;
+				uint8_t target_sq_within_king_zone = dist_between_squares(self_king_sq, target_sq) <= 3;
 
-				//                                                           Move's target square is not within 2 king moves
-				if (!IsCapture && !IsPromotion && !InCheck && !IsCheck && !MoveIsAttack && !IsPawn && !target_sq_within_king_zone) {
-					// Formula based on Senpai engine by Fabien Letouzey
-					//  0  1  2  3  4  5  6  7  8  9  10 11
-					// [0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 3, 3, ...]
-					if (MoveNum <= 7) {
-						currentDepth--;
+				//                                                           Move's target square is not within 3 king moves
+				if (!IsCapture && !IsPromotion && !InCheck && !IsCheck && !IsPawn && !target_sq_within_king_zone) {
+					// Based on Fruit Reloaded reduction formula
+					// Reduction increases with both depth and order of move
+					// currentDepth -= (int)( sqrt((depth - 1) / 2) + sqrt(MoveNum / 4) );
+
+					/*
+					reduced_depth = (int)( log(depth) * log(MoveNum) / 2.25 );
+					*/
+					if (MoveNum <= 8) {
+						reduced_depth--;	
 					} else {
-						currentDepth -= 1 + (depth - 6) / 2;
+						reduced_depth -= depth / 4;
 					}
-					currentDepth = max(currentDepth, 1); // in case it goes below 1 after reduction
+					reduced_depth = max(reduced_depth, 1); // in case it goes below 1 after reduction
 				}
 			}
 		}
 		
 
 
-		Score = -AlphaBeta( -beta, -alpha, currentDepth, pos, table, info, TRUE);
+		Score = -AlphaBeta( -beta, -alpha, reduced_depth, pos, table, info, TRUE);
 		TakeMove(pos);
 
 		if(info->stopped == TRUE) {

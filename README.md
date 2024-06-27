@@ -25,7 +25,7 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 | --- | --- | --- | --- |
 | CCRL | 2350? | N/A | 2350? |
 | Lichess (BOT) | 2196 ± 53 | 2099 ± 45 | 2114 ± 45 |
-| Chesscom (est.) | 2654? | 2836 ± 256 | 2638 ± 300 |
+| Chesscom (est.) | 2639 ± 240 | 2760 ± 178 | 2645 ± 328 |
 
 ## Main Features:
 
