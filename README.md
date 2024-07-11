@@ -75,7 +75,8 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Improve draw detection for material draws
+- Fix LMR
+- Add code to support openbench
 - Add SEE
 - Pawn / bishop interaction
 - Optimise movegen (magic bitboard)

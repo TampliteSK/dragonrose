@@ -286,7 +286,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 			// Check if it's a late move
 			// For Dragonrose it should calculate first 5 moves (0-4) as the move order isn't that good
 			// Later on the pruning can be more aggressive
-			if (MoveNum >= 5 && depth > 3) {
+			if (MoveNum >= 8 && depth > 3) {
 
 				uint8_t self_king_sq = pos->KingSq[pos->side];
 				uint8_t moving_pce = pos->pieces[FROMSQ(list->moves[MoveNum].move)];
@@ -297,23 +297,23 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 				int IsCapture = list->moves[MoveNum].move & MFLAGCAP;
 				// uint8_t MoveIsAttack = IsAttack(moving_pce, target_sq, pos);
 				uint8_t IsPawn = (moving_pce == wP) || (moving_pce == bP);
-				uint8_t target_sq_within_king_zone = dist_between_squares(self_king_sq, target_sq) <= 3;
+				// Checks if a move's target square is within 3 king moves
+				uint8_t target_sq_within_king_zone = dist_between_squares(self_king_sq, target_sq) <= 3; 
 
-				//                                                           Move's target square is not within 3 king moves
 				if (!IsCapture && !IsPromotion && !InCheck && !IsCheck && !IsPawn && !target_sq_within_king_zone) {
 					// Based on Fruit Reloaded reduction formula
 					// Reduction increases with both depth and order of move
-					// currentDepth -= (int)( sqrt((depth - 1) / 2) + sqrt(MoveNum / 4) );
+					// reduced_depth -= (int)( sqrt((depth - 1) / 3) + sqrt(MoveNum / 5) );
 
-					/*
-					reduced_depth = (int)( log(depth) * log(MoveNum) / 2.25 );
-					*/
-					if (MoveNum <= 8) {
-						reduced_depth--;	
+					// reduced_depth = (int)( log(depth) * log(MoveNum) / 2.25 );
+
+					if (MoveNum <= 10) {
+						reduced_depth--;
 					} else {
-						reduced_depth -= depth / 4;
+						reduced_depth -= 1 + (int)( (MoveNum - 8) / 3 );
 					}
-					reduced_depth = max(reduced_depth, 1); // in case it goes below 1 after reduction
+					
+					reduced_depth = max(reduced_depth, max(3, depth - 3)); // Nodes should be searched at depth 3 at least
 				}
 			}
 		}
