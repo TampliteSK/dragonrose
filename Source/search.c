@@ -189,12 +189,15 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		return 0;
 	}
 
+	// Max depth reached
 	if(pos->ply > MAXDEPTH - 1) {
 		return EvalPosition(pos);
 	}
 
-	int InCheck = SqAttacked(pos->KingSq[pos->side],pos->side^1,pos);
+	// Move category
+	uint8_t InCheck = SqAttacked(pos->KingSq[pos->side],!pos->side,pos);
 
+	// Extend depth for checks
 	if(InCheck == TRUE) {
 		depth++;
 	}
@@ -226,7 +229,6 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	S_MOVELIST list[1];
     GenerateAllMoves(pos,list);
 
-    int MoveNum = 0;
 	int Legal = 0;
 	int OldAlpha = alpha;
 	int BestMove = NOMOVE;
@@ -236,7 +238,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	Score = -INF_BOUND;
 
 	if( PvMove != NOMOVE) {
-		for(MoveNum = 0; MoveNum < list->count; ++MoveNum) {
+		for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 			if( list->moves[MoveNum].move == PvMove) {
 				list->moves[MoveNum].score = 2000000;
 				//printf("Pv move found \n");
@@ -247,9 +249,12 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 
 	uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos);
 
-	for(MoveNum = 0; MoveNum < list->count; ++MoveNum) {
+	for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 
 		PickNextMove(MoveNum, list);
+
+		// More move categories
+		uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos);
 		
 		// Futility pruning (default: 325)
 		#define FUTILITY_MARGIN 325
@@ -260,7 +265,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 			int capturedPiece = CAPTURED(list->moves[MoveNum].move);
 			
 			// Check to make sure it's not a capture or check
-			if (capturedPiece == EMPTY && IsCheck) {
+			if (capturedPiece == EMPTY && !IsCheck) {
 				// If the gain from capturing a piece is less than a minor piece, we skip this move
 				if (currentEval + FUTILITY_MARGIN <= alpha) {
 					continue;
@@ -273,57 +278,14 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
         }
 
 		Legal++;
-
-        // Late Move Reductions
-        // We calculate less promising moves at lower depths
-
-        int reduced_depth = depth - 1; // We move further into the tree
-        // Do not reduce if there's mate (otherwise buggy)
-        if (abs(Score) < ISMATE) {
-            // Check if it's a late move
-            // For Dragonrose it should calculate first 10 moves (0-9) as the move order isn't that good
-            // Later on the pruning can be more aggressive
-            if (MoveNum > 5 && depth > 4) {
-
-                uint8_t self_king_sq = pos->KingSq[pos->side];
-                uint8_t moving_pce = pos->pieces[FROMSQ(list->moves[MoveNum].move)];
-                uint8_t target_sq = TOSQ(list->moves[MoveNum].move);
-                uint8_t target_pce = pos->pieces[target_sq];
-
-                int IsPromotion = list->moves[MoveNum].move & MFLAGPROM;
-                int IsCapture = list->moves[MoveNum].move & MFLAGCAP;
-                // uint8_t MoveIsAttack = IsAttack(moving_pce, target_sq, pos);
-                uint8_t IsPawn = (moving_pce == wP) || (moving_pce == bP);
-                // Checks if a move's target square is within 3 king moves
-                uint8_t target_sq_within_king_zone = dist_between_squares(self_king_sq, target_sq) <= 3; 
-
-                if (!IsCapture && !IsPromotion && !InCheck && !IsCheck && !IsPawn && !target_sq_within_king_zone) {
-                    // Based on Fruit Reloaded reduction formula
-                    // Reduction increases with both depth and order of move
-                    // reduced_depth -= (int)( sqrt(depth - 1) + sqrt(MoveNum - 3) );
-
-                    reduced_depth = (int)( log(depth) * log(MoveNum - 2) / 2.25 );
-					/*
-					if (MoveNum < 10) {
-						reduced_depth--;
-					} else {
-						reduced_depth -= (MoveNum - 7) / 3;
-					}
-					*/
-                    
-					// reduced_depth = max(reduced_depth, 3);
-					reduced_depth = max(reduced_depth, max(4, depth - 4));
-                }
-            }
-        }
-
-		Score = -AlphaBeta( -beta, -alpha, reduced_depth, pos, table, info, TRUE);
+		Score = -AlphaBeta( -beta, -alpha, depth-1, pos, table, info, TRUE);
 		TakeMove(pos);
 
 		if(info->stopped == TRUE) {
 			return 0;
 		}
 
+		// Update bestScore, bestMove and killers
 		if(Score > BestScore) {
 			BestScore = Score;
 			BestMove = list->moves[MoveNum].move;
