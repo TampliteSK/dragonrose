@@ -338,6 +338,16 @@ inline int dist_between_squares(uint8_t sq_1, uint8_t sq_2) {
 	// return max( abs(file_1 - file_2), abs(rank_1 - rank_2) ); // alternative definition, to be used for bishops
 }
 
+inline double king_tropism_for_piece(const S_BOARD *pos, int opp_king_sq, uint8_t pce, uint8_t factor) {
+	double tropism = 0;
+
+	for (int i = 0; i < pos->pceNum[pce]; ++i) {
+		uint8_t sq = pos->pList[pce][i];
+		tropism += factor * ( 15 - dist_between_squares(opp_king_sq, sq) );
+	}
+
+	return tropism;
+}
 
 inline double kingTropism(const S_BOARD *pos, uint8_t col) {
 	// A coarse method to promote better attacks
@@ -346,26 +356,27 @@ inline double kingTropism(const S_BOARD *pos, uint8_t col) {
 
 	double tropism = 0;
 	int opp_king_sq = 0;
+	uint8_t colour_offset = (col == BLACK) ? 6 : 0;
 
 	// Obtain opponent's king square
-	if (col == WHITE) {
-		opp_king_sq = pos->pList[bK][0];
-	} else {
-		opp_king_sq = pos->pList[wK][0];
-	}
+	opp_king_sq = pos->KingSq[!col];
+	
+	// Knights
+	uint8_t pce = wN + colour_offset;
+	tropism += king_tropism_for_piece(pos, opp_king_sq, pce, 5);
 
-	// Loop through every square and sum up weight distances 
-	for (int sq = 0; sq < BRD_SQ_NUM; ++sq) {
-		uint8_t pce = pos->pieces[sq];
-		if ( PieceCol[pce] == col ) {
-			if (PieceRBN[pce]) {
-				tropism += 5 * ( 15 - dist_between_squares(opp_king_sq, sq) ); // rook knight case
-			}
-			if ( (pce == wQ) || (pce == bQ) ) {
-				tropism += 10 * ( 15 - dist_between_squares(opp_king_sq, sq) ); // queen case
-			}
-		}
-	}
+	// Bishops
+	pce = wB + colour_offset;
+	tropism += king_tropism_for_piece(pos, opp_king_sq, pce, 5);
+
+	// Rooks
+	pce = wR + colour_offset;
+	tropism += king_tropism_for_piece(pos, opp_king_sq, pce, 5);
+
+	// Queens
+	pce = wQ + colour_offset;
+	tropism += king_tropism_for_piece(pos, opp_king_sq, pce, 10);
+
 	return tropism;
 }
 

@@ -19,8 +19,13 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 ## Playing Strength:
 
 - Latest version is about 2350 CCRL in strength. At the moment it is quite inconsistent in tests, so the estimate may not be accurate.
-- It is about 2050-2200 on Lichess from playing against mostly bots, depending on time control.
-- Based on its games against humans it should be about 2400-2500 Chesscom strength (for rapid, blitz and bullet)
+- The Chesscom rating is estimated based on its games against human players (1800 - 2500). However it suffers greatly from small sample size, so take it with a grain of salt.
+
+| Metric | Rapid | Blitz | Bullet |
+| --- | --- | --- | --- |
+| CCRL | 2350? | N/A | 2350? |
+| Lichess (BOT) | 2196 ± 53 | 2099 ± 45 | 2114 ± 45 |
+| Chesscom (est.) | 2639 ± 240 | 2760 ± 178 | 2645 ± 328 |
 
 ## Main Features:
 
@@ -29,6 +34,7 @@ Search:
   - PV-search
   - Null-move pruning
   - Futility pruning
+  - Late move pruning
 - Quiesence search
   - Delta pruning
 - Iterative deepening
@@ -54,7 +60,7 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.27: Improved drawn endgame detection. <br>
+0.27: Added late move pruning. Improved drawn endgame detection. <br>
 0.26d: Added aspiration windows. <vr>
 0.26: Added king tropism. Improved time management. <br>
 0.25: Added futility pruning. | Elo gain: ~20. <br> 
@@ -69,7 +75,8 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Improve draw detection for material draws
+- Fix LMR
+- Add code to support openbench
 - Add SEE
 - Pawn / bishop interaction
 - Optimise movegen (magic bitboard)
