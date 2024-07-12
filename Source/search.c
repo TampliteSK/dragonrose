@@ -278,7 +278,53 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
         }
 
 		Legal++;
-		Score = -AlphaBeta( -beta, -alpha, depth-1, pos, table, info, TRUE);
+		
+		/*
+			Late Move Reductions
+		*/ 
+        // We calculate less promising moves at lower depths
+
+        int reduced_depth = depth - 1; // We move further into the tree
+        // Do not reduce if there's mate (otherwise buggy)
+        if (abs(Score) < ISMATE) {
+            // Check if it's a late move
+            // For Dragonrose it should calculate first 10 moves (0-9) as the move order isn't that good
+            // Later on the pruning can be more aggressive
+            if (MoveNum > 5 && depth > 4) {
+
+                uint8_t self_king_sq = pos->KingSq[pos->side];
+                uint8_t moving_pce = pos->pieces[FROMSQ(list->moves[MoveNum].move)];
+                uint8_t target_sq = TOSQ(list->moves[MoveNum].move);
+                uint8_t target_pce = pos->pieces[target_sq];
+
+                int IsPromotion = list->moves[MoveNum].move & MFLAGPROM;
+                int IsCapture = list->moves[MoveNum].move & MFLAGCAP;
+                // uint8_t MoveIsAttack = IsAttack(moving_pce, target_sq, pos);
+                uint8_t IsPawn = (moving_pce == wP) || (moving_pce == bP);
+                // Checks if a move's target square is within 3 king moves
+                uint8_t target_sq_within_king_zone = dist_between_squares(self_king_sq, target_sq) <= 3; 
+
+                if (!IsCapture && !IsPromotion && !InCheck && !IsCheck && !IsPawn && !target_sq_within_king_zone) {
+                    // Based on Fruit Reloaded reduction formula
+                    // Reduction increases with both depth and order of move
+                    // reduced_depth -= (int)( sqrt(depth - 1) + sqrt(MoveNum - 3) );
+
+                    reduced_depth = (int)( log(depth) * log(MoveNum - 2) / 2.25 );
+					/*
+					if (MoveNum < 10) {
+						reduced_depth--;
+					} else {
+						reduced_depth -= (MoveNum - 7) / 3;
+					}
+					*/
+
+					// reduced_depth = max(reduced_depth, 3);
+					reduced_depth = max(reduced_depth, max(4, depth - 4));
+                }
+            }
+        }
+
+		Score = -AlphaBeta( -beta, -alpha, reduced_depth, pos, table, info, TRUE);
 		TakeMove(pos);
 
 		if(info->stopped == TRUE) {
