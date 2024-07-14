@@ -154,9 +154,11 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
     printf("id author Tamplite Siphron Kents\n");
 	printf("option name Hash type spin default 128 min 4 max %d\n", MAX_HASH);
 	if (OPENBENCH_MODE) {
-		printf("option name Threads type spin default 1 min 1 max 1\n");
+		printf("option name Threads type spin default 1 min 1 max 1\n"); // No multithreading at the moment
+		printf("option name Book type check default false\n"); // The book will be provided by the test environment
+	} else {
+		printf("option name Book type check default true\n");
 	}
-	printf("option name Book type check default true\n");
     printf("uciok\n");
 	
 	int MB = 128; // default hash 128 MB

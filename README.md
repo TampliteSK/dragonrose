@@ -24,7 +24,7 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 | Metric | Rapid | Blitz | Bullet |
 | --- | --- | --- | --- |
 | CCRL | 2350? | N/A | 2350? |
-| Lichess (BOT) | 2196 ± 53 | 2099 ± 45 | 2114 ± 45 |
+| Lichess (BOT) | 2221 ± 57 | 2074 ± 51 | 2104 ± 54 |
 | Chesscom (est.) | 2639 ± 240 | 2760 ± 178 | 2645 ± 328 |
 
 ## Main Features:
@@ -37,10 +37,9 @@ Search:
   - Late move pruning
 - Quiesence search
   - Delta pruning
+- Move ordering: MVV/LVA, Killer heuristics, Priority moves (Promotion, castling, en passant)
 - Iterative deepening
 - Transposition table using "age"
-- MVV/LVA move ordering
-- Killer heuristics
 - Polyglot opening books
 
 Evaluation:
@@ -60,8 +59,9 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.27: Added late move pruning. Improved drawn endgame detection. <br>
-0.26d: Added aspiration windows. <vr>
+0.28 (dev): Improved move ordering. <br>
+0.27: Added late move pruning. Improved drawn endgame detection. Optimised king tropism. | Elo gain: ~50. <br>
+0.26d: Added aspiration windows. <br>
 0.26: Added king tropism. Improved time management. <br>
 0.25: Added futility pruning. | Elo gain: ~20. <br> 
 0.24c: Enabled O3 optimisation. Added mate ouptut. <br>
@@ -75,7 +75,8 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Fix LMR
+- Improve move ordering
+- Improve aspiration windows
 - Add code to support openbench
 - Add SEE
 - Pawn / bishop interaction
@@ -84,6 +85,5 @@ Evaluation:
 
 ## Bugs to fix:
 - May blunder threefold in a winning position due to how threefold is implemented
-- The PickMove function needs a BestScore of -(very low) instead of 0
 - ID loop needs to only exit when it has a legal move (i.e done depth 1 at least)
 - Obscure illegal move bug that occurs once every 100-200 games. Not replicable just with FEN.

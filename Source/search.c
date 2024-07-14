@@ -15,11 +15,13 @@ static void CheckUp(S_SEARCHINFO *info) {
 	}
 }
 
+// Sorts the list and picks the move that is ordered highest
+// An evaluated move will be put to the bottom so the list has to be resorted every time
 static void PickNextMove(int moveNum, S_MOVELIST *list) {
 
 	S_MOVE temp;
 	int index = 0;
-	int bestScore = 0;
+	int bestScore = -INF_BOUND;
 	int bestNum = moveNum;
 
 	for (index = moveNum; index < list->count; ++index) {
@@ -227,7 +229,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	}
 
 	S_MOVELIST list[1];
-    GenerateAllMoves(pos,list);
+    GenerateAllMoves(pos,list); // MVV-LVA included here (see movegen.c)
 
 	int Legal = 0;
 	int OldAlpha = alpha;
@@ -237,13 +239,19 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 
 	Score = -INF_BOUND;
 
-	if( PvMove != NOMOVE) {
-		for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
+	// Move ordering for PV moves and promotion
+	for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
+		if (PvMove != NOMOVE) {
 			if( list->moves[MoveNum].move == PvMove) {
-				list->moves[MoveNum].score = 2000000;
+				list->moves[MoveNum].score = 20000;
 				//printf("Pv move found \n");
 				break;
 			}
+		}
+
+		int IsPromotion = list->moves[MoveNum].move & MFLAGPROM;
+		if (IsPromotion) {
+			list->moves[MoveNum].score = 7600;
 		}
 	}
 

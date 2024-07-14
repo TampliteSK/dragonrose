@@ -225,10 +225,15 @@ Mask to get captured:
 #define CLRBIT(bb,sq) ((bb) &= ClearMask[(sq)])
 #define SETBIT(bb,sq) ((bb) |= SetMask[(sq)])
 
+#define IsPawn(p) (PiecePawn[(p)])
+#define IsKn(p) (PieceKnight[(p)])
+#define IsBishop(p) (PieceBishop[(p)])
+#define IsRook(p) (PieceRook[(p)])
+#define IsQueen(p) (PieceQueen[(p)])
+#define IsKi(p) (PieceKing[(p)])
+
 #define IsBQ(p) (PieceBishopQueen[(p)])
 #define IsRQ(p) (PieceRookQueen[(p)])
-#define IsKn(p) (PieceKnight[(p)])
-#define IsKi(p) (PieceKing[(p)])
 
 #define MIRROR64(sq) (Mirror64[(sq)])
 
@@ -268,8 +273,13 @@ extern int PieceValEg[13];
 extern int PieceCol[13];
 extern int PiecePawn[13];
 
+extern int PiecePawn[13];
 extern int PieceKnight[13];
+extern int PieceBishop[13];
+extern int PieceRook[13];
+extern int PieceQueen[13];
 extern int PieceKing[13];
+
 extern int PieceRookQueen[13];
 extern int PieceBishopQueen[13];
 extern int PieceRBN[13];
@@ -290,16 +300,15 @@ extern S_HASHTABLE HashTable[1]; // brought out from board struct to make it glo
 
 /* FUNCTIONS */
 
-// init.c
-extern void AllInit();
+// attack.c
+extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
+extern uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos);
+extern uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos);
 
 // bitboards.c
 extern void PrintBitBoard(U64 bb);
 extern int PopBit(U64 *bb);
 extern int CountBits(U64 b);
-
-// hashkeys.c
-extern U64 GeneratePosKey(const S_BOARD *pos);
 
 // board.c
 extern void ResetBoard(S_BOARD *pos);
@@ -309,16 +318,67 @@ extern void UpdateListsMaterial(S_BOARD *pos);
 extern int CheckBoard(const S_BOARD *pos);
 extern void MirrorBoard(S_BOARD *pos);
 
-// attack.c
-extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
-extern uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos);
-extern uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos);
+// evaluate.c
+extern uint8_t isLightSq(uint8_t sq);
+extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
+extern double evalWeight(const S_BOARD *pos);
+extern int16_t PSQT_move_ordering(int move, uint8_t piece);
+
+extern int dist_between_squares(uint8_t sq_1, uint8_t sq_2);
+extern double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat);
+extern double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat);
+extern int16_t EvalPosition(const S_BOARD *pos);
+extern void MirrorEvalTest(S_BOARD *pos);
+
+// hashkeys.c
+extern U64 GeneratePosKey(const S_BOARD *pos);
+
+// init.c
+extern void AllInit();
 
 // io.c
 extern char *PrMove(const int move);
 extern char *PrSq(const int sq);
 extern void PrintMoveList(const S_MOVELIST *list);
 extern int ParseMove(char *ptrChar, S_BOARD *pos);
+
+// makemove.c
+extern int MakeMove(S_BOARD *pos, int move);
+extern void TakeMove(S_BOARD *pos);
+extern void MakeNullMove(S_BOARD *pos);
+extern void TakeNullMove(S_BOARD *pos);
+
+// movegen.c
+extern void GenerateSliders(const S_BOARD *pos, S_MOVELIST *list);
+extern void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list);
+extern void GenerateAllCaps(const S_BOARD *pos, S_MOVELIST *list);
+extern int MoveExists(S_BOARD *pos, const int move);
+extern void InitMvvLva();
+
+// perft.c
+extern void PerftTest(int depth, S_BOARD *pos);
+
+// search.c
+extern void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info);
+
+// misc.c
+extern int GetTimeMs();
+
+// polybook.c
+extern int GetBookMove(S_BOARD *board);
+extern void CleanPolyBook();
+extern void InitPolyBook();
+
+// pvtable.c
+extern void InitHashTable(S_HASHTABLE *table, const int MB);
+extern void StoreHashEntry(S_BOARD *pos, S_HASHTABLE *table, const int move, int score, const int flags, const int depth);
+extern int ProbeHashEntry(S_BOARD *pos, S_HASHTABLE *table, int *move, int *score, int alpha, int beta, int depth);
+extern int ProbePvMove(const S_BOARD *pos, const S_HASHTABLE *table);
+extern int GetPvLine(const int depth, S_BOARD *pos, const S_HASHTABLE *table);
+extern void ClearHashTable(S_HASHTABLE *table);
+
+// uci.c
+extern void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info);
 
 // validate.c
 extern int SqOnBoard(const int sq);
@@ -332,92 +392,6 @@ extern int PceValidEmptyOffbrd(const int pce);
 extern int MoveListOk(const S_MOVELIST *list,  const S_BOARD *pos);
 extern void DebugAnalysisTest(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info);
 
-// movegen.c
-extern void GenerateSliders(const S_BOARD *pos, S_MOVELIST *list);
-extern void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list);
-extern void GenerateAllCaps(const S_BOARD *pos, S_MOVELIST *list);
-extern int MoveExists(S_BOARD *pos, const int move);
-extern void InitMvvLva();
 
-// makemove.c
-extern int MakeMove(S_BOARD *pos, int move);
-extern void TakeMove(S_BOARD *pos);
-extern void MakeNullMove(S_BOARD *pos);
-extern void TakeNullMove(S_BOARD *pos);
-
-// perft.c
-extern void PerftTest(int depth, S_BOARD *pos);
-
-// search.c
-extern void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info);
-
-// misc.c
-extern int GetTimeMs();
-
-// pvtable.c
-extern void InitHashTable(S_HASHTABLE *table, const int MB);
-extern void StoreHashEntry(S_BOARD *pos, S_HASHTABLE *table, const int move, int score, const int flags, const int depth);
-extern int ProbeHashEntry(S_BOARD *pos, S_HASHTABLE *table, int *move, int *score, int alpha, int beta, int depth);
-extern int ProbePvMove(const S_BOARD *pos, const S_HASHTABLE *table);
-extern int GetPvLine(const int depth, S_BOARD *pos, const S_HASHTABLE *table);
-extern void ClearHashTable(S_HASHTABLE *table);
-
-// evaluate.c
-extern uint8_t isLightSq(uint8_t sq);
-extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
-extern double evalWeight(const S_BOARD *pos);
-extern int dist_between_squares(uint8_t sq_1, uint8_t sq_2);
-extern double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat);
-extern double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat);
-extern int16_t EvalPosition(const S_BOARD *pos);
-extern void MirrorEvalTest(S_BOARD *pos);
-
-// uci.c
-extern void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info);
-
-// polybook.c
-extern int GetBookMove(S_BOARD *board);
-extern void CleanPolyBook();
-extern void InitPolyBook() ;
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
