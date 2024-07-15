@@ -75,7 +75,6 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Improve aspiration windows
 - Add SEE
 - Pawn / bishop interaction
 - Optimise movegen (magic bitboard)

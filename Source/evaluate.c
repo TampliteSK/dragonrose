@@ -21,12 +21,10 @@
 
 /* Pawns */
 const int8_t PawnIsolated = -10;
-// Basic passed pawn bonus. Values from Stockfish and then averaged
-// Failed. Loses elo anyway. Reverted
-// original: 0, 5, 10, 20, 35, 60, 100, 200
+const int8_t PawnDoubled = -10;
 const uint8_t PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
 
-// Pieces
+/* Pieces */
 const uint8_t BishopPair = 30;
 const int8_t KnightBlocksPawn = -15;
 const int8_t BishopBlocksPawn = -35;
@@ -264,8 +262,30 @@ inline int16_t punishOpenFiles(const S_BOARD *pos, uint8_t kingSq) {
 
 }
 
+U64 generate_king_zone(uint8_t kingSq, uint8_t col) {
+	U64 king_zone = 0ULL;
+	uint8_t kingFile = FilesBrd[kingSq];
+	uint8_t kingRank = RanksBrd[kingSq];
+
+	if (col == WHITE) {
+		for (int rank = kingRank + 1; rank <= kingRank + 2; ++rank) {
+			for (int file = file - 1; file <= kingFile + 1; ++file) {
+				king_zone |= SQ64(FR2SQ(file, rank));
+			}
+		}
+	} else {
+		for (int rank = kingRank - 1; rank <= kingRank - 3; --rank) {
+			for (int file = file - 1; file <= kingFile + 1; ++file) {
+				king_zone |= SQ64(FR2SQ(file, rank));
+			}
+		}
+	}
+
+	return king_zone;
+	
+}
+
 inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
-	// An attempt was made to rewrite this in bitboard, but it turned out to be way worse
 
 	/*
 	--------
@@ -280,14 +300,30 @@ inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 
 	uint8_t kingFile = FilesBrd[kingSq];
 	uint8_t kingRank = RanksBrd[kingSq];
-	const int8_t PawnShield[4] = { 0, -10, -20, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
-	U64 castledKing = 0ULL;
+	const int8_t PawnShield[4] = { 0, -8, -15, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
+	U64 castled_king = 0ULL;
 	int16_t shield = 0;
 
 	if (col == WHITE) {
-		castledKing = RankBBMask[RANK_1] & ~( (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)) );
 		// Pawn shield only applies to castled king
-		if (castledKing & (1ULL << SQ64(kingSq))) {
+		castled_king = RankBBMask[RANK_1] & ~( (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)) ); // Not on d1 e1 or f1
+		if (castled_king & (1ULL << SQ64(kingSq))) {
+			U64 king_zone = generate_king_zone(kingSq, WHITE);
+			U64 pawns_in_zone = pos->pawns[WHITE] & king_zone;
+
+			uint8_t bits = CountBits(pawns_in_zone);
+			if (bits < 3) {
+				// At least one pawn is too far advanced or dead
+				shield += PawnShield[3] * (3 - bits);
+			}
+
+			while (pawns_in_zone) {
+				uint8_t pawn_sq = PopBit(&pawns_in_zone);
+				uint8_t rank = RanksBrd[SQ120(pawn_sq)];
+				shield += PawnShield[rank - 2];
+			}
+
+			/*
 			// Nested-for loop for the 3x3 rectangle in front of the king
 			for (int rank = kingRank + 1; rank <= kingRank + 3; rank++) {
 				for (int file = kingFile - 1; file <= kingFile + 1; file++) {
@@ -302,11 +338,29 @@ inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 					}	
 				}
 			} 
+			*/
 		}
 	} 
 	else {
-		castledKing = RankBBMask[RANK_8] & ~( (1ULL << SQ64(D8)) | (1ULL << SQ64(E8)) | (1ULL << SQ64(F8)) );
-		if (castledKing & (1ULL << SQ64(kingSq))) {
+		castled_king = RankBBMask[RANK_8] & ~( (1ULL << SQ64(D8)) | (1ULL << SQ64(E8)) | (1ULL << SQ64(F8)) ); // Not on d8 e8 or f8
+		if (castled_king & (1ULL << SQ64(kingSq))) {
+			U64 king_zone = generate_king_zone(kingSq, BLACK);
+			U64 pawns_in_zone = pos->pawns[BLACK] & king_zone;
+
+			uint8_t bits = CountBits(pawns_in_zone);
+			if (bits < 3) {
+				// At least one pawn is too far advanced or dead
+				shield += PawnShield[3] * (3 - bits);
+			}
+
+			while (pawns_in_zone) {
+				uint8_t pawn_sq = PopBit(&pawns_in_zone);
+				uint8_t rank = RanksBrd[SQ120(pawn_sq)];
+				shield += PawnShield[7 - rank];
+			}
+
+
+			/*
 			for (int rank = kingRank - 1; rank >= kingRank - 3; rank--) {
 				for (int file = kingFile - 1; file <= kingFile + 1; file++) {
 					if (pos->pieces[FR2SQ(file, rank)] == bP) {
@@ -320,6 +374,7 @@ inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 				}		
 				}
 			}
+			*/
 		}
 	}
 
