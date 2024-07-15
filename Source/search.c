@@ -393,7 +393,8 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 	int pvNum = 0;
 
 	// Aspiration windows variables
-	#define WINDOW_SIZE 50
+	// #define WINDOW_SIZE 50
+	uint8_t window_size = 50; // Size for first 6 depths
 	int guess = -INF_BOUND;
 	int alpha = -INF_BOUND;
 	int beta = INF_BOUND;
@@ -419,8 +420,12 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			else {
 				
 				// Aspiration windows
-				alpha = guess - WINDOW_SIZE;
-				beta = guess + WINDOW_SIZE;
+				if (currentDepth > 6) {
+					// Window size decrease with depth, with a minimum value of 25
+					window_size = max(-2.5 * currentDepth + 65, 25);
+				}
+				alpha = guess - window_size;
+				beta = guess + window_size;
 
 				uint8_t reSearch = TRUE;
 				while (reSearch) {

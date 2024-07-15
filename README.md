@@ -59,7 +59,7 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.28 (dev): Improved move ordering. Added OpenBench support. <br>
+0.27b (dev): Improved aspiration windows. Improved move ordering. Added OpenBench support. | Elo gain: ~5. <br>
 0.27: Added late move pruning. Improved drawn endgame detection. Optimised king tropism. | Elo gain: ~50. <br>
 0.26d: Added aspiration windows. <br>
 0.26: Added king tropism. Improved time management. <br>
