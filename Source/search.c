@@ -236,7 +236,6 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	int BestMove = NOMOVE;
 
 	int BestScore = -INF_BOUND;
-
 	Score = -INF_BOUND;
 
 	// Move ordering for PV moves and promotion
@@ -253,9 +252,14 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		if (IsPromotion) {
 			list->moves[MoveNum].score = 7600;
 		}
+
+		int IsCapture = list->moves[MoveNum].move & MFLAGCAP;
+		if (IsCapture) {
+			list->moves[MoveNum].score = 5000;
+		}
 	}
 
-	uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos);
+	uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos); // I don't think this works but I don't know the correct way
 
 	for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 

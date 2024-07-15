@@ -44,9 +44,9 @@ const int NumDir[13] = {
 	Killers (moves that lead to beta cut-off but not captures)  9000 / 9500
 	Promotion                                                   7600
 	O-O, O-O-O                                                  7500
-	En passant                                                  7000
+	En passant                                                  5000
+	Checks, captures                                            5000
 	HistoryScore
-	PSQT
 */
 
 const int VictimScore[13] = { 0, 100, 200, 300, 400, 500, 600, 100, 200, 300, 400, 500, 600 };
@@ -99,7 +99,7 @@ static void AddQuietMove( const S_BOARD *pos, int move, S_MOVELIST *list, int is
 	} else {
 		list->moves[list->count].score = pos->searchHistory[pos->pieces[FROMSQ(move)]][TOSQ(move)];
 	}
-	
+
 	list->count++;
 }
 
@@ -123,7 +123,7 @@ static void AddEnPassantMove( const S_BOARD *pos, int move, S_MOVELIST *list ) {
 	ASSERT((RanksBrd[TOSQ(move)]==RANK_6 && pos->side == WHITE) || (RanksBrd[TOSQ(move)]==RANK_3 && pos->side == BLACK));
 
 	list->moves[list->count].move = move;
-	list->moves[list->count].score = 105 + 7000;
+	list->moves[list->count].score = 105 + 5000;
 	list->count++;
 }
 

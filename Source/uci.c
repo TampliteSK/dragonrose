@@ -4,6 +4,7 @@
 #include "defs.h"
 #include <string.h>
 #include <math.h>
+#include <time.h>
 
 #define INPUTBUFFER 400 * 6
 
@@ -95,7 +96,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 
 		// time /= movestogo;
 		time -= 50; // overhead
-		info->stoptime = info->starttime + time + inc/2; // falsely believes you can spend the inc and gain it back, but flags regardless
+		info->stoptime = info->starttime + time + inc/2;
 	}
 
 	if(depth == -1) {
@@ -193,7 +194,17 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
             printf("id name %s\n",NAME);
             printf("id author Tamplite Siphron Kents\n");
             printf("uciok\n");
-        } else if (!strncmp(line, "debug", 4)) {
+        } else if (!strncmp(line, "bench", 5)) {
+			clock_t start, end;
+			double time;
+
+			ParseFen(START_FEN, pos);
+			start = clock();
+			ParseGo("go depth 7", info, pos, HashTable);
+			end = clock();
+			time = ( (double)(end - start) ) / CLOCKS_PER_SEC;
+			printf("%lu nodes %d nps\n", info->nodes, (int)( info->nodes / time )); // Cannot get info->starttime and info->stoptime as they get reset
+		} else if (!strncmp(line, "debug", 4)) {
             DebugAnalysisTest(pos, HashTable, info);
             break;
         } else if (!strncmp(line, "setoption name Hash value ", 26)) {			

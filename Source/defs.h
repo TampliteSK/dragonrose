@@ -31,7 +31,8 @@ exit(1);}
 typedef unsigned long long U64;
 
 #define NAME "Dragonrose 0.27"
-#define OPENBENCH_MODE 0
+// 1: TRUE, 0: FALSE
+#define OPENBENCH_MODE 1
 #define BRD_SQ_NUM 120
 // Maximum hash size
 #define MAX_HASH 1024
