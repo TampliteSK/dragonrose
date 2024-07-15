@@ -13,8 +13,9 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 ## How to Use:
 
 - Challenge it on Lichess [here](https://lichess.org/@/DragonroseDev)
-- Windows: Download the binary from releases and plug it into a chess GUI such as Arena or Cutechess
-- Other OS or to get the latest version: Build it locally with the makefile in Source
+- To run it locally either download a binary from releases or build it yourself with the makefile. With it you can pick one of two options:
+  - Plug it into a chess GUI such as Arena or Cutechess
+  - Directly run the executable (usually for testing). You can run it normally with ./Dragonrose or run a benchmark with ./Dragonrose bench
 
 ## Playing Strength:
 
@@ -81,6 +82,7 @@ Evaluation:
 - Search thread / LazySMP
 
 ## Bugs to fix:
+- Non-deterministic node count
 - May blunder threefold in a winning position due to how threefold is implemented
 - ID loop needs to only exit when it has a legal move (i.e done depth 1 at least)
 - Obscure illegal move bug that occurs once every 100-200 games. Not replicable just with FEN.

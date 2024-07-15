@@ -153,6 +153,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
     printf("id name %s\n",NAME);
     printf("id author Tamplite Siphron Kents\n");
 	printf("option name Hash type spin default 128 min 4 max %d\n", MAX_HASH);
+	int MB = 128;
 	if (OPENBENCH_MODE) {
 		printf("option name Threads type spin default 1 min 1 max 1\n"); // No multithreading at the moment
 		printf("option name Book type check default false\n"); // The book will be provided by the test environment
@@ -163,8 +164,6 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 	}
 	ParseFen(START_FEN, pos);
     printf("uciok\n");
-	
-	int MB = 128; // default hash 128 MB
 
 	while (TRUE) {
 		memset(&line[0], 0, sizeof(line));
@@ -199,10 +198,10 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
             DebugAnalysisTest(pos, HashTable, info);
             break;
         } else if (!strncmp(line, "setoption name Hash value ", 26)) {			
-			sscanf(line,"%*s %*s %*s %*s %d",&MB);
-			if(MB < 4) MB = 4;
-			if(MB > MAX_HASH) MB = MAX_HASH;
-			printf("Set Hash to %d MB\n",MB);
+			sscanf(line,"%*s %*s %*s %*s %d", &MB);
+			if (MB < 4) MB = 4;
+			if (MB > MAX_HASH) MB = MAX_HASH;
+			printf("Set Hash to %d MB\n", MB);
 			InitHashTable(HashTable, MB);
 		} else if (!strncmp(line, "setoption name Book value ", 26)) {			
 			char *ptrTrue = NULL;
