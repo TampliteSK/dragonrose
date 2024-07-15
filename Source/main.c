@@ -46,6 +46,7 @@ int main(int argc, char *argv[]) {
 				// printf("position_str = %s\n", position_str);
 
 				ParsePosition(position_str, pos);
+				free(position_str);
 				ParseGo("go depth 7", info, pos, HashTable);
 				total_nodes += info->nodes;
 				// printf("Nodes: %lu\n", total_nodes);

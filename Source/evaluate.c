@@ -497,7 +497,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	score += CountMaterial(pos, &whiteMaterial, &blackMaterial);
 
 	// Material draw (checks if there are no pawns as well)
-	int netMaterial = abs(whiteMaterial - blackMaterial);
+	int netMaterial = (int)fabs(whiteMaterial - blackMaterial);
 	if(!pos->pceNum[wP] && !pos->pceNum[bP] && MaterialDraw(netMaterial) == TRUE) {
 		return 0;
 	}
