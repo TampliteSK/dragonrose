@@ -22,13 +22,8 @@ int main(int argc, char *argv[]) {
 	setbuf(stdin, NULL);
     setbuf(stdout, NULL);
     
-    int ArgNum = 0;
-    
-    for(ArgNum = 0; ArgNum < argc; ++ArgNum) {
-    	if(strncmp(argv[ArgNum], "NoBook", 6) == 0) {
-    		EngineOptions->UseBook = FALSE;
-    		printf("Book Off\n");
-    	} else if (strncmp(argv[ArgNum], "bench", 5) == 0) {
+    for(int ArgNum = 0; ArgNum < argc; ++ArgNum) {
+    	if (strncmp(argv[ArgNum], "bench", 5) == 0) {
 			clock_t start, end;
 			double time;
 			unsigned long total_nodes = 0;
@@ -63,25 +58,7 @@ int main(int argc, char *argv[]) {
 		}
     }
 
-	printf("[Dragonrose] Available commands: uci, bench, quit\n");
-
-	char line[256];
-	while (TRUE) {
-		memset(&line[0], 0, sizeof(line));
-
-		fflush(stdout);
-		if (!fgets(line, 256, stdin))
-			continue;
-		if (line[0] == '\n')
-			continue;
-		if (!strncmp(line, "uci", 3)) {
-			Uci_Loop(pos, info);
-			if(info->quit == TRUE) break;
-			continue;
-		} else if (!strncmp(line, "quit", 4)) {
-			break;
-		}
-	}
+	Uci_Loop(pos, info);
 
 	free(HashTable->pTable);
 	CleanPolyBook();

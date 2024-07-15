@@ -156,9 +156,12 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 	if (OPENBENCH_MODE) {
 		printf("option name Threads type spin default 1 min 1 max 1\n"); // No multithreading at the moment
 		printf("option name Book type check default false\n"); // The book will be provided by the test environment
+		EngineOptions->UseBook = FALSE;
 	} else {
 		printf("option name Book type check default true\n");
+		EngineOptions->UseBook = TRUE;
 	}
+	ParseFen(START_FEN, pos);
     printf("uciok\n");
 	
 	int MB = 128; // default hash 128 MB
@@ -184,7 +187,6 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
             printf("Seen Go..\n");
             ParseGo(line, info, pos, HashTable);
 		} else if (!strncmp(line, "run", 3)) {
-            ParseFen(START_FEN, pos);
             ParseGo("go infinite", info, pos, HashTable);
         } else if (!strncmp(line, "quit", 4)) {
             info->quit = TRUE;

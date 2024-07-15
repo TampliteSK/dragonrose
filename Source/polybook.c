@@ -24,25 +24,25 @@ void InitPolyBook() {
 	FILE *pFile = fopen("VICEbook.bin","rb");
 	
 	if(pFile == NULL) {
-		printf("Book File Not Read\n");
+		// printf("Book File Not Read\n");
 	} else {
 		fseek(pFile,0,SEEK_END);
 		long position = ftell(pFile);
 		
 		if(position < (long)sizeof(S_POLY_BOOK_ENTRY)) {
-			printf("No Entries Found\n");
+			// printf("No Entries Found\n");
 			return;
 		}
 		
 		NumEntries = position / sizeof(S_POLY_BOOK_ENTRY);
-		printf("%ld Entries Found In File\n", NumEntries);
+		// printf("%ld Entries Found In File\n", NumEntries);
 		
 		entries = (S_POLY_BOOK_ENTRY*)malloc(NumEntries * sizeof(S_POLY_BOOK_ENTRY));
 		rewind(pFile);
 		
 		size_t returnValue;
 		returnValue = fread(entries, sizeof(S_POLY_BOOK_ENTRY), NumEntries, pFile);
-		printf("fread() %lu Entries Read in from file\n", returnValue);
+		// printf("fread() %lu Entries Read in from file\n", returnValue);
 		
 		if(NumEntries > 0) {
 			EngineOptions->UseBook = TRUE;
