@@ -181,15 +181,15 @@ const int KingEgTable[64] = {
 ***** Evaluation components *****
 ********************************/
 
-// Applying gamePhase at startpos
-#define openingPhase 64
-
 // Returns 1 if it's a light square
+/*
 uint8_t isLightSq(uint8_t sq) {
 	return !( (sq % 2) ^ ( ( sq / 10 ) % 2) );
 }
+*/
 
 // Gives bonuses if bishop and pawns are of different colour complexes
+/*
 uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col) {
 
 	uint8_t subscore = 0;
@@ -206,8 +206,12 @@ uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col) {
 	return subscore;
 
 }
+*/
 
-// Calculates the weight of tapered eval. 
+// Applying gamePhase at startpos
+#define openingPhase 64
+
+// Calculates the weight of tapered eval.
 inline double evalWeight(const S_BOARD *pos) {
 	// PesTO has its own tapered eval but it's 17 +/-22 elo worse than Caissa's
 	// Scaling by material is strictly worse, and is about 225-275 elo weaker.
@@ -230,7 +234,7 @@ inline double evalWeight(const S_BOARD *pos) {
 *** King Safety ***
 ******************/
 
-inline int16_t punishOpenFiles(const S_BOARD *pos, uint8_t kingSq) {
+static inline int16_t punishOpenFiles(const S_BOARD *pos, uint8_t kingSq) {
 	uint8_t kingFile = FilesBrd[kingSq];
 	const int16_t KingOpenFile[3] = { -100, -120, -100 };
 	int16_t openLines = 0;
@@ -262,7 +266,7 @@ inline int16_t punishOpenFiles(const S_BOARD *pos, uint8_t kingSq) {
 
 }
 
-U64 generate_king_zone(uint8_t kingSq, uint8_t col) {
+static U64 generate_king_zone(uint8_t kingSq, uint8_t col) {
 	U64 king_zone = 0ULL;
 	uint8_t kingFile = FilesBrd[kingSq];
 	uint8_t kingRank = RanksBrd[kingSq];
@@ -285,7 +289,7 @@ U64 generate_king_zone(uint8_t kingSq, uint8_t col) {
 	
 }
 
-inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
+static inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 
 	/*
 	--------
@@ -361,7 +365,7 @@ inline int dist_between_squares(uint8_t sq_1, uint8_t sq_2) {
 	// return max( abs(file_1 - file_2), abs(rank_1 - rank_2) ); // alternative definition, to be used for bishops
 }
 
-inline double king_tropism_for_piece(const S_BOARD *pos, int opp_king_sq, uint8_t pce, uint8_t factor) {
+static inline double king_tropism_for_piece(const S_BOARD *pos, int opp_king_sq, uint8_t pce, uint8_t factor) {
 	double tropism = 0;
 
 	for (int i = 0; i < pos->pceNum[pce]; ++i) {
@@ -372,7 +376,7 @@ inline double king_tropism_for_piece(const S_BOARD *pos, int opp_king_sq, uint8_
 	return tropism;
 }
 
-inline double kingTropism(const S_BOARD *pos, uint8_t col) {
+static inline double kingTropism(const S_BOARD *pos, uint8_t col) {
 	// A coarse method to promote better attacks
 	// Seems to do better than Attacking King Zone or Attack Units for some reason
 	// Also less expensive to use (less drop in NPS)
@@ -447,7 +451,7 @@ inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackM
 
 // Test position: 8/6R1/2k5/6P1/8/8/4nP2/6K1 w - - 1 41
 // Determins if the position is a draw by material (with no pawns)
-inline uint8_t MaterialDraw(int net_material) {
+static inline uint8_t MaterialDraw(int net_material) {
 
 	ASSERT(CheckBoard(pos));
 	
@@ -463,6 +467,7 @@ inline uint8_t MaterialDraw(int net_material) {
 }
 
 // Detects if it's an opposite-coloured bishop endgame, and used to apply a drawish factor
+/*
 inline uint8_t is_opposite_bishop(const S_BOARD *pos) {
 
 	// Determines if any side has more than one bishop
@@ -475,6 +480,7 @@ inline uint8_t is_opposite_bishop(const S_BOARD *pos) {
 	}
 
 }
+*/
 
 /********************************
 *** Main Evaluation Function ****

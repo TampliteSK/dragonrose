@@ -320,10 +320,9 @@ extern int CheckBoard(const S_BOARD *pos);
 extern void MirrorBoard(S_BOARD *pos);
 
 // evaluate.c
-extern uint8_t isLightSq(uint8_t sq);
-extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
+// extern uint8_t isLightSq(uint8_t sq);
+// extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
 extern double evalWeight(const S_BOARD *pos);
-extern int16_t PSQT_move_ordering(int move, uint8_t piece);
 
 extern int dist_between_squares(uint8_t sq_1, uint8_t sq_2);
 extern double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat);
