@@ -1,4 +1,4 @@
-// uci.h
+// main.h
 
 // Obtained from Stockfish (benchmark.cpp) and Quanticade (uci.c)
 // Total: 50 positions

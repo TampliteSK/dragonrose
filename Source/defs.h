@@ -379,6 +379,8 @@ extern int GetPvLine(const int depth, S_BOARD *pos, const S_HASHTABLE *table);
 extern void ClearHashTable(S_HASHTABLE *table);
 
 // uci.c
+extern void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table);
+extern void ParsePosition(char* lineIn, S_BOARD *pos);
 extern void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info);
 
 // validate.c

@@ -4,8 +4,6 @@
 #include "defs.h"
 #include <string.h>
 #include <math.h>
-#include <time.h>
-#include "uci.h"
 
 #define INPUTBUFFER 400 * 6
 
@@ -195,33 +193,6 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
             printf("id name %s\n", NAME);
             printf("id author Tamplite Siphron Kents\n");
             printf("uciok\n");
-        } else if (!strncmp(line, "bench", 5)) {
-			clock_t start, end;
-			double time;
-			unsigned long total_nodes = 0;
-			
-			start = clock();
-			for (int index = 0; index < 50; ++index) {
-				printf("\n=== Benching position %d/%d ===\n", index, 49);
-				printf("Position: %s\n", bench_positions[index]);
-
-				// Allocate a long string that can contain "position " and also the FEN
-				size_t buffer_size = strlen("position fen ") + strlen(bench_positions[index]) + 1;
-    			char *position_str = malloc(buffer_size);
-				strcpy(position_str, "position fen ");
-				strcat(position_str, bench_positions[index]);
-				// printf("position_str = %s\n", position_str);
-
-				ParsePosition(position_str, pos);
-				ParseGo("go depth 7", info, pos, HashTable);
-				total_nodes += info->nodes;
-				// printf("Nodes: %lu\n", total_nodes);
-			}
-			end = clock();
-
-			time = ( (double)(end - start) ) / CLOCKS_PER_SEC;
-			printf("\n-#-#- Benchmark results -#-#-\n");
-			printf("%lu nodes %d nps\n", total_nodes, (int)( total_nodes / time ));
 		} else if (!strncmp(line, "debug", 4)) {
             DebugAnalysisTest(pos, HashTable, info);
             break;

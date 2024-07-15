@@ -409,7 +409,7 @@ inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, u
 	// The approach of this function is in terms of deductions to your own king
 
 	double kingSafety = punishOpenFiles(pos, kingSq) * 0.85;
-	kingSafety += pawnShield(pos, kingSq, col) * 0.15;
+	kingSafety += pawnShield(pos, kingSq, col) * 0.15; // default: 0.15
 	kingSafety += kingTropism(pos, col) * 0.45;
 
 	return kingSafety * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
