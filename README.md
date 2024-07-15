@@ -14,7 +14,7 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 
 - Challenge it on Lichess [here](https://lichess.org/@/DragonroseDev)
 - Windows: Download the binary from releases and plug it into a chess GUI such as Arena or Cutechess
-- Other OS or getting latest version: Build it locally on your machine by downloading the repo
+- Other OS or to get the latest version: Build it locally with the makefile in Source
 
 ## Playing Strength:
 
@@ -37,7 +37,7 @@ Search:
   - Late move pruning
 - Quiesence search
   - Delta pruning
-- Move ordering: MVV/LVA, Killer heuristics, Priority moves (Promotion, castling, en passant)
+- Move ordering: MVV/LVA, Killer heuristics, Priority moves (Castling, en passant)
 - Iterative deepening
 - Transposition table using "age"
 - Polyglot opening books
@@ -53,13 +53,13 @@ Evaluation:
 
 ## Credits
 - Richard Allbert (Bluefever Software) for VICE code and video playlist. The entire reason this engine even exists.
+- [Chess Programming Wiki](https://www.chessprogramming.org/Main_Page). Great resource in general to learn concepts.
+- Witek902 for [Caissa](https://github.com/Witek902/Caissa) chess engine. I borrowed its tapered eval weighting formula.
 - nemequ, mbitsnbites, zhuyie et al. for [TinyCThread](https://github.com/tinycthread/tinycthread/tree/master).
-- Chess Programming [Wiki](https://www.chessprogramming.org/Main_Page). Great resource in general to learn concepts.
-- Witek902 for [Caissa](https://github.com/Witek902/Caissa) chess engine. I borrowed tapered eval from there.
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.28 (dev): Improved move ordering. Added openbench support. <br>
+0.28 (dev): Improved move ordering. Added OpenBench support. <br>
 0.27: Added late move pruning. Improved drawn endgame detection. Optimised king tropism. | Elo gain: ~50. <br>
 0.26d: Added aspiration windows. <br>
 0.26: Added king tropism. Improved time management. <br>
@@ -75,9 +75,7 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
-- Improve move ordering
 - Improve aspiration windows
-- Add code to support openbench
 - Add SEE
 - Pawn / bishop interaction
 - Optimise movegen (magic bitboard)

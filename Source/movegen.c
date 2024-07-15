@@ -42,10 +42,8 @@ const int NumDir[13] = {
 	PV Move                                                     20000
 	Cap -> MVV-LVA                                              12000 - 12606
 	Killers (moves that lead to beta cut-off but not captures)  9000 / 9500
-	Promotion                                                   7600
 	O-O, O-O-O                                                  7500
 	En passant                                                  5000
-	Checks, captures                                            5000
 	HistoryScore
 */
 

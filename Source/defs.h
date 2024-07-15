@@ -176,7 +176,7 @@ typedef struct {
 
 // UCI options struct
 typedef struct {
-	uint8_t UseBook; // TRUE / FALSE
+	uint8_t UseBook; // check, TRUE / FALSE
 } S_OPTIONS;
 
 /* GAME MOVE */

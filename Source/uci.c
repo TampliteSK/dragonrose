@@ -191,7 +191,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
             info->quit = TRUE;
             break;
         } else if (!strncmp(line, "uci", 3)) {
-            printf("id name %s\n",NAME);
+            printf("id name %s\n", NAME);
             printf("id author Tamplite Siphron Kents\n");
             printf("uciok\n");
         } else if (!strncmp(line, "bench", 5)) {

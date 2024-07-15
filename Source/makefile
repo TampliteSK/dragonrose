@@ -1,7 +1,8 @@
 CC ?= gcc
 SRCS = $(wildcard *.c)
-EXE ?= Dragonrose_027_20240712
+EXE ?= Dragonrose_027_Dev
 OPT_FLAGS = -O3 -march=native -mavx2
 
 all:
-	$(CC) $(SRCS) -o $(EXE) $(OPT_FLAGS)
+	$(CC) $(SRCS) -o $(EXE) $(OPT_FLAGS) -lm
+# -lm is added to fix errors when compiling on Linux (Ubuntu)
