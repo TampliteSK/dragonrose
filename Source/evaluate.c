@@ -269,14 +269,14 @@ U64 generate_king_zone(uint8_t kingSq, uint8_t col) {
 
 	if (col == WHITE) {
 		for (int rank = kingRank + 1; rank <= kingRank + 2; ++rank) {
-			for (int file = file - 1; file <= kingFile + 1; ++file) {
-				king_zone |= SQ64(FR2SQ(file, rank));
+			for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
+				king_zone |= 1ULL << SQ64(FR2SQ(file, rank));
 			}
 		}
 	} else {
 		for (int rank = kingRank - 1; rank <= kingRank - 3; --rank) {
-			for (int file = file - 1; file <= kingFile + 1; ++file) {
-				king_zone |= SQ64(FR2SQ(file, rank));
+			for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
+				king_zone |= 1ULL << SQ64(FR2SQ(file, rank));
 			}
 		}
 	}
@@ -298,15 +298,16 @@ inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 	------K-
 	*/
 
-	uint8_t kingFile = FilesBrd[kingSq];
-	uint8_t kingRank = RanksBrd[kingSq];
+	// uint8_t kingFile = FilesBrd[kingSq];
+	// uint8_t kingRank = RanksBrd[kingSq];
 	const int8_t PawnShield[4] = { 0, -8, -15, -50 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
 	U64 castled_king = 0ULL;
 	int16_t shield = 0;
 
 	if (col == WHITE) {
 		// Pawn shield only applies to castled king
-		castled_king = RankBBMask[RANK_1] & ~( (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)) ); // Not on d1 e1 or f1
+		castled_king = RankBBMask[RANK_1];
+		castled_king ^= (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)); // Not on d1 e1 or f1
 		if (castled_king & (1ULL << SQ64(kingSq))) {
 			U64 king_zone = generate_king_zone(kingSq, WHITE);
 			U64 pawns_in_zone = pos->pawns[WHITE] & king_zone;
@@ -319,30 +320,14 @@ inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 
 			while (pawns_in_zone) {
 				uint8_t pawn_sq = PopBit(&pawns_in_zone);
-				uint8_t rank = RanksBrd[SQ120(pawn_sq)];
+				uint8_t rank = pawn_sq / 8;
 				shield += PawnShield[rank - 2];
 			}
-
-			/*
-			// Nested-for loop for the 3x3 rectangle in front of the king
-			for (int rank = kingRank + 1; rank <= kingRank + 3; rank++) {
-				for (int file = kingFile - 1; file <= kingFile + 1; file++) {
-					if (pos->pieces[FR2SQ(file, rank)] == wP) {
-						// There's a pawn in this zone
-						shield += PawnShield[rank - kingRank - 1];
-					} else {
-						if (rank == kingRank + 3) {
-							// There is no pawn shield within this file
-							shield += PawnShield[3];
-						}
-					}	
-				}
-			} 
-			*/
 		}
 	} 
 	else {
-		castled_king = RankBBMask[RANK_8] & ~( (1ULL << SQ64(D8)) | (1ULL << SQ64(E8)) | (1ULL << SQ64(F8)) ); // Not on d8 e8 or f8
+		castled_king = RankBBMask[RANK_8];
+		castled_king ^= (1ULL << SQ64(D8)) | (1ULL << SQ64(E8)) | (1ULL << SQ64(F8)); // Not on d8 e8 or f8
 		if (castled_king & (1ULL << SQ64(kingSq))) {
 			U64 king_zone = generate_king_zone(kingSq, BLACK);
 			U64 pawns_in_zone = pos->pawns[BLACK] & king_zone;
@@ -355,26 +340,9 @@ inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 
 			while (pawns_in_zone) {
 				uint8_t pawn_sq = PopBit(&pawns_in_zone);
-				uint8_t rank = RanksBrd[SQ120(pawn_sq)];
+				uint8_t rank = pawn_sq / 8;
 				shield += PawnShield[7 - rank];
 			}
-
-
-			/*
-			for (int rank = kingRank - 1; rank >= kingRank - 3; rank--) {
-				for (int file = kingFile - 1; file <= kingFile + 1; file++) {
-					if (pos->pieces[FR2SQ(file, rank)] == bP) {
-						// There's a pawn in this zone
-						shield += PawnShield[kingRank - rank - 1];
-					} else {
-						if (rank == kingRank - 3) {
-							// There is no pawn shield within this zone (and by extension, file)
-							shield += PawnShield[3];
-						}
-				}		
-				}
-			}
-			*/
 		}
 	}
 

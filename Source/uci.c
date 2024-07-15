@@ -202,7 +202,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 			
 			start = clock();
 			for (int index = 0; index < 50; ++index) {
-				printf("=== Benching position %d/%d ===\n", index, 49);
+				printf("\n=== Benching position %d/%d ===\n", index, 49);
 				printf("Position: %s\n", bench_positions[index]);
 
 				// Allocate a long string that can contain "position " and also the FEN
@@ -220,7 +220,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 			end = clock();
 
 			time = ( (double)(end - start) ) / CLOCKS_PER_SEC;
-			printf("Benchmark results:\n");
+			printf("\n-#-#- Benchmark results -#-#-\n");
 			printf("%lu nodes %d nps\n", total_nodes, (int)( total_nodes / time ));
 		} else if (!strncmp(line, "debug", 4)) {
             DebugAnalysisTest(pos, HashTable, info);
