@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdint.h>
+
 #include "defs.h"
 
 // Test positions for evaluation

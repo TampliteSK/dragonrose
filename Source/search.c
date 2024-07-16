@@ -238,11 +238,11 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	int BestScore = -INF_BOUND;
 	Score = -INF_BOUND;
 
-	// Move ordering for PV moves and promotion
-	for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
-		if (PvMove != NOMOVE) {
+	// Move ordering for PV moves
+	if (PvMove != NOMOVE) {
+		for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 			if( list->moves[MoveNum].move == PvMove) {
-				list->moves[MoveNum].score = 20000;
+				list->moves[MoveNum].score = 2000000;
 				//printf("Pv move found \n");
 				break;
 			}
@@ -254,9 +254,6 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 
 		PickNextMove(MoveNum, list);
-
-		// More move categories
-		uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos);
 		
 		// Futility pruning (default: 325)
 		#define FUTILITY_MARGIN 325
@@ -292,7 +289,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
             // Check if it's a late move
             // For Dragonrose it should calculate first 10 moves (0-9) as the move order isn't that good
             // Later on the pruning can be more aggressive
-            if (MoveNum > 5 && depth > 4) {
+            if (MoveNum > 3 && depth > 4) {
 
                 uint8_t self_king_sq = pos->KingSq[pos->side];
                 uint8_t moving_pce = pos->pieces[FROMSQ(list->moves[MoveNum].move)];
@@ -311,7 +308,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
                     // Reduction increases with both depth and order of move
                     // reduced_depth -= (int)( sqrt(depth - 1) + sqrt(MoveNum - 3) );
 
-                    reduced_depth = (int)( log(depth) * log(MoveNum - 2) / 2.25 );
+                    reduced_depth = (int)( log(depth) * log(MoveNum) / 2.25 );
 					/*
 					if (MoveNum < 10) {
 						reduced_depth--;

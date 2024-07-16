@@ -39,11 +39,11 @@ const int NumDir[13] = {
 
 /*
 	=== Move Ordering ===
-	PV Move                                                     20000
-	Cap -> MVV-LVA                                              12000 - 12606
-	Killers (moves that lead to beta cut-off but not captures)  9000 / 9500
-	O-O, O-O-O                                                  7500
-	En passant                                                  5000
+	PV Move                                                     2,000,000
+	Cap -> MVV-LVA                                              1,200,000 - 1,200,606
+	Killers (moves that lead to beta cut-off but not captures)  900,000 / 950,000
+	O-O, O-O-O                                                  750,000
+	En passant                                                  300,000
 	HistoryScore
 */
 
@@ -89,11 +89,11 @@ static void AddQuietMove( const S_BOARD *pos, int move, S_MOVELIST *list, int is
 	list->moves[list->count].move = move;
 
 	if(pos->searchKillers[0][pos->ply] == move) {
-		list->moves[list->count].score = 9500;
+		list->moves[list->count].score = 950000;
 	} else if(pos->searchKillers[1][pos->ply] == move) {
-		list->moves[list->count].score = 9000;
+		list->moves[list->count].score = 900000;
 	} else if (is_castles) {
-		list->moves[list->count].score = 7500;
+		list->moves[list->count].score = 750000;
 	} else {
 		list->moves[list->count].score = pos->searchHistory[pos->pieces[FROMSQ(move)]][TOSQ(move)];
 	}
@@ -109,7 +109,7 @@ static void AddCaptureMove( const S_BOARD *pos, int move, S_MOVELIST *list ) {
 	ASSERT(CheckBoard(pos));
 
 	list->moves[list->count].move = move;
-	list->moves[list->count].score = MvvLvaScores[CAPTURED(move)][pos->pieces[FROMSQ(move)]] + 12000;
+	list->moves[list->count].score = MvvLvaScores[CAPTURED(move)][pos->pieces[FROMSQ(move)]] + 1200000;
 	list->count++;
 }
 
@@ -121,7 +121,7 @@ static void AddEnPassantMove( const S_BOARD *pos, int move, S_MOVELIST *list ) {
 	ASSERT((RanksBrd[TOSQ(move)]==RANK_6 && pos->side == WHITE) || (RanksBrd[TOSQ(move)]==RANK_3 && pos->side == BLACK));
 
 	list->moves[list->count].move = move;
-	list->moves[list->count].score = 105 + 5000;
+	list->moves[list->count].score = 105 + 300000;
 	list->count++;
 }
 

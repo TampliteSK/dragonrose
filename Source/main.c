@@ -32,19 +32,9 @@ int main(int argc, char *argv[]) {
 			for (int index = 0; index < 50; ++index) {
 				printf("\n=== Benching position %d/%d ===\n", index, 49);
 				printf("Position: %s\n", bench_positions[index]);
-
-				// Allocate a long string that can contain "position " and also the FEN
-				size_t buffer_size = strlen("position fen ") + strlen(bench_positions[index]) + 1;
-    			char *position_str = malloc(buffer_size);
-				strcpy(position_str, "position fen ");
-				strcat(position_str, bench_positions[index]);
-				// printf("position_str = %s\n", position_str);
-
-				ParsePosition(position_str, pos);
-				free(position_str);
+				ParseFen(bench_positions[index], pos);
 				ParseGo("go depth 7", info, pos, HashTable);
 				total_nodes += info->nodes;
-				// printf("Nodes: %lu\n", total_nodes);
 			}
 			end = clock();
 

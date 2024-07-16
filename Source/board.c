@@ -151,6 +151,7 @@ void UpdateListsMaterial(S_BOARD *pos) {
 
 // Returns -1 if error, 0 otherwise.
 int ParseFen(char *fen, S_BOARD *pos) {
+	
 	// To prevent crashes
 	ASSERT(fen!=NULL);
 	ASSERT(pos!=NULL);

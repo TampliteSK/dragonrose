@@ -81,7 +81,7 @@ enum { WKCA = 1, WQCA = 2, BKCA = 4, BQCA = 8 };
 // Move struct. See below for format of move
 typedef struct {
 	int move;
-	int32_t score; // goes up to 20,000 for hash moves move ordering
+	int score; // goes up to 2,000,000 for hash moves move ordering
 } S_MOVE;
 
 typedef struct {
@@ -95,7 +95,7 @@ enum { HFNONE, HFALPHA, HFBETA, HFEXACT };
 typedef struct {
 	U64 posKey;
 	int move;
-	int32_t score; // goes up to 20,000 for hash moves move ordering
+	int score;
 	uint8_t depth; // max 64
 	int flags;
 	int age; // indicates how new an entry is
@@ -157,8 +157,8 @@ typedef struct {
 
 typedef struct {
 
-	int starttime;
-	int stoptime;
+	long starttime;
+	long stoptime;
 	uint8_t depth;
 	int timeset;
 	uint16_t movestogo;

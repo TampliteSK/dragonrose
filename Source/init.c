@@ -69,7 +69,8 @@ void InitEvalMasks() {
             BlackPassedMask[sq] |= (1ULL << tsq);
             tsq -= 8;
         }
-
+		
+		// Case where the pawn is on B-H files
         if(FilesBrd[SQ120(sq)] > FILE_A) {
             IsolatedMask[sq] |= FileBBMask[FilesBrd[SQ120(sq)] - 1];
 
