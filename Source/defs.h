@@ -91,7 +91,7 @@ typedef struct {
 
 enum { HFNONE, HFALPHA, HFBETA, HFEXACT };
 
-// 23 bytes
+// 25 bytes (but will be rounded to 32 for storage)
 typedef struct {
 	U64 posKey;
 	int move;
@@ -103,7 +103,8 @@ typedef struct {
 
 typedef struct {
 	S_HASHENTRY *pTable;
-	int numEntries; // max 1024 MB, or 46,684,427 entries
+	int maxEntries; // maximum entries based on given hash size
+	int numEntries; // number of entries at any given time
 	int newWrite;
 	int overWrite;
 	int hit; // tracks the number of entires probed

@@ -9,7 +9,7 @@ typedef struct {
 	
 } S_POLY_BOOK_ENTRY;
 
-long NumEntries = 0;
+long maxEntries = 0;
 
 S_POLY_BOOK_ENTRY *entries;
 
@@ -34,17 +34,17 @@ void InitPolyBook() {
 			return;
 		}
 		
-		NumEntries = position / sizeof(S_POLY_BOOK_ENTRY);
-		// printf("%ld Entries Found In File\n", NumEntries);
+		maxEntries = position / sizeof(S_POLY_BOOK_ENTRY);
+		// printf("%ld Entries Found In File\n", maxEntries);
 		
-		entries = (S_POLY_BOOK_ENTRY*)malloc(NumEntries * sizeof(S_POLY_BOOK_ENTRY));
+		entries = (S_POLY_BOOK_ENTRY*)malloc(maxEntries * sizeof(S_POLY_BOOK_ENTRY));
 		rewind(pFile);
 		
 		size_t returnValue;
-		returnValue = fread(entries, sizeof(S_POLY_BOOK_ENTRY), NumEntries, pFile);
+		returnValue = fread(entries, sizeof(S_POLY_BOOK_ENTRY), maxEntries, pFile);
 		// printf("fread() %lu Entries Read in from file\n", returnValue);
 		
-		if(NumEntries > 0) {
+		if(maxEntries > 0) {
 			EngineOptions->UseBook = TRUE;
 		}
 	}
@@ -185,7 +185,7 @@ int GetBookMove(S_BOARD *board) {
 	
 	U64 polyKey = PolyKeyFromBoard(board);
 	
-	for(entry = entries; entry < entries + NumEntries; entry++) {
+	for(entry = entries; entry < entries + maxEntries; entry++) {
 		if(polyKey == endian_swap_u64(entry->key)) {
 			move = endian_swap_u16(entry->move);
 			tempMove = ConvertPolyMoveToInternalMove(move, board);

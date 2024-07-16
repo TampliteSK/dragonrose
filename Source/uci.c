@@ -102,8 +102,10 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 		info->depth = MAXDEPTH;
 	}
 
-	printf("time:%d start:%ld stop:%ld depth:%d timeset:%d\n",
-		time,info->starttime,info->stoptime,info->depth,info->timeset);
+	if (!OPENBENCH_MODE) {
+		printf("time:%d start:%ld stop:%ld depth:%d timeset:%d\n",
+			time, info->starttime, info->stoptime, info->depth, info->timeset);
+	}
 	SearchPosition(pos, table, info);
 }
 
@@ -183,7 +185,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 			ClearHashTable(HashTable);
             ParsePosition("position startpos\n", pos);
         } else if (!strncmp(line, "go", 2)) {
-            printf("Seen Go..\n");
+            // printf("Seen Go..\n");
             ParseGo(line, info, pos, HashTable);
 		} else if (!strncmp(line, "run", 3)) {
             ParseGo("go infinite", info, pos, HashTable);
