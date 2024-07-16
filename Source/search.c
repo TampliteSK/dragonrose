@@ -456,10 +456,10 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 				// copysign(1.0, value) outputs +/- 1.0 depending on the sign of "value"
 				// this should be a cleaner way than a ternary
 				int8_t mateMoves = round( (INF_BOUND - abs(bestScore)) / 2 ) * copysign(1.0, bestScore);
-				printf("info score mate %d depth %d nodes %ld time %d pv",
+				printf("info score mate %d depth %d nodes %ld time %ld pv",
 					mateMoves,currentDepth,info->nodes,GetTimeMs()-info->starttime);
 			} else {
-				printf("info score cp %d depth %d nodes %ld time %d pv",
+				printf("info score cp %d depth %d nodes %ld time %ld pv",
 					bestScore,currentDepth,info->nodes,GetTimeMs()-info->starttime);
 			}
 
