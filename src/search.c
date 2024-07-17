@@ -97,7 +97,8 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 		return EvalPosition(pos);
 	}
 
-	int32_t Score = EvalPosition(pos); // stand-pat score
+	int32_t Score = 0; // Flagged "Conditional jump or move depends on uninitialised value(s)" by Valgrind
+	Score = EvalPosition(pos); // stand-pat score
 
 	ASSERT(Score>-INF_BOUND && Score<INF_BOUND);
 
@@ -271,11 +272,11 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 				}
 			}
 		}
-
+		
+		// Check if it is a legal move
         if ( !MakeMove(pos,list->moves[MoveNum].move))  {
             continue;
         }
-
 		Legal++;
 		
 		/*
@@ -334,7 +335,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 			BestMove = list->moves[MoveNum].move;
 			if(Score > alpha) {
 				if(Score >= beta) {
-					if(Legal==1) {
+					if(Legal == 1) {
 						info->fhf++;
 					}
 					info->fh++;

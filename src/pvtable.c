@@ -149,13 +149,17 @@ void StoreHashEntry(S_BOARD *pos, S_HASHTABLE *table, const int move, int score,
 
 	if (!replace) return; // No need to overwrite the entry
 	
-	if(score > ISMATE) score += pos->ply;
-    else if(score < -ISMATE) score -= pos->ply;
+	int written_score = score;
+	if (score > ISMATE) {
+		written_score += pos->ply;
+	} else if (score < -ISMATE) {
+		written_score -= pos->ply;
+	}
 	
 	table->pTable[index].move = move;
     table->pTable[index].posKey = pos->posKey;
 	table->pTable[index].flags = flags;
-	table->pTable[index].score = score;
+	table->pTable[index].score = written_score;
 	table->pTable[index].depth = depth;
 	table->pTable[index].age = table->currentAge;
 }

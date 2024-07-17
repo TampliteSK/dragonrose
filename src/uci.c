@@ -102,10 +102,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 		info->depth = MAXDEPTH;
 	}
 
-	if (!OPENBENCH_MODE) {
-		printf("time:%d start:%llu stop:%llu depth:%d timeset:%d\n",
-			time, info->starttime, info->stoptime, info->depth, info->timeset);
-	}
+	// printf("time:%d start:%llu stop:%llu depth:%d timeset:%d\n", time, info->starttime, info->stoptime, info->depth, info->timeset);
 	SearchPosition(pos, table, info);
 }
 
