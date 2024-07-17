@@ -13,34 +13,34 @@ add_compile_options(-march=native -Ofast -fomit-frame-pointer -DUSE_SSE41 -msse4
 add_executable(Dragonrose "")
 
 set(DRAGONROSE_SOURCES
-    "Source/attack.c"
-    "Source/bitboards.c"
-    "Source/board.c"
-    "Source/data.c"
-    "Source/evaluate.c"
-    "Source/hashkeys.c"
-    "Source/init.c"
-    "Source/io.c"
-    "Source/main.c"
-    "Source/makemove.c"
-    "Source/misc.c"
-    "Source/movegen.c"
-    "Source/perft.c"
-    "Source/polybook.c"
-    "Source/polykeys.c"
-    "Source/pvtable.c"
-    "Source/search.c"
-    "Source/uci.c"
-    "Source/validate.c"
+    "src/attack.c"
+    "src/bitboards.c"
+    "src/board.c"
+    "src/data.c"
+    "src/evaluate.c"
+    "src/hashkeys.c"
+    "src/init.c"
+    "src/io.c"
+    "src/main.c"
+    "src/makemove.c"
+    "src/misc.c"
+    "src/movegen.c"
+    "src/perft.c"
+    "src/polybook.c"
+    "src/polykeys.c"
+    "src/pvtable.c"
+    "src/search.c"
+    "src/uci.c"
+    "src/validate.c"
 )
 
 set(DRAGONROSE_HEADERS
-    "Source/defs.h"
-    "Source/polykeys.h"
+    "src/defs.h"
+    "src/polykeys.h"
 )
 
 set(DRAGONROSE_BOOK
-    "Source/VICEbook.bin"
+    "src/VICEbook.bin"
 )
 
 target_sources(Dragonrose

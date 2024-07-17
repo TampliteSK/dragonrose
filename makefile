@@ -1,5 +1,5 @@
 CC ?= gcc
-SRCS = $(wildcard *.c)
+SRCS = $(wildcard src/*.c)
 EXE ?= Dragonrose
 OPT_FLAGS = -O3 -march=native
 
