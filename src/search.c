@@ -286,15 +286,13 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
         int reduced_depth = depth - 1; // We move further into the tree
         // Do not reduce if there's mate (otherwise buggy)
         if (abs(Score) < ISMATE) {
+
             // Check if it's a late move
-            // For Dragonrose it should calculate first 10 moves (0-9) as the move order isn't that good
-            // Later on the pruning can be more aggressive
             if (MoveNum > 3 && depth > 4) {
 
                 uint8_t self_king_sq = pos->KingSq[pos->side];
                 uint8_t moving_pce = pos->pieces[FROMSQ(list->moves[MoveNum].move)];
                 uint8_t target_sq = TOSQ(list->moves[MoveNum].move);
-                uint8_t target_pce = pos->pieces[target_sq];
 
                 int IsPromotion = list->moves[MoveNum].move & MFLAGPROM;
                 int IsCapture = list->moves[MoveNum].move & MFLAGCAP;
