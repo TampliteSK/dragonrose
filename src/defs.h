@@ -142,7 +142,6 @@ typedef struct {
 	uint8_t fiftyMove;
 	uint8_t castlePerm;
 
-	// Max game moves: 2048
 	uint16_t ply;
 	uint16_t hisPly;
 

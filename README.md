@@ -17,16 +17,12 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
   - Plug it into a chess GUI such as Arena or Cutechess
   - Directly run the executable (usually for testing). You can run it normally with ./Dragonrose or run a benchmark with ./Dragonrose bench
 
-## Playing Strength:
+## UCI options
 
-- Latest version is about 2350 CCRL in strength. At the moment it is quite inconsistent in tests, so the estimate may not be accurate.
-- The Chesscom rating is estimated based on its games against human players (1800 - 2500). However it suffers greatly from small sample size, so take it with a grain of salt.
-
-| Metric | Rapid | Blitz | Bullet |
-| --- | --- | --- | --- |
-| CCRL | 2350? | N/A | 2350? |
-| Lichess (BOT) | 2221 ± 57 | 2074 ± 51 | 2104 ± 54 |
-| Chesscom (est.) | 2639 ± 240 | 2760 ± 178 | 2645 ± 328 |
+| Name |      Type       | Default |       Valid values        | Description                                                                     |
+|:-----|:---------------:|:-------:|:-------------------------:|:-------------------------------------------------------------------------------:|
+| Hash | integer (spin)  |    64   |         [1, 1024]         | Size of the transposition table in megabytes.                                   |
+| Book | boolean (check) |    1    |        TRUE / FALSE       | Whether to use the internal book (from VICE chess engine).                      |
 
 ## Main Features:
 
@@ -51,6 +47,17 @@ Evaluation:
 - Piece bonuses: Rook/queen open-file bonuses
 - Pawn bonuses: Passed pawns, isolated pawns
 - Drawn endgame detection: Basic material draw (e.g. K+R v K+B)
+
+## Playing Strength:
+
+- Latest version is about 2350 CCRL in strength. At the moment it is quite inconsistent in tests, so the estimate may not be accurate.
+- The Chesscom rating is estimated based on its games against human players (1800 - 2500). However it suffers greatly from small sample size, so take it with a grain of salt.
+
+| Metric | Rapid | Blitz | Bullet |
+| --- | --- | --- | --- |
+| CCRL | 2350? | N/A | 2350? |
+| Lichess (BOT) | 2221 ± 57 | 2074 ± 51 | 2104 ± 54 |
+| Chesscom (est.) | 2639 ± 240 | 2760 ± 178 | 2645 ± 328 |
 
 ## Credits
 - Richard Allbert (Bluefever Software) for VICE code and video playlist. The entire reason this engine even exists.
