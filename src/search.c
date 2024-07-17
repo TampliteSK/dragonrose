@@ -73,7 +73,7 @@ static void ClearForSearch(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info)
 	table->currentAge++;
 	pos->ply = 0;
 
-	info->stopped = 0;
+	info->stopped = FALSE;
 	info->nodes = 0;
 	info->fh = 0;
 	info->fhf = 0;
@@ -450,16 +450,16 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			bestMove = pos->PvArray[0];
 
 			// Display mate if there's forced mate
-			uint8_t mateFound = FALSE;
-			long time = GetTimeMs() - info->starttime;
+			uint8_t mate_found = FALSE;
+			unsigned long long time = GetTimeMs() - info->starttime;
 			if (abs(bestScore) >= ISMATE) {
-				mateFound = TRUE;
+				mate_found = TRUE;
 				// copysign(1.0, value) outputs +/- 1.0 depending on the sign of "value" (i.e. sgn(value))
 				int8_t mateMoves = round( (INF_BOUND - abs(bestScore)) / 2 ) * copysign(1.0, bestScore);
-				printf("info score mate %d depth %d nodes %ld hashfull %d time %ld pv",
+				printf("info score mate %d depth %d nodes %ld hashfull %d time %llu pv",
 					mateMoves, currentDepth, info->nodes, (int)(table->numEntries / (double)table->maxEntries * 1000), time);
 			} else {
-				printf("info score cp %d depth %d nodes %ld hashfull %d time %ld pv",
+				printf("info score cp %d depth %d nodes %ld hashfull %d time %llu pv",
 					bestScore, currentDepth, info->nodes, (int)(table->numEntries / (double)table->maxEntries * 1000), time);
 			}
 			
@@ -471,7 +471,7 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			printf("\n");
 
 			// Exit search if mate at current depth is found, in order to save time
-			if (mateFound && ( (bestScore + INF_BOUND) == currentDepth ) ) {
+			if (mate_found && ( (bestScore + INF_BOUND) == currentDepth ) ) {
 				break;
 				// Buggy if no search is performed before pruning immediately
 			}

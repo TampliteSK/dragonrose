@@ -158,20 +158,20 @@ typedef struct {
 
 typedef struct {
 
-	long starttime;
-	long stoptime;
+	unsigned long long starttime;
+	unsigned long long stoptime;
 	uint8_t depth;
-	int timeset;
+	long timeset;
 	uint16_t movestogo;
 
 	unsigned long nodes;
 
-	int quit;
-	int stopped;
+	uint8_t quit;
+	uint8_t stopped;
 
-	float fh;
-	float fhf;
-	int nullCut;
+	float fh; // beta cutoffs
+	float fhf; // legal moves
+	uint16_t nullCut;
 
 } S_SEARCHINFO;
 

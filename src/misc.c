@@ -9,7 +9,7 @@
 #include "sys/time.h"
 #endif
 
-long GetTimeMs() {
+unsigned long long GetTimeMs() {
 #ifdef WIN32
   return GetTickCount();
 #else
