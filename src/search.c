@@ -10,7 +10,7 @@ int rootDepth;
 
 static void CheckUp(S_SEARCHINFO *info) {
 	// .. check if time up, or interrupt from GUI
-	if(info->timeset == TRUE && GetTimeMs() > info->stoptime) {
+	if((info->timeset == TRUE) && ((unsigned long long)GetTimeMs() > info->stoptime)) {
 		info->stopped = TRUE;
 	}
 }
@@ -82,7 +82,7 @@ static void ClearForSearch(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info)
 static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *info) {
 
 	ASSERT(CheckBoard(pos));
-	ASSERT(beta>alpha);
+	ASSERT(beta > alpha);
 	if(( info->nodes & 2047 ) == 0) {
 		CheckUp(info);
 	}
@@ -97,8 +97,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 		return EvalPosition(pos);
 	}
 
-	int32_t Score = 0; // Flagged "Conditional jump or move depends on uninitialised value(s)" by Valgrind
-	Score = EvalPosition(pos); // stand-pat score
+	int32_t Score = EvalPosition(pos); // stand-pat score
 
 	ASSERT(Score>-INF_BOUND && Score<INF_BOUND);
 
@@ -149,7 +148,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
         }
 
 		Legal++;
-		Score = -Quiescence( -beta, -alpha, pos, info);
+		Score = -Quiescence(-beta, -alpha, pos, info);
         TakeMove(pos);
 
 		if(info->stopped == TRUE) {

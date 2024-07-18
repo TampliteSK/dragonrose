@@ -31,7 +31,9 @@ int CheckBoard(const S_BOARD *pos) {
 	int t_majPce[2] = { 0, 0};
 	int t_minPce[2] = { 0, 0};
 
-	int sq64,t_piece,t_pce_num,sq120,colour,pcount;
+	int sq64 = 0, sq120 = 0;
+	int t_piece = 0, t_pce_num = 0;
+	uint8_t colour = 0;
 
 	U64 t_pawns[3] = {0ULL, 0ULL, 0ULL};
 
@@ -63,7 +65,7 @@ int CheckBoard(const S_BOARD *pos) {
 	}
 
 	// check bitboards count
-	pcount = CNT(t_pawns[WHITE]);
+	int pcount = CNT(t_pawns[WHITE]);
 	ASSERT(pcount == pos->pceNum[wP]);
 	pcount = CNT(t_pawns[BLACK]);
 	ASSERT(pcount == pos->pceNum[bP]);

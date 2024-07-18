@@ -10,7 +10,7 @@
 // go depth 6 wtime 180000 btime 100000 binc 1000 winc 1000 movetime 1000 movestogo 40
 void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 
-	int depth = -1, movestogo = 30,movetime = -1;
+	int depth = -1, movestogo = 30, movetime = -1;
 	int time = -1, inc = 0;
     char *ptr = NULL;
 	info->timeset = FALSE;
@@ -102,7 +102,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 		info->depth = MAXDEPTH;
 	}
 
-	// printf("time:%d start:%llu stop:%llu depth:%d timeset:%d\n", time, info->starttime, info->stoptime, info->depth, info->timeset);
+	// printf("time:%d start:%llu stop:%llu depth:%d timeset:%hhu\n", time, info->starttime, info->stoptime, info->depth, info->timeset);
 	SearchPosition(pos, table, info);
 }
 
