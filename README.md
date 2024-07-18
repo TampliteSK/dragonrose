@@ -46,7 +46,7 @@ Evaluation:
   - Piece-square table bonuses
 - King safety: pawn shield, open files, king tropism
 - Piece bonuses: Rook/queen open-file bonuses
-- Pawn bonuses: Passed pawns, isolated pawns
+- Pawn bonuses: Passed pawns, isolated pawns, doubled pawns
 - Drawn endgame detection: Basic material draw (e.g. K+R v K+B)
 
 ## Playing Strength:
@@ -68,7 +68,8 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.27b (dev): Improved aspiration windows. Improved move ordering. Added OpenBench support. | Elo gain: ~5. <br>
+0.27c (dev): Added doubled pawns. Improved time management. Minor code restructuring.
+0.27b: Improved aspiration windows. Improved move ordering. Added OpenBench support. | Elo gain: ~5. <br>
 0.27: Added late move pruning. Improved drawn endgame detection. Optimised king tropism. | Elo gain: ~50. <br>
 0.26d: Added aspiration windows. <br>
 0.26: Added king tropism. Improved time management. <br>

@@ -55,6 +55,37 @@ uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col) {
 // Applying gamePhase at startpos
 #define openingPhase 64
 
+inline int16_t evaluate_pawn_structure(const S_BOARD *pos, uint8_t pawn_sq, uint8_t col) {
+
+	int16_t pawn_score = 0;
+
+	if( (IsolatedMask[SQ64(pawn_sq)] & pos->pawns[col]) == 0) {
+		//printf("wP Iso:%s\n",PrSq(sq));
+		pawn_score += PawnIsolated;
+	}
+
+	U64 mask = FileBBMask[FilesBrd[pawn_sq]] & pos->pawns[col];
+	uint8_t stacked_count = CountBits(mask);
+	if(stacked_count > 1) {
+		//printf("wP Iso:%s\n",PrSq(sq));
+		pawn_score += PawnDoubled * (stacked_count - 1); // Scales with doubled and tripled pawns
+	}
+
+	if (col == WHITE) {
+		if( (WhitePassedMask[SQ64(pawn_sq)] & pos->pawns[BLACK]) == 0) {
+			//printf("wP Passed:%s\n",PrSq(sq));
+			pawn_score += PawnPassed[RanksBrd[pawn_sq]];
+		}
+	} else {
+		if( (BlackPassedMask[SQ64(pawn_sq)] & pos->pawns[WHITE]) == 0) {
+			//printf("bP Passed:%s\n",PrSq(sq));
+			pawn_score += PawnPassed[7 - RanksBrd[pawn_sq]];
+		}
+	}
+	
+	return pawn_score;
+}
+
 // Calculates the weight of tapered eval.
 inline double evalWeight(const S_BOARD *pos) {
 	// PesTO has its own tapered eval but it's 17 +/-22 elo worse than Caissa's
@@ -363,17 +394,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
 		score += PawnMgTable[SQ64(sq)] * weight + PawnEgTable[SQ64(sq)] * ( 1 - weight );
-
-		if( (IsolatedMask[SQ64(sq)] & pos->pawns[WHITE]) == 0) {
-			//printf("wP Iso:%s\n",PrSq(sq));
-			score += PawnIsolated;
-		}
-
-		if( (WhitePassedMask[SQ64(sq)] & pos->pawns[BLACK]) == 0) {
-			//printf("wP Passed:%s\n",PrSq(sq));
-			score += PawnPassed[RanksBrd[sq]];
-		}
-
+		score += evaluate_pawn_structure(pos, sq, WHITE);
 	}
 
 	pce = bP;
@@ -381,17 +402,8 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= PawnMgTable[MIRROR64(SQ64(sq))] * weight + PawnEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
-
-		if( (IsolatedMask[SQ64(sq)] & pos->pawns[BLACK]) == 0) {
-			//printf("bP Iso:%s\n",PrSq(sq));
-			score -= PawnIsolated;
-		}
-
-		if( (BlackPassedMask[SQ64(sq)] & pos->pawns[WHITE]) == 0) {
-			//printf("bP Passed:%s\n",PrSq(sq));
-			score -= PawnPassed[7 - RanksBrd[sq]];
-		}
+		score -= PawnMgTable[MIRROR64(SQ64(sq))] * weight + PawnEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );	
+		score -= evaluate_pawn_structure(pos, sq, BLACK);
 	}
 
 	/************

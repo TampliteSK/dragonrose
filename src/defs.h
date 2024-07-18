@@ -161,7 +161,7 @@ typedef struct {
 	unsigned long long starttime;
 	unsigned long long stoptime;
 	uint8_t depth;
-	long timeset;
+	int timeset;
 	uint16_t movestogo;
 
 	unsigned long nodes;

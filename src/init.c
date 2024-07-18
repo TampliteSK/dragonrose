@@ -70,8 +70,10 @@ void InitEvalMasks() {
             tsq -= 8;
         }
 		
-		// Case where the pawn is on B-H files
+		// Pawn is on B-H files
         if(FilesBrd[SQ120(sq)] > FILE_A) {
+			
+			// Mask the file to the left of a potential pawn
             IsolatedMask[sq] |= FileBBMask[FilesBrd[SQ120(sq)] - 1];
 
             tsq = sq + 7;
@@ -87,7 +89,10 @@ void InitEvalMasks() {
             }
         }
 
+		// Pawn is on A-G files
         if(FilesBrd[SQ120(sq)] < FILE_H) {
+
+			// Mask the file to the right of a potential pawn
             IsolatedMask[sq] |= FileBBMask[FilesBrd[SQ120(sq)] + 1];
 
             tsq = sq + 9;
