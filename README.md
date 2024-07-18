@@ -7,22 +7,23 @@ To use the engine, either grab the binary from releases, or build the project lo
 ## Dragonrose and VICE
 
 Dragonrose is based on VICE, a chess engine written by Richard Allbert (Bluefever Software), which is a didactic chess engine aimed to introduce beginners to the world of chess programming. Huge credits to him for creating the YouTube series explaining the engine in great detail. <br>
+Note that aside from most of the code itself, the internal book (VICEbook.bin) is also created by Allbert. <br>
 
 You can find the playlist here: [Link to playlist](https://www.youtube.com/playlist?list=PLZ1QII7yudbc-Ky058TEaOstZHVbT-2hg)
 
 ## How to Use:
 
 - Challenge it on Lichess [here](https://lichess.org/@/DragonroseDev)
-- To run it locally either download a binary from releases or build it yourself with the makefile. With it you can pick one of two options:
+- To run it locally either download a binary from releases or build it yourself with the makefile (or CMake). With it you can pick one of two options:
   - Plug it into a chess GUI such as Arena or Cutechess
   - Directly run the executable (usually for testing). You can run it normally with ./Dragonrose or run a benchmark with ./Dragonrose bench
 
 ## UCI options
 
-| Name |      Type       | Default |       Valid values        | Description                                                                     |
-|:-----|:---------------:|:-------:|:-------------------------:|:-------------------------------------------------------------------------------:|
-| Hash | integer (spin)  |    64   |         [1, 1024]         | Size of the transposition table in megabytes.                                   |
-| Book | boolean (check) |    1    |        TRUE / FALSE       | Whether to use the internal book (from VICE chess engine).                      |
+| Name |      Type       | Default |  Valid values  | Description                                                                                             |
+|:----:|:---------------:|:-------:|:--------------:|:-------------------------------------------------------------------------------------------------------:|
+| Hash | integer (spin)  |   64    |    [1, 1024]   | Size of the transposition table in megabytes.                                                           |
+| Book | boolean (check) |    1    |  TRUE / FALSE  | Whether to use the internal book (VICEbook.bin). The book and the binary must be in the same directory. |
 
 ## Main Features:
 

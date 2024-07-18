@@ -296,8 +296,6 @@ inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackM
 // Test position: 8/6R1/2k5/6P1/8/8/4nP2/6K1 w - - 1 41
 // Determins if the position is a draw by material (with no pawns)
 static inline uint8_t MaterialDraw(int net_material) {
-
-	ASSERT(CheckBoard(pos));
 	
 	// Upper bound of a bishop's value in the endgame (slightly higher than actual value due to tapered eval)
 	#define MAX_MINOR_PIECE 310

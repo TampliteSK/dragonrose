@@ -79,9 +79,9 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 				time /= phaseMoves;
 			} else {
 				// Early-middlegame phase
-				if (pos->hisPly <= 50) {
-					// Allocate 30% of total time
-					time *= 0.3;
+				if (pos->hisPly <= 70) {
+					// Allocate 55% of total time
+					time *= 0.55;
 					phaseMoves = round((50 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0);
 					time /= phaseMoves;
 				} else {

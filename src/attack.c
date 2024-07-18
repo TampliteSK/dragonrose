@@ -132,7 +132,7 @@ uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos) {
 		for(int index = 0; index < 4; ++index) {		
 			dir = RkDir[index];
 			attacked_sq = sq + dir;
-			ASSERT(SqIs120(t_sq));
+			ASSERT(SqIs120(attacked_sq));
 			while((attacked_sq >= 0) && (attacked_sq < BRD_SQ_NUM)) {
 				if(get_piece_col(attacked_sq) != side) {
 					return TRUE;
@@ -148,7 +148,7 @@ uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos) {
 		for(int index = 0; index < 4; ++index) {		
 			dir = BiDir[index];
 			attacked_sq = sq + dir;
-			ASSERT(SqIs120(t_sq));
+			ASSERT(SqIs120(attacked_sq));
 			while (attacked_sq >= 0 && attacked_sq < BRD_SQ_NUM) {
 				if(get_piece_col(attacked_sq) != side) {
 					return TRUE;

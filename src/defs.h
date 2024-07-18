@@ -13,6 +13,7 @@
 *** Definitions ****
 *******************/
 
+// Uncomment to activate ASSERT() statements
 // #define DEBUG
 
 #ifndef DEBUG
