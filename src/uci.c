@@ -15,35 +15,35 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
     char *ptr = NULL;
 	info->timeset = FALSE;
 
-	if ((ptr = strstr(line,"infinite"))) {
+	if ((ptr = strstr(line, "infinite"))) {
 		;
 	}
 
-	if ((ptr = strstr(line,"binc")) && pos->side == BLACK) {
+	if ((ptr = strstr(line, "binc")) && pos->side == BLACK) {
 		inc = atoi(ptr + 5);
 	}
 
-	if ((ptr = strstr(line,"winc")) && pos->side == WHITE) {
+	if ((ptr = strstr(line, "winc")) && pos->side == WHITE) {
 		inc = atoi(ptr + 5);
 	}
 
-	if ((ptr = strstr(line,"wtime")) && pos->side == WHITE) {
+	if ((ptr = strstr(line, "wtime")) && pos->side == WHITE) {
 		time = atoi(ptr + 6);
 	}
 
-	if ((ptr = strstr(line,"btime")) && pos->side == BLACK) {
+	if ((ptr = strstr(line, "btime")) && pos->side == BLACK) {
 		time = atoi(ptr + 6);
 	}
 
-	if ((ptr = strstr(line,"movestogo"))) {
+	if ((ptr = strstr(line, "movestogo"))) {
 		movestogo = atoi(ptr + 10);
 	}
 
-	if ((ptr = strstr(line,"movetime"))) {
+	if ((ptr = strstr(line, "movetime"))) {
 		movetime = atoi(ptr + 9);
 	}
 
-	if ((ptr = strstr(line,"depth"))) {
+	if ((ptr = strstr(line, "depth"))) {
 		depth = atoi(ptr + 6);
 	}
 
