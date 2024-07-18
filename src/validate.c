@@ -75,7 +75,7 @@ void DebugAnalysisTest(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			ClearHashTable(table);
             ParseFen(lineIn, pos);
             printf("\n%s\n",lineIn);
-			printf("time:%d start:%llu stop:%llu depth:%d timeset:%hhu\n",
+			printf("time:%d start:%llu stop:%llu depth:%d timeset:%d\n",
 				time, info->starttime, info->stoptime, info->depth, info->timeset);
 			SearchPosition(pos, table, info);
             memset(&lineIn[0], 0, sizeof(lineIn));
