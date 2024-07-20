@@ -31,9 +31,9 @@ char *PrMove(const int move) {
 		char pchar = 'q';
 		if(IsKn(promoted)) {
 			pchar = 'n';
-		} else if(IsRQ(promoted) && !IsBQ(promoted))  {
+		} else if(IsRook(promoted))  {
 			pchar = 'r';
-		} else if(!IsRQ(promoted) && IsBQ(promoted))  {
+		} else if(IsBishop(promoted))  {
 			pchar = 'b';
 		}
 		sprintf(MvStr, "%c%c%c%c%c", ('a'+ff), ('1'+rf), ('a'+ft), ('1'+rt), pchar);
@@ -69,11 +69,11 @@ int ParseMove(char *ptrChar, S_BOARD *pos) {
 		if(FROMSQ(Move)==from && TOSQ(Move)==to) {
 			PromPce = PROMOTED(Move);
 			if(PromPce!=EMPTY) {
-				if(IsRQ(PromPce) && !IsBQ(PromPce) && ptrChar[4]=='r') {
+				if(IsRook(PromPce) && ptrChar[4]=='r') {
 					return Move;
-				} else if(!IsRQ(PromPce) && IsBQ(PromPce) && ptrChar[4]=='b') {
+				} else if(IsBishop(PromPce) && ptrChar[4]=='b') {
 					return Move;
-				} else if(IsRQ(PromPce) && IsBQ(PromPce) && ptrChar[4]=='q') {
+				} else if(IsQueen(PromPce) && ptrChar[4]=='q') {
 					return Move;
 				} else if(IsKn(PromPce)&& ptrChar[4]=='n') {
 					return Move;

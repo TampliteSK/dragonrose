@@ -58,7 +58,7 @@ Evaluation:
 | --- | --- | --- | --- |
 | CCRL | 2350? | N/A | 2350? |
 | Lichess (BOT) | 2221 ± 57 | 2074 ± 51 | 2104 ± 54 |
-| Chesscom (est.) | 2639 ± 240 | 2760 ± 178 | 2645 ± 328 |
+| Chesscom (est.) | 2591 ± 239 | 2760 ± 178 | 2659 ± 227 |
 
 ## Credits
 - Richard Allbert (Bluefever Software) for VICE code and video playlist. The entire reason this engine even exists.
@@ -68,6 +68,7 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
+0.28: Added extended futility pruning. Elo gain: ~15.
 0.27c (dev): Added doubled pawns. Improved time management. Minor code restructuring.
 0.27b: Improved aspiration windows. Improved move ordering. Added OpenBench support. | Elo gain: ~5. <br>
 0.27: Added late move pruning. Improved drawn endgame detection. Optimised king tropism. | Elo gain: ~50. <br>

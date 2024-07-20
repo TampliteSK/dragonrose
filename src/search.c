@@ -256,22 +256,30 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 
 		PickNextMove(MoveNum, list);
 		
-		// Futility pruning (default: 325)
+		/*
+			(Extended) Futility Pruning
+		*/
+		// Discards moves which have no potential of raising alpha
+
+		// Depth 1 margin: ~minor piece
 		#define FUTILITY_MARGIN 325
+		// Depth 2 margin: ~rook
+		#define EXTENDED_FUTILITY_MARGIN 475
 
 		// We check if it is a frontier node (1 ply from horizon) and the eval is not close to mate
-		if (depth == 1 && abs(Score) < ISMATE) {
+		if ( (depth == 1 || depth == 2) && (abs(Score) < ISMATE) ) {
 			int currentEval = EvalPosition(pos);
 			int capturedPiece = CAPTURED(list->moves[MoveNum].move);
-			
-			// Check to make sure it's not a capture or check
-			if (capturedPiece == EMPTY && !IsCheck) {
-				// If the gain from capturing a piece is less than a minor piece, we skip this move
-				if (currentEval + FUTILITY_MARGIN <= alpha) {
+
+			// Check to make sure it's not a capture or a check
+			if ( (capturedPiece == EMPTY) && !IsCheck) {
+				if ( (depth == 2) && (currentEval + EXTENDED_FUTILITY_MARGIN <= alpha) ) {
+					continue; 
+				} else if ( (depth == 1) && (currentEval + FUTILITY_MARGIN <= alpha) ) {
 					continue;
 				}
 			}
-		}
+		} 
 		
 		// Check if it is a legal move
         if ( !MakeMove(pos,list->moves[MoveNum].move))  {
@@ -477,6 +485,6 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 		}
 	}
 
-	printf("bestmove %s\n",PrMove(bestMove));
+	printf("bestmove %s\n", PrMove(bestMove));
 
 }

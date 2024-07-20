@@ -81,7 +81,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 				// Early-middlegame phase
 				if (pos->hisPly <= 70) {
 					// Allocate 55% of total time
-					time *= 0.55;
+					time *= 0.45;
 					phaseMoves = round((50 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0);
 					time /= phaseMoves;
 				} else {
@@ -187,6 +187,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 		} else if (!strncmp(line, "run", 3)) {
             ParseGo("go infinite", info, pos, HashTable);
         } else if (!strncmp(line, "quit", 4)) {
+			free(HashTable->pTable); // Release the memory of the TT after the program exits
             info->quit = TRUE;
             break;
         } else if (!strncmp(line, "uci", 3)) {
