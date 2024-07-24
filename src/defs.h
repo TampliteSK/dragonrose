@@ -241,20 +241,21 @@ Mask to get captured:
 
 #define min(x, y) ((x) > (y) ? (y) : (x))
 #define max(x, y) ((x) > (y) ? (x) : (y))
+// #define clamp(value, low, high) ((value) < (low) ? (low) : ((value) > (high) ? (high) : (value)))
 
 /*******************
 ***** Globals ******
 *******************/
+
+// bitboard.c
+extern U64 SetMask[64];
+extern U64 ClearMask[64];
 
 // init.c
 extern int Sq120ToSq64[BRD_SQ_NUM];
 extern int Sq64ToSq120[64];
 extern int FilesBrd[BRD_SQ_NUM];
 extern int RanksBrd[BRD_SQ_NUM];
-
-// bitboard.c
-extern U64 SetMask[64];
-extern U64 ClearMask[64];
 
 // hashkeys.c
 extern U64 PieceKeys[13][120];

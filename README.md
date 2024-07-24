@@ -68,8 +68,8 @@ Evaluation:
 
 ## Changelogs: <br>
 ### 0.x: <br>
-0.28: Added extended futility pruning. Elo gain: ~15.
-0.27c (dev): Added doubled pawns. Improved time management. Minor code restructuring.
+0.28 (dev): Added extended futility pruning. Elo gain: ~15.
+0.27c: Added doubled pawns. Improved time management. Minor code restructuring.
 0.27b: Improved aspiration windows. Improved move ordering. Added OpenBench support. | Elo gain: ~5. <br>
 0.27: Added late move pruning. Improved drawn endgame detection. Optimised king tropism. | Elo gain: ~50. <br>
 0.26d: Added aspiration windows. <br>
@@ -86,6 +86,7 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list:
+- Improve endgame knowledge
 - Add SEE
 - Pawn / bishop interaction
 - Optimise movegen (magic bitboard)

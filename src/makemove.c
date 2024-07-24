@@ -243,7 +243,7 @@ int MakeMove(S_BOARD *pos, int move) {
 
     ASSERT(CheckBoard(pos));
 	
-		
+	// It is an illegal move to move while in check (if it doesn't stop it)
 	if(SqAttacked(pos->KingSq[side],pos->side,pos))  {
         TakeMove(pos);
         return FALSE;
