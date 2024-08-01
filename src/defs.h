@@ -125,6 +125,8 @@ typedef struct {
 
 	int pieces[BRD_SQ_NUM];
 	U64 pawns[3];
+	U64 occupancy; // bitboard storing every piece (inc. pawns)
+				   // used for generating attacks in combination with pre-generated attack boards
 
 	// piece list
 	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ

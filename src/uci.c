@@ -161,7 +161,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 		printf("option name Book type check default true\n");
 		EngineOptions->UseBook = TRUE;
 	}
-	ParseFen(START_FEN, pos);
+	ParseFen(START_FEN, pos); // Default to startpos on start-up
     printf("uciok\n");
 
 	while (TRUE) {

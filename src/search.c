@@ -100,7 +100,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 	int32_t Score = 0; // Flagged "Conditional jump or move depends on uninitialised value(s)" by Valgrind
 	Score = EvalPosition(pos); // stand-pat score
 
-	ASSERT(Score>-INF_BOUND && Score<INF_BOUND);
+	ASSERT(Scor > -INF_BOUND && Score < INF_BOUND);
 
 	// Beta cutoff
 	if(Score >= beta) {
@@ -201,7 +201,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	// Move category
 	uint8_t InCheck = SqAttacked(pos->KingSq[pos->side],!pos->side,pos);
 
-	// Extend depth for checks
+	// Check extension to avoid horizon effect
 	if(InCheck == TRUE) {
 		depth++;
 	}

@@ -3,6 +3,48 @@
 #include <stdio.h>
 #include "defs.h"
 
+// Initialises the board
+void ResetBoard(S_BOARD *pos) {
+	// Sets board to empty, and borders to offboard
+  	for(int index = 0; index < BRD_SQ_NUM; ++index) {
+		pos->pieces[index] = OFFBOARD;
+	}
+	for(int index = 0; index < 64; ++index) {
+		pos->pieces[SQ120(index)] = EMPTY;
+	}
+
+	// Aggregate piece counts
+	for(int index = 0; index < 2; ++index) {
+		pos->bigPce[index] = 0;
+		pos->majPce[index] = 0;
+		pos->minPce[index] = 0;
+		pos->pawns[index] = 0ULL;
+		// pos->material[index] = 0;
+	}
+	pos->pawns[2] = 0ULL;
+	pos->occupancy = 0ULL;
+
+	// Piece counts
+	for(int index = 0; index < 13; ++index) {
+		pos->pceNum[index] = 0;
+	}
+
+	// King squares
+	pos->KingSq[WHITE] = pos->KingSq[BLACK] = NO_SQ;
+
+	// Misc data
+	pos->side = BOTH;
+	pos->enPas = NO_SQ;
+	pos->fiftyMove = 0;
+	pos->castlePerm = 0;
+
+	pos->ply = 0;
+	pos->hisPly = 0;
+
+	pos->posKey = 0ULL;
+
+}
+
 int PceListOk(const S_BOARD *pos) {
 	int pce = wP;
 	int sq;
@@ -34,10 +76,12 @@ int CheckBoard(const S_BOARD *pos) {
 	int sq64,t_piece,t_pce_num,sq120,colour,pcount;
 
 	U64 t_pawns[3] = {0ULL, 0ULL, 0ULL};
+	U64 t_occupancy = 0ULL;
 
 	t_pawns[WHITE] = pos->pawns[WHITE];
 	t_pawns[BLACK] = pos->pawns[BLACK];
 	t_pawns[BOTH] = pos->pawns[BOTH];
+	t_occupancy = pos->occupancy;
 
 	// check piece lists
 	for(t_piece = wP; t_piece <= bK; ++t_piece) {
@@ -86,6 +130,11 @@ int CheckBoard(const S_BOARD *pos) {
 		ASSERT( (pos->pieces[SQ120(sq64)] == bP) || (pos->pieces[SQ120(sq64)] == wP) );
 	}
 
+	while(t_occupancy) {
+		sq64 = POP(&t_occupancy);
+		ASSERT(pos->pieces[SQ120(sq64)] != EMPTY);
+	}
+
 	// Check material
 	ASSERT(t_minPce[WHITE]==pos->minPce[WHITE] && t_minPce[BLACK]==pos->minPce[BLACK]);
 	ASSERT(t_majPce[WHITE]==pos->majPce[WHITE] && t_majPce[BLACK]==pos->majPce[BLACK]);
@@ -114,11 +163,10 @@ void UpdateListsMaterial(S_BOARD *pos) {
 
 	int piece, sq, colour;
 
-	for(int index = 0; index < BRD_SQ_NUM; ++index) {
-		sq = index;
-		piece = pos->pieces[index];
+	for(int sq = 0; sq < BRD_SQ_NUM; ++sq) {
+		piece = pos->pieces[sq];
 		ASSERT(PceValidEmptyOffbrd(piece));
-		if(piece!=OFFBOARD && piece!= EMPTY) {
+		if(piece != OFFBOARD && piece != EMPTY) {
 			colour = PieceCol[piece];
 			ASSERT(SideValid(colour));
 
@@ -136,13 +184,14 @@ void UpdateListsMaterial(S_BOARD *pos) {
 			if(piece==wK) pos->KingSq[WHITE] = sq;
 			if(piece==bK) pos->KingSq[BLACK] = sq;
 
+			pos->occupancy |= ( 1ULL << SQ64(sq) );
 			// Setting pawn bitboards
 			if(piece==wP) {
-				SETBIT(pos->pawns[WHITE],SQ64(sq));
-				SETBIT(pos->pawns[BOTH],SQ64(sq));
+				SETBIT(pos->pawns[WHITE], SQ64(sq));
+				SETBIT(pos->pawns[BOTH], SQ64(sq));
 			} else if(piece==bP) {
-				SETBIT(pos->pawns[BLACK],SQ64(sq));
-				SETBIT(pos->pawns[BOTH],SQ64(sq));
+				SETBIT(pos->pawns[BLACK], SQ64(sq));
+				SETBIT(pos->pawns[BOTH], SQ64(sq));
 			}
 		}
 	}
@@ -244,7 +293,7 @@ int ParseFen(char *fen, S_BOARD *pos) {
 		fen++;
 	}
 	fen++;
-	ASSERT(pos->castlePerm>=0 && pos->castlePerm <= 15);
+	ASSERT(pos->castlePerm >= 0 && pos->castlePerm <= 15);
 
 	// En passant parsing
 	if (*fen != '-') {
@@ -263,47 +312,6 @@ int ParseFen(char *fen, S_BOARD *pos) {
 	UpdateListsMaterial(pos);
 
 	return 0;
-}
-
-// Initialises the board
-void ResetBoard(S_BOARD *pos) {
-	// Sets board to empty, and borders to offboard
-  	for(int index = 0; index < BRD_SQ_NUM; ++index) {
-		pos->pieces[index] = OFFBOARD;
-	}
-	for(int index = 0; index < 64; ++index) {
-		pos->pieces[SQ120(index)] = EMPTY;
-	}
-
-	// Aggregate piece counts
-	for(int index = 0; index < 2; ++index) {
-		pos->bigPce[index] = 0;
-		pos->majPce[index] = 0;
-		pos->minPce[index] = 0;
-		pos->pawns[index] = 0ULL;
-		// pos->material[index] = 0;
-	}
-	pos->pawns[2] = 0ULL;
-
-	// Piece counts
-	for(int index = 0; index < 13; ++index) {
-		pos->pceNum[index] = 0;
-	}
-
-	// King squares
-	pos->KingSq[WHITE] = pos->KingSq[BLACK] = NO_SQ;
-
-	// Misc data
-	pos->side = BOTH;
-	pos->enPas = NO_SQ;
-	pos->fiftyMove = 0;
-	pos->castlePerm = 0;
-
-	pos->ply = 0;
-	pos->hisPly = 0;
-
-	pos->posKey = 0ULL;
-
 }
 
 // Prints the board out

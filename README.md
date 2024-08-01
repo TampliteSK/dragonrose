@@ -11,7 +11,7 @@ Note that aside from most of the code itself, the internal book (VICEbook.bin) i
 
 You can find the playlist here: [Link to playlist](https://www.youtube.com/playlist?list=PLZ1QII7yudbc-Ky058TEaOstZHVbT-2hg)
 
-## How to Use:
+## How to Use
 
 - Challenge it on Lichess [here](https://lichess.org/@/DragonroseDev)
 - To run it locally either download a binary from releases or build it yourself with the makefile (or CMake). With it you can pick one of two options:
@@ -20,12 +20,13 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 
 ## UCI options
 
-| Name |      Type       | Default |  Valid values  | Description                                                                                             |
-|:----:|:---------------:|:-------:|:--------------:|:-------------------------------------------------------------------------------------------------------:|
-| Hash | integer (spin)  |   64    |    [1, 1024]   | Size of the transposition table in megabytes.                                                           |
-| Book | boolean (check) |    1    |  TRUE / FALSE  | Whether to use the internal book (VICEbook.bin). The book and the binary must be in the same directory. |
+| Name  |      Type       | Default |  Valid values  | Description                                                                                             |
+|:-----:|:---------------:|:-------:|:--------------:|:-------------------------------------------------------------------------------------------------------:|
+| Hash  | integer (spin)  |   64    |    [1, 1024]   | Size of the transposition table in megabytes.                                                           |
+| Book  | boolean (check) |    1    |  TRUE / FALSE  | Whether to use the internal book (VICEbook.bin). The book and the binary must be in the same directory. |
+| Bench |  CLI Argument   |    -    |  TRUE / FALSE  | Run `./Dragonrose bench` from a CLI to check nodes and NPS based on a 50-position suite (from [Heimdall](https://git.nocturn9x.space/nocturn9x/heimdall)).|
 
-## Main Features:
+## Main Features
 
 Search:
 - Negamax Alpha-beta search
@@ -49,7 +50,7 @@ Evaluation:
 - Pawn bonuses: Passed pawns, isolated pawns, doubled pawns
 - Drawn endgame detection: Basic material draw (e.g. K+R v K+B)
 
-## Playing Strength:
+## Playing Strength
 
 - Latest version is about 2350 CCRL in strength. At the moment it is quite inconsistent in tests, so the estimate may not be accurate.
 - The Chesscom rating is estimated based on its games against human players (1800 - 2500). However it suffers greatly from small sample size, so take it with a grain of salt.
@@ -66,7 +67,7 @@ Evaluation:
 - Witek902 for [Caissa](https://github.com/Witek902/Caissa) chess engine. I borrowed its tapered eval weighting formula.
 - nemequ, mbitsnbites, zhuyie et al. for [TinyCThread](https://github.com/tinycthread/tinycthread/tree/master).
 
-## Changelogs: <br>
+## Changelogs <br>
 ### 0.x: <br>
 0.28 (dev): Added extended futility pruning. Elo gain: ~15.
 0.27c: Added doubled pawns. Improved time management. Minor code restructuring.
@@ -85,7 +86,7 @@ Evaluation:
 0.11: Added tapered eval to material (point values). <br>
 0.1: Added tapered eval to PSQT. <br>
 
-## To-do list:
+## To-do list
 - Improve endgame knowledge
 - Add SEE
 - Pawn / bishop interaction

@@ -57,12 +57,16 @@ int main(int argc, char *argv[]) {
 			continue;
 		if (line[0] == '\n')
 			continue;
-		if (!strncmp(line, "uci",3)) {
+		if (!strncmp(line, "uci", 3)) {
 			Uci_Loop(pos, info);
 			if(info->quit == TRUE) break;
 			continue;
-		} else if(!strncmp(line, "quit",4))	{
+		} else if(!strncmp(line, "quit", 4))	{
 			break;
+		} else if(!strncmp(line, "test", 4))	{
+			// Place for debugging the engine
+			ParseFen(START_FEN, pos);
+			PrintBitBoard(pos->occupancy);
 		}
 	}
 
