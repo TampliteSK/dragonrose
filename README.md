@@ -24,7 +24,7 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 |:-----:|:---------------:|:-------:|:--------------:|:-------------------------------------------------------------------------------------------------------:|
 | Hash  | integer (spin)  |   64    |    [1, 1024]   | Size of the transposition table in megabytes.                                                           |
 | Book  | boolean (check) |    1    |  TRUE / FALSE  | Whether to use the internal book (VICEbook.bin). The book and the binary must be in the same directory. |
-| Bench |  CLI Argument   |    -    |  TRUE / FALSE  | Run `./Dragonrose bench` from a CLI to check nodes and NPS based on a 50-position suite (from [Heimdall](https://git.nocturn9x.space/nocturn9x/heimdall)).|
+| Bench |  CLI Argument   |    -    |        -       | Run `./Dragonrose bench` from a CLI to check nodes and NPS based on a 50-position suite (from [Heimdall](https://git.nocturn9x.space/nocturn9x/heimdall)).|
 
 ## Main Features
 
