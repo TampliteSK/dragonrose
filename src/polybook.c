@@ -47,6 +47,8 @@ void InitPolyBook() {
 		if(maxEntries > 0) {
 			EngineOptions->UseBook = TRUE;
 		}
+
+		free(entries);
 	}
 
 	fclose(pFile);

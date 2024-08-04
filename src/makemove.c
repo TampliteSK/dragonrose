@@ -153,8 +153,8 @@ int MakeMove(S_BOARD *pos, int move) {
     ASSERT(SqOnBoard(to));
     ASSERT(SideValid(side));
     ASSERT(PieceValid(pos->pieces[from]));
-	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAXGAMEMOVES);
-	ASSERT(pos->ply >= 0 && pos->ply < MAXDEPTH);
+	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAX_GAME_MOVES);
+	ASSERT(pos->ply >= 0 && pos->ply < MAX_DEPTH);
 	
 	pos->history[pos->hisPly].posKey = pos->posKey;
 	
@@ -208,8 +208,8 @@ int MakeMove(S_BOARD *pos, int move) {
 	pos->hisPly++;
 	pos->ply++;
 	
-	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAXGAMEMOVES);
-	ASSERT(pos->ply >= 0 && pos->ply < MAXDEPTH);
+	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAX_GAME_MOVES);
+	ASSERT(pos->ply >= 0 && pos->ply < MAX_DEPTH);
 	
 	if(PiecePawn[pos->pieces[from]]) {
         pos->fiftyMove = 0;
@@ -243,7 +243,7 @@ int MakeMove(S_BOARD *pos, int move) {
 
     ASSERT(CheckBoard(pos));
 	
-		
+	// It is an illegal move to move while in check (if it doesn't stop it)
 	if(SqAttacked(pos->KingSq[side],pos->side,pos))  {
         TakeMove(pos);
         return FALSE;
@@ -260,8 +260,8 @@ void TakeMove(S_BOARD *pos) {
 	pos->hisPly--;
     pos->ply--;
 	
-	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAXGAMEMOVES);
-	ASSERT(pos->ply >= 0 && pos->ply < MAXDEPTH);
+	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAX_GAME_MOVES);
+	ASSERT(pos->ply >= 0 && pos->ply < MAX_DEPTH);
 	
     int move = pos->history[pos->hisPly].move;
     int from = FROMSQ(move);
@@ -343,8 +343,8 @@ void MakeNullMove(S_BOARD *pos) {
     HASH_SIDE;
    
     ASSERT(CheckBoard(pos));
-	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAXGAMEMOVES);
-	ASSERT(pos->ply >= 0 && pos->ply < MAXDEPTH);
+	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAX_GAME_MOVES);
+	ASSERT(pos->ply >= 0 && pos->ply < MAX_DEPTH);
 
     return;
 } // MakeNullMove
@@ -366,8 +366,8 @@ void TakeNullMove(S_BOARD *pos) {
     HASH_SIDE;
   
     ASSERT(CheckBoard(pos));
-	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAXGAMEMOVES);
-	ASSERT(pos->ply >= 0 && pos->ply < MAXDEPTH);
+	ASSERT(pos->hisPly >= 0 && pos->hisPly < MAX_GAME_MOVES);
+	ASSERT(pos->ply >= 0 && pos->ply < MAX_DEPTH);
 }
 
 

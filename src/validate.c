@@ -5,7 +5,7 @@
 #include <string.h>
 
 int MoveListOk(const S_MOVELIST *list,  const S_BOARD *pos) {
-	if(list->count < 0 || list->count >= MAXPOSITIONMOVES) {
+	if(list->count < 0 || list->count >= MAX_POSITION_MOVES) {
 		return FALSE;
 	}
 
@@ -60,7 +60,7 @@ void DebugAnalysisTest(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
     file = fopen("lct2.epd","r");
     char lineIn [1024];
 
-	info->depth = MAXDEPTH;
+	info->depth = MAX_DEPTH;
 	info->timeset = TRUE;
 	int time = 1140000;
 

@@ -254,3 +254,38 @@ uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos) {
 	return 0;
 	
 }
+
+/*
+	Attack Table Generation
+*/
+
+U64 prepare_occupancy(U64 occupancy, uint8_t sq) {
+	return occupancy ^ (1ULL << SQ64(sq));
+}
+
+U64 mask_pawn_attacks(uint8_t sq, uint8_t col) {
+	
+	U64 mask = 0ULL;
+
+	if (col == WHITE) {
+		if (SQ64(sq - 11) != 65) {
+			mask |= (1ULL << SQ64(sq - 11));
+		}
+		if (SQ64(sq - 9) != 65) {
+			mask |= (1ULL << SQ64(sq - 9));
+		}
+	} else {
+		if (SQ64(sq + 11) != 65) {
+			mask |= (1ULL << SQ64(sq + 11));
+		}
+		if (SQ64(sq + 9) != 65) {
+			mask |= (1ULL << SQ64(sq + 9));
+		}
+	}
+
+	return mask;
+}
+
+void init_attack_tables() {
+
+}

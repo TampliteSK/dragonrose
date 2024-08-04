@@ -34,22 +34,25 @@ typedef unsigned long long U64;
 #define NAME "Dragonrose 0.27"
 // 1: TRUE, 0: FALSE
 #define OPENBENCH_MODE 1
-#define BRD_SQ_NUM 120
-// Maximum hash size
-#define MAX_HASH 1024
-// Maximum number of moves in a game
-#define MAXGAMEMOVES 2048
-#define MAXDEPTH 64
 
-// Maximum expected legal moves
-// Position that breaks 256 limit: (credit to Caissa and Quanticade)
-// QQQQQQBk/Q6B/Q6Q/Q6Q/Q6Q/Q6Q/Q6Q/KQQQQQQQ w - - 0 1 (265 moves)
-#define MAXPOSITIONMOVES 280
+/*
+	MAX_HASH: Maximum hash size - 65536 MB (64 GB), or 2,147,483,648 positions
+	MAX_GAME_MOVES: Maximum no. of moves in a game
+	MAX_POSITION_MOVES: Maximum expected legal moves in a given position
+		Note: There is a position that breaks the conventional 256 limit (credits to Caisssa and Quanticade):
+		QQQQQQBk/Q6B/Q6Q/Q6Q/Q6Q/Q6Q/Q6Q/KQQQQQQQ w - - 0 1 (265 moves)
+*/
+
+#define BRD_SQ_NUM 120
+#define MAX_HASH 65536
+#define MAX_GAME_MOVES 2048
+#define MAX_DEPTH 64
+#define MAX_POSITION_MOVES 280
 
 #define START_FEN  "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 #define INF_BOUND 30000
-#define ISMATE (INF_BOUND - MAXDEPTH)
+#define ISMATE (INF_BOUND - MAX_DEPTH)
 
 /*******************
 ****** Enums *******
@@ -86,7 +89,7 @@ typedef struct {
 } S_MOVE;
 
 typedef struct {
-	S_MOVE moves[MAXPOSITIONMOVES]; // [280]
+	S_MOVE moves[MAX_POSITION_MOVES]; // [280]
 	int count;
 } S_MOVELIST;
 
@@ -97,7 +100,7 @@ typedef struct {
 	U64 posKey;
 	int move;
 	int score;
-	uint8_t depth; // max 64
+	uint8_t depth;
 	int flags;
 	int age; // indicates how new an entry is
 } S_HASHENTRY;
@@ -125,6 +128,8 @@ typedef struct {
 
 	int pieces[BRD_SQ_NUM];
 	U64 pawns[3];
+	U64 occupancy[3]; // bitboard storing every piece (inc. pawns)
+				   // used for generating attacks in combination with pre-generated attack boards
 
 	// piece list
 	int pList[13][10]; // [pieceType][max no of one piece]. defaulted to NO_SQ
@@ -146,11 +151,11 @@ typedef struct {
 	uint16_t ply;
 	uint16_t hisPly;
 
-	S_UNDO history[MAXGAMEMOVES];
-	int PvArray[MAXDEPTH];
+	S_UNDO history[MAX_GAME_MOVES];
+	int PvArray[MAX_DEPTH];
 
 	int searchHistory[13][BRD_SQ_NUM];
-	int searchKillers[2][MAXDEPTH];
+	int searchKillers[2][MAX_DEPTH];
 
 	U64 posKey;
 
@@ -241,20 +246,21 @@ Mask to get captured:
 
 #define min(x, y) ((x) > (y) ? (y) : (x))
 #define max(x, y) ((x) > (y) ? (x) : (y))
+// #define clamp(value, low, high) ((value) < (low) ? (low) : ((value) > (high) ? (high) : (value)))
 
 /*******************
 ***** Globals ******
 *******************/
+
+// bitboard.c
+extern U64 SetMask[64];
+extern U64 ClearMask[64];
 
 // init.c
 extern int Sq120ToSq64[BRD_SQ_NUM];
 extern int Sq64ToSq120[64];
 extern int FilesBrd[BRD_SQ_NUM];
 extern int RanksBrd[BRD_SQ_NUM];
-
-// bitboard.c
-extern U64 SetMask[64];
-extern U64 ClearMask[64];
 
 // hashkeys.c
 extern U64 PieceKeys[13][120];
@@ -306,6 +312,7 @@ extern S_HASHTABLE HashTable[1]; // brought out from board struct to make it glo
 extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
 extern uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos);
 extern uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos);
+extern U64 prepare_occupancy(U64 occupancy, uint8_t sq);
 
 // bitboards.c
 extern void PrintBitBoard(U64 bb);

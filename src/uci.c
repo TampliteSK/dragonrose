@@ -99,7 +99,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 	}
 
 	if(depth == -1) {
-		info->depth = MAXDEPTH;
+		info->depth = MAX_DEPTH;
 	}
 
 	// printf("time:%d start:%llu stop:%llu depth:%d timeset:%d\n", time, info->starttime, info->stoptime, info->depth, info->timeset);
@@ -161,7 +161,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 		printf("option name Book type check default true\n");
 		EngineOptions->UseBook = TRUE;
 	}
-	ParseFen(START_FEN, pos);
+	ParseFen(START_FEN, pos); // Default to startpos on start-up
     printf("uciok\n");
 
 	while (TRUE) {
@@ -207,8 +207,10 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 			char *ptrTrue = NULL;
 			ptrTrue = strstr(line, "true");
 			if(ptrTrue != NULL) {
+				printf("Set Book to true\n");
 				EngineOptions->UseBook = TRUE;
 			} else {
+				printf("Set Book to false\n");
 				EngineOptions->UseBook = FALSE;
 			}
 		}

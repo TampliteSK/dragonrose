@@ -19,9 +19,11 @@ int main(int argc, char *argv[]) {
     info->quit = FALSE;
 	HashTable->pTable = NULL;
     InitHashTable(HashTable, 64);
+
 	setbuf(stdin, NULL);
     setbuf(stdout, NULL);
     
+	// CLI Arguments
     for(int ArgNum = 0; ArgNum < argc; ++ArgNum) {
     	if (strncmp(argv[ArgNum], "bench", 5) == 0) {
 			clock_t start, end;
@@ -57,12 +59,17 @@ int main(int argc, char *argv[]) {
 			continue;
 		if (line[0] == '\n')
 			continue;
-		if (!strncmp(line, "uci",3)) {
+		if (!strncmp(line, "uci", 3)) {
 			Uci_Loop(pos, info);
 			if(info->quit == TRUE) break;
 			continue;
-		} else if(!strncmp(line, "quit",4))	{
+		} else if(!strncmp(line, "quit", 4))	{
 			break;
+		} else if(!strncmp(line, "test", 4))	{
+			// Place for debugging the engine
+			// ParseFen("r1bqr1k1/pp3pbp/6p1/3nn3/8/2P2NQ1/PPBN2PP/R1B2RK1 b - - 1 15", pos);
+			// PrintBitBoard(prepare_occupancy(pos->occupancy[WHITE], A2));
+			// PrintBitBoard(prepare_occupancy(pos->occupancy[BLACK], A2));
 		}
 	}
 
