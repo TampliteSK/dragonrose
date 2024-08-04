@@ -132,23 +132,6 @@ int CheckBoard(const S_BOARD *pos) {
 		ASSERT( (pos->pieces[SQ120(sq64)] == bP) || (pos->pieces[SQ120(sq64)] == wP) );
 	}
 
-	while(t_occupancy[WHITE]) {
-		sq64 = POP(&t_occupancy[WHITE]);
-		ASSERT(pos->pieces[SQ120(sq64)] != EMPTY);
-		ASSERT(PieceCol[ pos->pieces[SQ120(sq64)] ] == WHITE);
-	}
-
-	while(t_occupancy[BLACK]) {
-		sq64 = POP(&t_occupancy[BLACK]);
-		ASSERT(pos->pieces[SQ120(sq64)] != EMPTY);
-		ASSERT(PieceCol[ pos->pieces[SQ120(sq64)] ] == BLACK);
-	}
-
-	while(t_occupancy[BOTH]) {
-		sq64 = POP(&t_occupancy[BOTH]);
-		ASSERT(pos->pieces[SQ120(sq64)] != EMPTY);
-	}
-
 	// Check material
 	ASSERT(t_minPce[WHITE]==pos->minPce[WHITE] && t_minPce[BLACK]==pos->minPce[BLACK]);
 	ASSERT(t_majPce[WHITE]==pos->majPce[WHITE] && t_majPce[BLACK]==pos->majPce[BLACK]);
@@ -198,19 +181,13 @@ void UpdateListsMaterial(S_BOARD *pos) {
 			if(piece==wK) pos->KingSq[WHITE] = sq;
 			if(piece==bK) pos->KingSq[BLACK] = sq;
 
-			pos->occupancy[BOTH] |= ( 1ULL << SQ64(sq) );
-			if (PieceCol[piece] == WHITE) {
-				pos->occupancy[WHITE] |= ( 1ULL << SQ64(sq) );
-			} else if (PieceCol[piece] == BLACK) {
-				pos->occupancy[BLACK] |= ( 1ULL << SQ64(sq) );
-			}
 			// Setting pawn bitboards
-			if(piece == wP) {
-				SETBIT(pos->pawns[WHITE], SQ64(sq));
-				SETBIT(pos->pawns[BOTH], SQ64(sq));
-			} else if(piece == bP) {
-				SETBIT(pos->pawns[BLACK], SQ64(sq));
-				SETBIT(pos->pawns[BOTH], SQ64(sq));
+			if(piece==wP) {
+				SETBIT(pos->pawns[WHITE],SQ64(sq));
+				SETBIT(pos->pawns[BOTH],SQ64(sq));
+			} else if(piece==bP) {
+				SETBIT(pos->pawns[BLACK],SQ64(sq));
+				SETBIT(pos->pawns[BOTH],SQ64(sq));
 			}
 		}
 	}

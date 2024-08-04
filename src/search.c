@@ -100,7 +100,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 	int32_t Score = 0; // Flagged "Conditional jump or move depends on uninitialised value(s)" by Valgrind
 	Score = EvalPosition(pos); // stand-pat score
 
-	ASSERT(Score>-INF_BOUND && Score<INF_BOUND);
+	ASSERT(Scor > -INF_BOUND && Score < INF_BOUND);
 
 	// Beta cutoff
 	if(Score >= beta) {
@@ -135,7 +135,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 
 		// Delta pruning (general case)
 		// int mask = 0xFFFFFFFF & (0b1111 << 14);
-		// int capturedPiece = (list->moves[MoveNum].move & mask) >> 14;
+		// int capturedPiece = (curr_move & mask) >> 14;
 		int capturedPiece = CAPTURED(list->moves[MoveNum].move);
 		int delta = PieceValMg[capturedPiece]; // mg values
 		// If the gain from capturing a piece is too low (not enough to improve alpha), we skip make/undo moves and evalaution
@@ -143,13 +143,14 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 		if (delta + DELTA_BUFFER <= alpha) {
 			return alpha;
 		}
-
-        if ( !MakeMove(pos,list->moves[MoveNum].move))  {
+		 
+		// Check if it's a legal move
+        if ( !MakeMove(pos, list->moves[MoveNum].move) )  {
             continue;
         }
 
 		Legal++;
-		Score = -Quiescence( -beta, -alpha, pos, info);
+		Score = -Quiescence(-beta, -alpha, pos, info);
         TakeMove(pos);
 
 		if(info->stopped == TRUE) {
@@ -200,7 +201,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	// Move category
 	uint8_t InCheck = SqAttacked(pos->KingSq[pos->side],!pos->side,pos);
 
-	// Extend depth for checks
+	// Check extension to avoid horizon effect
 	if(InCheck == TRUE) {
 		depth++;
 	}
@@ -213,7 +214,9 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		return Score;
 	}
 
-	// Null-move pruning
+	/*
+		Null-move Pruning
+	*/
 	//                                     Note kings are considered bigPce, so we have to set the range to >1
 	if( DoNull && !InCheck && pos->ply && (pos->bigPce[pos->side] > 1) && depth >= 4) {
 		MakeNullMove(pos);
@@ -242,7 +245,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	// Move ordering for PV moves
 	if (PvMove != NOMOVE) {
 		for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
-			if( list->moves[MoveNum].move == PvMove) {
+			if(list->moves[MoveNum].move == PvMove) {
 				list->moves[MoveNum].score = 2000000;
 				//printf("Pv move found \n");
 				break;
@@ -250,11 +253,10 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		}
 	}
 
-	uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos); // I don't think this works but I don't know the correct way
-
 	for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 
 		PickNextMove(MoveNum, list);
+		int curr_move = list->moves[MoveNum].move;
 		
 		/*
 			(Extended) Futility Pruning
@@ -266,45 +268,49 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		// Depth 2 margin: ~rook
 		#define EXTENDED_FUTILITY_MARGIN 475
 
-		// We check if it is a frontier node (1 ply from horizon) and the eval is not close to mate
-		if ( (depth == 1 || depth == 2) && (abs(Score) < ISMATE) ) {
-			int currentEval = EvalPosition(pos);
-			int capturedPiece = CAPTURED(list->moves[MoveNum].move);
+		// Move classifications
+		uint8_t InCheck = SqAttacked(pos->KingSq[pos->side], !pos->side, pos);
+		uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos);
+		int IsCapture = CAPTURED(curr_move);
+
+		// We check if it is a frontier node (1/2 ply from horizon) and the eval is not very high
+		if ( (depth == 1 || depth == 2) && (abs(Score) < 1200) ) {
+			int current_eval = EvalPosition(pos);
 
 			// Check to make sure it's not a capture or a check
-			if ( (capturedPiece == EMPTY) && !IsCheck) {
-				if ( (depth == 2) && (currentEval + EXTENDED_FUTILITY_MARGIN <= alpha) ) {
+			if (!IsCapture && !IsCheck) {
+				if ( (depth == 2) && (current_eval + EXTENDED_FUTILITY_MARGIN <= alpha) ) {
 					continue; 
-				} else if ( (depth == 1) && (currentEval + FUTILITY_MARGIN <= alpha) ) {
+				} else if ( (depth == 1) && (current_eval + FUTILITY_MARGIN <= alpha) ) {
 					continue;
 				}
 			}
 		} 
-		
-		// Check if it is a legal move
-        if ( !MakeMove(pos,list->moves[MoveNum].move))  {
+
+		// Check if it's a legal move
+		// The move will be made for the rest of the code if it is
+        if ( !MakeMove(pos, curr_move) )  {
             continue;
         }
 		Legal++;
-		
+
 		/*
 			Late Move Reductions
 		*/ 
         // We calculate less promising moves at lower depths
 
         int reduced_depth = depth - 1; // We move further into the tree
-        // Do not reduce if there's mate (otherwise buggy)
-        if (abs(Score) < ISMATE) {
+        // Do not reduce if it's completely winning / near mating position 
+        if (abs(Score) < 1200) {
 
             // Check if it's a late move
             if (MoveNum > 3 && depth > 4) {
 
                 uint8_t self_king_sq = pos->KingSq[pos->side];
-                uint8_t moving_pce = pos->pieces[FROMSQ(list->moves[MoveNum].move)];
-                uint8_t target_sq = TOSQ(list->moves[MoveNum].move);
+                uint8_t moving_pce = pos->pieces[FROMSQ(curr_move)];
+                uint8_t target_sq = TOSQ(curr_move);
 
-                int IsPromotion = list->moves[MoveNum].move & MFLAGPROM;
-                int IsCapture = list->moves[MoveNum].move & MFLAGCAP;
+                int IsPromotion = PROMOTED(curr_move);
                 // uint8_t MoveIsAttack = IsAttack(moving_pce, target_sq, pos);
                 uint8_t IsPawn = (moving_pce == wP) || (moving_pce == bP);
                 // Checks if a move's target square is within 3 king moves
@@ -330,7 +336,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
             }
         }
 
-		Score = -AlphaBeta( -beta, -alpha, reduced_depth, pos, table, info, TRUE);
+		Score = -AlphaBeta(-beta, -alpha, reduced_depth, pos, table, info, TRUE);
 		TakeMove(pos);
 
 		if(info->stopped == TRUE) {
@@ -340,7 +346,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		// Update bestScore, bestMove and killers
 		if(Score > BestScore) {
 			BestScore = Score;
-			BestMove = list->moves[MoveNum].move;
+			BestMove = curr_move;
 			if(Score > alpha) {
 				if(Score >= beta) {
 					if(Legal == 1) {
@@ -348,9 +354,9 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 					}
 					info->fh++;
 
-					if(!(list->moves[MoveNum].move & MFLAGCAP)) {
+					if(!(curr_move & MFLAGCAP)) {
 						pos->searchKillers[1][pos->ply] = pos->searchKillers[0][pos->ply];
-						pos->searchKillers[0][pos->ply] = list->moves[MoveNum].move;
+						pos->searchKillers[0][pos->ply] = curr_move;
 					}
 
 					StoreHashEntry(pos, table, BestMove, beta, HFBETA, depth);
@@ -359,14 +365,15 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 				}
 				alpha = Score;
 
-				if(!(list->moves[MoveNum].move & MFLAGCAP)) {
+				if(!(curr_move & MFLAGCAP)) {
 					pos->searchHistory[pos->pieces[FROMSQ(BestMove)]][TOSQ(BestMove)] += depth;
 				}
 			}
 		}
     }
 
-	if(Legal == 0) {
+	// If there's no legal move it's either checkmate or stalemate
+	if (Legal == 0) {
 		if(InCheck) {
 			return -INF_BOUND + pos->ply;
 		} else {
@@ -374,7 +381,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		}
 	}
 
-	ASSERT(alpha>=OldAlpha);
+	ASSERT(alpha >= OldAlpha);
 
 	if(alpha != OldAlpha) {
 		StoreHashEntry(pos, table, BestMove, BestScore, HFEXACT, depth);
@@ -457,12 +464,11 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			bestMove = pos->PvArray[0];
 
 			// Display mate if there's forced mate
-			uint8_t mate_found = FALSE;
 			unsigned long long time = GetTimeMs() - info->starttime;
 			if (abs(bestScore) >= ISMATE) {
-				mate_found = TRUE;
 				// copysign(1.0, value) outputs +/- 1.0 depending on the sign of "value" (i.e. sgn(value))
-				int8_t mateMoves = round( (INF_BOUND - abs(bestScore)) / 2 ) * copysign(1.0, bestScore);
+				// Note that /2 is integer division (e.g. 3/2 = 1)
+				int8_t mateMoves = round( (INF_BOUND - abs(bestScore) - 1) / 2 + 1) * copysign(1.0, bestScore);
 				printf("info score mate %d depth %d nodes %ld hashfull %d time %llu pv",
 					mateMoves, currentDepth, info->nodes, (int)(table->numEntries / (double)table->maxEntries * 1000), time);
 			} else {
@@ -478,7 +484,7 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			printf("\n");
 
 			// Exit search if mate at current depth is found, in order to save time
-			if (mate_found && ( (bestScore + INF_BOUND) == currentDepth ) ) {
+			if ( (INF_BOUND - abs(bestScore)) == currentDepth ) {
 				break;
 				// Buggy if no search is performed before pruning immediately
 			}

@@ -109,30 +109,67 @@ inline double evalWeight(const S_BOARD *pos) {
 *** King Safety ***
 ******************/
 
-static inline int16_t punishOpenFiles(const S_BOARD *pos, uint8_t kingSq) {
-	uint8_t kingFile = FilesBrd[kingSq];
-	const int16_t KingOpenFile[3] = { -100, -120, -100 };
+static inline int16_t RQ_open_files(const S_BOARD *pos, uint8_t king_file, uint8_t col) {
+	// col = Side with the kin
+
+	const int16_t rook_on_KingOpenFile[3] = { -30, -50, -30 };
+	const int16_t queen_on_KingOpenFile[3] = { -60, -100, -60 };
+	uint8_t col_offset = (!col == BLACK) ? 6 : 0;
+	int16_t punishment = 0;
+
+	uint8_t pce = wR + col_offset;
+	for (int i = 0; i < pos->pceNum[pce]; ++i) {
+		uint8_t sq = pos->pList[pce][i];
+		uint8_t relative_file = FilesBrd[sq] - king_file;
+		if (abs(relative_file) < 1) {
+			punishment += rook_on_KingOpenFile[relative_file];
+		}
+	}
+
+	pce = wQ + col_offset;
+	for (int i = 0; i < pos->pceNum[pce]; ++i) {
+		uint8_t sq = pos->pList[pce][i];
+		uint8_t relative_file = FilesBrd[sq] - king_file;
+		if (abs(relative_file) < 1) {
+			punishment += queen_on_KingOpenFile[relative_file];
+		}
+	}
+
+	return punishment;
+}
+
+static inline int16_t punish_open_files(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
+	// col = Side with the king
+
+	uint8_t king_file = FilesBrd[kingSq];
+	const int16_t KingOpenFile[3] = { -50, -70, -50 };
 	int16_t openLines = 0;
 
 	//    For edge cases
-	if (kingFile == FILE_A || kingFile == FILE_H) {
-		if (!(pos->pawns[BOTH] & FileBBMask[kingFile])) {
+	if (king_file == FILE_A || king_file == FILE_H) {
+		// Open king file
+		if (!(pos->pawns[BOTH] & FileBBMask[king_file])) {
 			openLines += KingOpenFile[1];
+			openLines += RQ_open_files(pos, king_file, col); // Check for rooks and queens
 		}
-		if (kingFile == FILE_A) {
+		if (king_file == FILE_A) {
 			if (!(pos->pawns[BOTH] & FileBBMask[FILE_B])) {
 				openLines += KingOpenFile[0];
+				openLines += RQ_open_files(pos, king_file, col);
 			} 
 		} else {
 			if (!(pos->pawns[BOTH] & FileBBMask[FILE_G])) {
 				openLines += KingOpenFile[0];
+				openLines += RQ_open_files(pos, king_file, col);
 			} 
 		}
 	} else {
 		// For general cases
-		for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
+		for (int file = king_file - 1; file <= king_file + 1; ++file) {
+			// Open king file
 			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
-				openLines += KingOpenFile[file - kingFile + 1];
+				openLines += KingOpenFile[file - king_file + 1];
+				openLines += RQ_open_files(pos, king_file, col); // Check for rooks and queens
 			} 
 		}
 	}
@@ -164,7 +201,7 @@ static U64 generate_king_zone(uint8_t kingSq, uint8_t col) {
 	
 }
 
-static inline int16_t pawnShield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
+static inline int16_t pawn_shield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 
 	/*
 	--------
@@ -245,7 +282,12 @@ static inline double king_tropism_for_piece(const S_BOARD *pos, int opp_king_sq,
 
 	for (int i = 0; i < pos->pceNum[pce]; ++i) {
 		uint8_t sq = pos->pList[pce][i];
-		tropism += factor * ( 15 - dist_between_squares(opp_king_sq, sq) );
+		if (IsKn(pce)) {
+			tropism += factor * ( 15 - dist_between_squares(opp_king_sq, sq) );
+		} else {
+			// Past a certain point getting sliders close to the king is meaningless
+			tropism += factor * ( 15 - max( dist_between_squares(opp_king_sq, sq), 5 ) );
+		}
 	}
 
 	return tropism;
@@ -287,8 +329,8 @@ inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, u
 	// mat = enemy material excluding king
 	// The approach of this function is in terms of deductions to your own king
 
-	double kingSafety = punishOpenFiles(pos, kingSq) * 0.85;
-	kingSafety += pawnShield(pos, kingSq, col) * 0.15; // default: 0.15
+	double kingSafety = punish_open_files(pos, kingSq, col) * 0.85;
+	kingSafety += pawn_shield(pos, kingSq, col) * 0.15; // default: 0.15
 	kingSafety += kingTropism(pos, col) * 0.45;
 
 	return kingSafety * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
