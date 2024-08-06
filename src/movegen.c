@@ -40,11 +40,12 @@ const int NumDir[13] = {
 /*
 	=== Move Ordering ===
 	PV Move                                                     2,000,000
-	Cap -> MVV-LVA                                              1,200,000 - 1,200,606
+	Captures + MVV-LVA                                          1,200,000 - 1,200,606
 	Killers (moves that lead to beta cut-off but not captures)  900,000 / 950,000
 	O-O, O-O-O                                                  750,000
 	En passant                                                  300,000
-	HistoryScore
+	Quiet move                                                  40,000
+	HistoryScore                                                
 */
 
 const int VictimScore[13] = { 0, 100, 200, 300, 400, 500, 600, 100, 200, 300, 400, 500, 600 };
@@ -190,8 +191,6 @@ static void AddBlackPawnMove( const S_BOARD *pos, const int from, const int to, 
 		AddQuietMove(pos, MOVE(from,to,EMPTY,EMPTY,0), list, FALSE);
 	}
 }
-
-
 
 void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list) {
 

@@ -10,8 +10,7 @@ typedef struct {
 } S_POLY_BOOK_ENTRY;
 
 long maxEntries = 0;
-
-S_POLY_BOOK_ENTRY *entries;
+S_POLY_BOOK_ENTRY *entries; // Allocated in InitPolyBook(), freed in ClearPolyBook()
 
 const int PolyKindOfPiece[13] = {
 	-1, 1, 3, 5, 7, 9, 11, 0, 2, 4, 6, 8, 10
@@ -48,7 +47,6 @@ void InitPolyBook() {
 			EngineOptions->UseBook = TRUE;
 		}
 
-		free(entries);
 	}
 
 	fclose(pFile);

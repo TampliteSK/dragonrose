@@ -15,8 +15,34 @@ static void CheckUp(S_SEARCHINFO *info) {
 	}
 }
 
+// Sort the move list once and get moves in sequential order
+static void sort_move_list(S_MOVELIST *list, int move_count) {
+
+	// Handle invalid input
+	if (list == NULL || list->moves == NULL || move_count <= 0) {
+        return;
+    }
+	
+	S_MOVE temp;
+
+	// Insertion sort
+	for (int i = 1; i < move_count; ++i) {
+        temp = list->moves[i];
+        
+        // Move elements of list[0..i-1], that have lower score than temp,
+        // to one position ahead of their current position
+		int j = i - 1;
+        while ( (j >= 0) && (list->moves[j].score < temp.score) ) {
+			list->moves[j + 1] = list->moves[j];
+            j = j - 1;
+        }
+        list->moves[j + 1] = temp;
+    }
+
+}
+
+/*
 // Sorts the list and picks the move that is ordered highest
-// An evaluated move will be put to the bottom so the list has to be resorted every time
 static void PickNextMove(int moveNum, S_MOVELIST *list) {
 
 	S_MOVE temp;
@@ -39,6 +65,7 @@ static void PickNextMove(int moveNum, S_MOVELIST *list) {
 	list->moves[moveNum] = list->moves[bestNum];
 	list->moves[bestNum] = temp;
 }
+*/
 
 static int IsRepetition(const S_BOARD *pos) {
 
@@ -57,13 +84,13 @@ static void ClearForSearch(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info)
 
 	for(int index = 0; index < 13; ++index) {
 		for(int index2 = 0; index2 < BRD_SQ_NUM; ++index2) {
-			pos->searchHistory[index][index2] = 0;
+			pos->searchHistory[index][index2] = 40000;
 		}
 	}
 
 	for(int index = 0; index < 2; ++index) {
-		for(int index2 = 0; index2 < MAXDEPTH; ++index2) {
-			pos->searchKillers[index][index2] = 0;
+		for(int index2 = 0; index2 < MAX_DEPTH; ++index2) {
+			pos->searchKillers[index][index2] = 40000;
 		}
 	}
 
@@ -87,20 +114,18 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 		CheckUp(info);
 	}
 
-	info->nodes++;
-
 	if(IsRepetition(pos) || pos->fiftyMove >= 100) {
 		return 0;
 	}
 
-	if(pos->ply > MAXDEPTH - 1) {
+	if(pos->ply >= MAX_DEPTH) {
 		return EvalPosition(pos);
 	}
 
 	int32_t Score = 0; // Flagged "Conditional jump or move depends on uninitialised value(s)" by Valgrind
 	Score = EvalPosition(pos); // stand-pat score
 
-	ASSERT(Scor > -INF_BOUND && Score < INF_BOUND);
+	ASSERT(Score > -INF_BOUND && Score < INF_BOUND);
 
 	// Beta cutoff
 	if(Score >= beta) {
@@ -120,7 +145,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 
 	// Delta pruning fails, and we have to search moves
 	S_MOVELIST list[1];
-    GenerateAllCaps(pos,list);
+    GenerateAllCaps(pos, list);
 
     int MoveNum = 0;
 	int Legal = 0;
@@ -129,9 +154,11 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 	// Delta pruning buffer.
 	#define DELTA_BUFFER 180
 
+	sort_move_list(list, list->count);
+
 	for(MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 
-		PickNextMove(MoveNum, list); // finds highest-scoring move between MoveNum index and count-1 index
+		// PickNextMove(MoveNum, list); // finds highest-scoring move between MoveNum index and count-1 index
 
 		// Delta pruning (general case)
 		// int mask = 0xFFFFFFFF & (0b1111 << 14);
@@ -148,8 +175,9 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
         if ( !MakeMove(pos, list->moves[MoveNum].move) )  {
             continue;
         }
-
+		info->nodes++;
 		Legal++;
+
 		Score = -Quiescence(-beta, -alpha, pos, info);
         TakeMove(pos);
 
@@ -187,14 +215,12 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		CheckUp(info);
 	}
 
-	info->nodes++;
-
 	if((IsRepetition(pos) || pos->fiftyMove >= 100) && pos->ply) {
 		return 0;
 	}
 
 	// Max depth reached
-	if(pos->ply > MAXDEPTH - 1) {
+	if(pos->ply >= MAX_DEPTH) {
 		return EvalPosition(pos);
 	}
 
@@ -233,7 +259,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	}
 
 	S_MOVELIST list[1];
-    GenerateAllMoves(pos,list); // MVV-LVA included here (see movegen.c)
+    GenerateAllMoves(pos, list); // MVV-LVA included here (see movegen.c)
 
 	int Legal = 0;
 	int OldAlpha = alpha;
@@ -245,19 +271,22 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	// Move ordering for PV moves
 	if (PvMove != NOMOVE) {
 		for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
-			if(list->moves[MoveNum].move == PvMove) {
+			if (list->moves[MoveNum].move == PvMove) {
 				list->moves[MoveNum].score = 2000000;
-				//printf("Pv move found \n");
 				break;
 			}
 		}
 	}
 
+	sort_move_list(list, list->count);
+
 	for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 
-		PickNextMove(MoveNum, list);
+		// PickNextMove(MoveNum, list);
 		int curr_move = list->moves[MoveNum].move;
 		
+		
+
 		/*
 			(Extended) Futility Pruning
 		*/
@@ -266,33 +295,34 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		// Depth 1 margin: ~minor piece
 		#define FUTILITY_MARGIN 325
 		// Depth 2 margin: ~rook
-		#define EXTENDED_FUTILITY_MARGIN 475
-
+		#define EXTENDED_FUTILITY_MARGIN 525
+	
 		// Move classifications
 		uint8_t InCheck = SqAttacked(pos->KingSq[pos->side], !pos->side, pos);
 		uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos);
 		int IsCapture = CAPTURED(curr_move);
 
 		// We check if it is a frontier node (1/2 ply from horizon) and the eval is not very high
-		if ( (depth == 1 || depth == 2) && (abs(Score) < 1200) ) {
-			int current_eval = EvalPosition(pos);
+		int static_score = EvalPosition(pos);
+		if ( ( (depth == 1) || (depth == 2) ) && (abs(static_score) < 1200) ) {
 
 			// Check to make sure it's not a capture or a check
 			if (!IsCapture && !IsCheck) {
-				if ( (depth == 2) && (current_eval + EXTENDED_FUTILITY_MARGIN <= alpha) ) {
-					continue; 
-				} else if ( (depth == 1) && (current_eval + FUTILITY_MARGIN <= alpha) ) {
+				if ( (depth == 1) && (static_score + FUTILITY_MARGIN <= alpha) ) {
+					continue;
+				} else if ( (depth == 2) && (static_score + EXTENDED_FUTILITY_MARGIN <= alpha) ) {
 					continue;
 				}
 			}
 		} 
-
+		
 		// Check if it's a legal move
 		// The move will be made for the rest of the code if it is
         if ( !MakeMove(pos, curr_move) )  {
             continue;
         }
 		Legal++;
+		info->nodes++;
 
 		/*
 			Late Move Reductions
@@ -301,7 +331,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 
         int reduced_depth = depth - 1; // We move further into the tree
         // Do not reduce if it's completely winning / near mating position 
-        if (abs(Score) < 1200) {
+        if (abs(static_score) < 1200) {
 
             // Check if it's a late move
             if (MoveNum > 3 && depth > 4) {
@@ -410,7 +440,7 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 	int alpha = -INF_BOUND;
 	int beta = INF_BOUND;
 
-	ClearForSearch(pos, table, info);
+	ClearForSearch(pos, table, info); // Initialise searchHistory and killers
 	
 	// Get moves from opening book
 	if(EngineOptions->UseBook == TRUE) {

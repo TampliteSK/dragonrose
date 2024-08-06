@@ -207,10 +207,10 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 			char *ptrTrue = NULL;
 			ptrTrue = strstr(line, "true");
 			if(ptrTrue != NULL) {
-				printf("Set Book to true\n");
+				// printf("Set Book to true\n");
 				EngineOptions->UseBook = TRUE;
 			} else {
-				printf("Set Book to false\n");
+				// printf("Set Book to false\n");
 				EngineOptions->UseBook = FALSE;
 			}
 		}

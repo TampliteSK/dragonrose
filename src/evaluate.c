@@ -109,6 +109,7 @@ inline double evalWeight(const S_BOARD *pos) {
 *** King Safety ***
 ******************/
 
+/*
 static inline int16_t RQ_open_files(const S_BOARD *pos, uint8_t king_file, uint8_t col) {
 	// col = Side with the kin
 
@@ -137,6 +138,7 @@ static inline int16_t RQ_open_files(const S_BOARD *pos, uint8_t king_file, uint8
 
 	return punishment;
 }
+*/
 
 static inline int16_t punish_open_files(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
 	// col = Side with the king
@@ -150,17 +152,17 @@ static inline int16_t punish_open_files(const S_BOARD *pos, uint8_t kingSq, uint
 		// Open king file
 		if (!(pos->pawns[BOTH] & FileBBMask[king_file])) {
 			openLines += KingOpenFile[1];
-			openLines += RQ_open_files(pos, king_file, col); // Check for rooks and queens
+			// openLines += RQ_open_files(pos, king_file, col); // Check for rooks and queens
 		}
 		if (king_file == FILE_A) {
 			if (!(pos->pawns[BOTH] & FileBBMask[FILE_B])) {
 				openLines += KingOpenFile[0];
-				openLines += RQ_open_files(pos, king_file, col);
+				// openLines += RQ_open_files(pos, king_file, col);
 			} 
 		} else {
 			if (!(pos->pawns[BOTH] & FileBBMask[FILE_G])) {
 				openLines += KingOpenFile[0];
-				openLines += RQ_open_files(pos, king_file, col);
+				// openLines += RQ_open_files(pos, king_file, col);
 			} 
 		}
 	} else {
@@ -169,7 +171,7 @@ static inline int16_t punish_open_files(const S_BOARD *pos, uint8_t kingSq, uint
 			// Open king file
 			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
 				openLines += KingOpenFile[file - king_file + 1];
-				openLines += RQ_open_files(pos, king_file, col); // Check for rooks and queens
+				// openLines += RQ_open_files(pos, king_file, col); // Check for rooks and queens
 			} 
 		}
 	}

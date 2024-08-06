@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	free(HashTable->pTable);
-	CleanPolyBook();
+	CleanPolyBook(); // Free book entries
 	return 0;
 }
 
