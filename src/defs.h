@@ -306,7 +306,9 @@ extern U64 IsolatedMask[64];
 extern S_OPTIONS EngineOptions[1];
 extern S_HASHTABLE HashTable[1]; // brought out from board struct to make it global (to make Lazy SMP work)
 
-/* FUNCTIONS */
+/*******************
+***** Functions ****
+*******************/
 
 // attack.c
 extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
@@ -327,12 +329,12 @@ extern void UpdateListsMaterial(S_BOARD *pos);
 extern int CheckBoard(const S_BOARD *pos);
 extern void MirrorBoard(S_BOARD *pos);
 
+// endgame.c - Used in evaluate.c
+extern uint8_t is_material_draw(const S_BOARD *pos, int net_material);
+
 // evaluate.c
-// extern uint8_t isLightSq(uint8_t sq);
 // extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
 extern double evalWeight(const S_BOARD *pos);
-
-extern int dist_between_squares(uint8_t sq_1, uint8_t sq_2);
 extern double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat);
 extern double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat);
 extern int16_t EvalPosition(const S_BOARD *pos);
@@ -356,6 +358,13 @@ extern void TakeMove(S_BOARD *pos);
 extern void MakeNullMove(S_BOARD *pos);
 extern void TakeNullMove(S_BOARD *pos);
 
+// misc.c
+extern uint64_t GetTimeMs();
+extern uint8_t isLightSq(uint8_t sq);
+extern uint8_t isOppColBishops(const S_BOARD *pos);
+extern uint8_t dist_between_squares(uint8_t sq_1, uint8_t sq_2);
+extern int8_t max_between_squares(uint8_t sq_1, uint8_t sq_2);
+
 // movegen.c
 extern void GenerateSliders(const S_BOARD *pos, S_MOVELIST *list);
 extern void GenerateAllMoves(const S_BOARD *pos, S_MOVELIST *list);
@@ -368,9 +377,6 @@ extern void PerftTest(int depth, S_BOARD *pos);
 
 // search.c
 extern void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info);
-
-// misc.c
-extern int GetTimeMs();
 
 // polybook.c
 extern int GetBookMove(S_BOARD *board);
@@ -401,7 +407,5 @@ extern int SqIs120(const int sq);
 extern int PceValidEmptyOffbrd(const int pce);
 extern int MoveListOk(const S_MOVELIST *list,  const S_BOARD *pos);
 extern void DebugAnalysisTest(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info);
-
-
 
 #endif

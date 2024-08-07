@@ -151,8 +151,8 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 	char line[INPUTBUFFER];
     printf("id name %s\n",NAME);
     printf("id author Tamplite Siphron Kents\n");
-	printf("option name Hash type spin default 128 min 4 max %d\n", MAX_HASH);
-	int MB = 128;
+	printf("option name Hash type spin default 64 min 4 max %d\n", MAX_HASH);
+	int MB = 64;
 	if (OPENBENCH_MODE) {
 		printf("option name Threads type spin default 1 min 1 max 1\n"); // No multithreading at the moment
 		printf("option name Book type check default false\n"); // The book will be provided by the test environment
@@ -207,10 +207,10 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 			char *ptrTrue = NULL;
 			ptrTrue = strstr(line, "true");
 			if(ptrTrue != NULL) {
-				// printf("Set Book to true\n");
+				printf("Set Book to true\n");
 				EngineOptions->UseBook = TRUE;
 			} else {
-				// printf("Set Book to false\n");
+				printf("Set Book to false\n");
 				EngineOptions->UseBook = FALSE;
 			}
 		}

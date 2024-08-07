@@ -25,13 +25,6 @@
 ***** Evaluation components *****
 ********************************/
 
-// Returns 1 if it's a light square
-/*
-uint8_t isLightSq(uint8_t sq) {
-	return !( (sq % 2) ^ ( ( sq / 10 ) % 2) );
-}
-*/
-
 // Gives bonuses if bishop and pawns are of different colour complexes
 /*
 uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col) {
@@ -268,17 +261,6 @@ static inline int16_t pawn_shield(const S_BOARD *pos, uint8_t kingSq, uint8_t co
 
 }
 
-// Manhattan distance
-inline int dist_between_squares(uint8_t sq_1, uint8_t sq_2) {
-	uint8_t file_1 = FilesBrd[sq_1];
-	uint8_t rank_1 = RanksBrd[sq_1];
-	uint8_t file_2 = FilesBrd[sq_2];
-	uint8_t rank_2 = RanksBrd[sq_2];
-
-	return abs(file_1 - file_2) + abs(rank_1 - rank_2); // standard definition
-	// return max( abs(file_1 - file_2), abs(rank_1 - rank_2) ); // alternative definition, to be used for bishops
-}
-
 static inline double king_tropism_for_piece(const S_BOARD *pos, int opp_king_sq, uint8_t pce, uint8_t factor) {
 	double tropism = 0;
 
@@ -368,37 +350,6 @@ inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackM
 
 }
 
-// Test position: 8/6R1/2k5/6P1/8/8/4nP2/6K1 w - - 1 41
-// Determins if the position is a draw by material (with no pawns)
-static inline uint8_t MaterialDraw(int net_material) {
-	
-	// Upper bound of a bishop's value in the endgame (slightly higher than actual value due to tapered eval)
-	#define MAX_MINOR_PIECE 310
-
-	// Seems to replace VICE MaterialDraw() and a few more cases, such as K+Q v K+R+B+B
-	if (net_material <= MAX_MINOR_PIECE) {
-		return TRUE;
-	}
-
-  	return FALSE;
-}
-
-// Detects if it's an opposite-coloured bishop endgame, and used to apply a drawish factor
-/*
-inline uint8_t is_opposite_bishop(const S_BOARD *pos) {
-
-	// Determines if any side has more than one bishop
-	if ( (pos->pceNum[wB] == 1) && (pos->pceNum[bB] == 1) ) {
-		uint8_t wB_sq = pos->pList[wB][0];
-		uint8_t bB_sq = pos->pList[bB][0];
-		return ( isLightSq(wB_sq) != isLightSq(bB_sq) );
-	} else {
-		return FALSE;
-	}
-
-}
-*/
-
 /********************************
 *** Main Evaluation Function ****
 ********************************/
@@ -419,9 +370,9 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	double blackMaterial = 0;
 	score += CountMaterial(pos, &whiteMaterial, &blackMaterial);
 
-	// Material draw (checks if there are no pawns as well)
+	// Material draw (checks if there are 1 or less pawns as well)
 	int netMaterial = (int)fabs(whiteMaterial - blackMaterial);
-	if(!pos->pceNum[wP] && !pos->pceNum[bP] && MaterialDraw(netMaterial) == TRUE) {
+	if( (pos->pceNum[wP] <= 1) && (pos->pceNum[bP] <= 1) && is_material_draw(pos, netMaterial)) {
 		return 0;
 	}
 

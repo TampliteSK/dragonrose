@@ -15,8 +15,8 @@ int PieceCol[13] = { BOTH, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE,
 
 // evaluate.c, board.c data
 // Values from PesTO's evaluation function
-int PieceValMg[13]= { 0, 82, 337, 365, 477, 1025, 50000, 82, 337, 365, 477, 1025, 50000  };
-int PieceValEg[13]= { 0, 94, 281, 297, 512, 936, 50000, 94, 281, 297, 512, 936, 50000  };
+int PieceValMg[13] = { 0, 82, 337, 365, 477, 1025, 50000, 82, 337, 365, 477, 1025, 50000  };
+int PieceValEg[13] = { 0, 94, 281, 297, 512, 936, 50000, 94, 281, 297, 512, 936, 50000  };
 	
 
 // attack.c data

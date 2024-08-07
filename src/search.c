@@ -342,24 +342,11 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 
                 int IsPromotion = PROMOTED(curr_move);
                 // uint8_t MoveIsAttack = IsAttack(moving_pce, target_sq, pos);
-                uint8_t IsPawn = (moving_pce == wP) || (moving_pce == bP);
                 // Checks if a move's target square is within 3 king moves
                 uint8_t target_sq_within_king_zone = dist_between_squares(self_king_sq, target_sq) <= 3; 
 
-                if (!IsCapture && !IsPromotion && !InCheck && !IsCheck && !IsPawn && !target_sq_within_king_zone) {
-                    // Based on Fruit Reloaded reduction formula
-                    // Reduction increases with both depth and order of move
-                    // reduced_depth -= (int)( sqrt(depth - 1) + sqrt(MoveNum - 3) );
-
+                if (!IsCapture && !IsPromotion && !InCheck && !IsCheck && !IsPawn(moving_pce) && !target_sq_within_king_zone) {
                     reduced_depth = (int)( log(depth) * log(MoveNum) / 2.25 );
-					/*
-					if (MoveNum < 10) {
-						reduced_depth--;
-					} else {
-						reduced_depth -= (MoveNum - 7) / 3;
-					}
-					*/
-
 					// reduced_depth = max(reduced_depth, 3);
 					reduced_depth = max(reduced_depth, max(4, depth - 4));
                 }
@@ -446,9 +433,7 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 	if(EngineOptions->UseBook == TRUE) {
 		bestMove = GetBookMove(pos);
 	}
-
-	//printf("Search depth:%d\n",info->depth);
-
+	
 	if(bestMove == NOMOVE) {
 		for( int currentDepth = 1; currentDepth <= info->depth; ++currentDepth ) {
 

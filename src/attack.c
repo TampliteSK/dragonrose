@@ -8,6 +8,33 @@ const int RkDir[4] = { -1, -10,	1, 10 }; // at one square
 const int BiDir[4] = { -9, -11, 11, 9 }; // at one square
 const int KiDir[8] = { -1, -10,	1, 10, -9, -11, 11, 9 };
 
+// Determine if a move is check
+uint8_t IsCheck(const S_BOARD *pos, int move) {
+	uint8_t moving_pce = pos->pieces[FROMSQ(move)];
+    uint8_t target_sq = TOSQ(move);
+	uint8_t colour = pos->side;
+	uint8_t opp_king_sq = pos->KingSq[!colour];
+	
+	int8_t dist = opp_king_sq - target_sq;
+
+	if (IsPawn(moving_pce)) {
+		if ( (colour == WHITE) && ( (dist == -9) || (dist == -11) ) ) {
+			return TRUE;
+		} else if ( (colour == BLACK) && ( (dist == 9) || (dist == 11) ) ) {
+			return TRUE;
+		}
+	} else if (IsKn(moving_pce)) {
+		for (int i = 0; i < 8; ++i) {
+			if (dist == KnDir[i]) {
+				return TRUE;
+			}
+		}
+	} else if (IsBishop(moving_pce)) {
+
+	}
+	// TODO: Do the same for sliders and king
+}
+
 // Used for check detection / determining castling privileges
 // Returns 1 if a given square is attacked
 
