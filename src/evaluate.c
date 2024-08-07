@@ -372,7 +372,8 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 
 	// Material draw (checks if there are 1 or less pawns as well)
 	int netMaterial = (int)fabs(whiteMaterial - blackMaterial);
-	if( (pos->pceNum[wP] <= 1) && (pos->pceNum[bP] <= 1) && is_material_draw(pos, netMaterial)) {
+	// TODO: Make is_material_draw include 1 pawn or less for each side
+	if( !pos->pceNum[wP] && pos->pceNum[bP] && is_material_draw(pos, netMaterial)) {
 		return 0;
 	}
 

@@ -31,7 +31,7 @@ exit(1);}
 
 typedef unsigned long long U64;
 
-#define NAME "Dragonrose 0.27"
+#define NAME "Dragonrose 0.28"
 // 1: TRUE, 0: FALSE
 #define OPENBENCH_MODE 1
 
