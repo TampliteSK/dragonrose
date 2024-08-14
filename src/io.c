@@ -18,6 +18,11 @@ char *PrSq(const int sq) {
 
 char *PrMove(const int move) {
 
+	// Something is wrong if this evaluates to TRUE.
+	if (move == NOMOVE) {
+		return "NOMOVE";
+	}
+
 	static char MvStr[6];
 
 	int ff = FilesBrd[FROMSQ(move)];

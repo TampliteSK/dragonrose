@@ -63,6 +63,9 @@ int main(int argc, char *argv[]) {
 			Uci_Loop(pos, info);
 			if(info->quit == TRUE) break;
 			continue;
+		} else if(!strncmp(line, "perft", 4))	{
+			ParseFen(START_FEN, pos);
+			PerftTest(10, pos);
 		} else if(!strncmp(line, "quit", 4))	{
 			break;
 		} else if(!strncmp(line, "test", 4))	{
@@ -70,7 +73,7 @@ int main(int argc, char *argv[]) {
 			// ParseFen("r1bqr1k1/pp3pbp/6p1/3nn3/8/2P2NQ1/PPBN2PP/R1B2RK1 b - - 1 15", pos);
 			// PrintBitBoard(prepare_occupancy(pos->occupancy[WHITE], A2));
 			// PrintBitBoard(prepare_occupancy(pos->occupancy[BLACK], A2));
-		}
+		} 
 	}
 
 	free(HashTable->pTable);

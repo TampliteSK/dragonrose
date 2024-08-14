@@ -29,7 +29,7 @@ inline uint8_t isLightSq(uint8_t sq) {
 inline uint8_t isOppColBishops(const S_BOARD *pos) {
 
     // Board has no bishops for either side
-    if ( (pos->pceNum[wB] == 0) || (pos->pceNum[bB] == 0) ) {
+    if ( (pos->pceNum[wB] != 1) || (pos->pceNum[bB] != 1) ) {
         return FALSE;
     }
 

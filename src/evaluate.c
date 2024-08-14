@@ -350,6 +350,18 @@ inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackM
 
 }
 
+inline uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
+
+	#define MAX_MINOR_PIECE 310
+
+	if (net_material <= MAX_MINOR_PIECE) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+
+}
+
 /********************************
 *** Main Evaluation Function ****
 ********************************/
@@ -373,10 +385,14 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	// Material draw (checks if there are 1 or less pawns as well)
 	int netMaterial = (int)fabs(whiteMaterial - blackMaterial);
 	// TODO: Make is_material_draw include 1 pawn or less for each side
-	if( !pos->pceNum[wP] && pos->pceNum[bP] && is_material_draw(pos, netMaterial)) {
-		return 0;
+	// Check if it's in endgame (8 or less pieces exc. pawns on the board)
+	uint8_t piece_count = CountBits(pos->occupancy[BOTH]) - CountBits(pos->pawns[BOTH]);
+	if (piece_count < 8) {
+		if ( !pos->pceNum[wP] && !pos->pceNum[bP] && is_material_draw(pos, netMaterial) ) {
+			return 0;
+		}
 	}
-
+	
 	// Tapered eval weight. Calculated only once to save resources
 	double weight = evalWeight(pos);
 

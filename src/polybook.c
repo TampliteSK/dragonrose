@@ -177,11 +177,12 @@ int ConvertPolyMoveToInternalMove(unsigned short polyMove, S_BOARD *board) {
 	return ParseMove(moveString, board);
 }
 
+// Return NOMOVE if book move isn't found
 int GetBookMove(S_BOARD *board) {
 	S_POLY_BOOK_ENTRY *entry;
 	unsigned short move;
-	const int MAXBOOKMOVES = 32;
-	int bookMoves[MAXBOOKMOVES];
+	const int MAX_BOOK_MOVES = 32;
+	int bookMoves[MAX_BOOK_MOVES];
 	int tempMove = NOMOVE;
 	int count = 0;
 	
@@ -193,7 +194,7 @@ int GetBookMove(S_BOARD *board) {
 			tempMove = ConvertPolyMoveToInternalMove(move, board);
 			if(tempMove != NOMOVE) {
 				bookMoves[count++] = tempMove;
-				if(count > MAXBOOKMOVES) break;
+				if(count > MAX_BOOK_MOVES) break;
 			}
 		}
 	}

@@ -6,11 +6,9 @@
 #include "string.h"
 #include "defs.h"
 
-int rootDepth;
-
 static void CheckUp(S_SEARCHINFO *info) {
 	// .. check if time up, or interrupt from GUI
-	if(info->timeset == TRUE && GetTimeMs() > info->stoptime) {
+	if( (info->timeset == TRUE) && (GetTimeMs() > info->stoptime) ) {
 		info->stopped = TRUE;
 	}
 }
@@ -18,7 +16,7 @@ static void CheckUp(S_SEARCHINFO *info) {
 // Sort the move list once and get moves in sequential order
 static void sort_move_list(S_MOVELIST *list, int move_count) {
 
-	// Handle invalid input
+	// Invalid input
 	if (list == NULL || list->moves == NULL || move_count <= 0) {
         return;
     }
@@ -419,7 +417,6 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 	int pvNum = 0;
 
 	// Aspiration windows variables
-	// #define WINDOW_SIZE 50
 	uint8_t window_size = 50; // Size for first 6 depths
 	int guess = -INF_BOUND;
 	int alpha = -INF_BOUND;
@@ -428,14 +425,13 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 	ClearForSearch(pos, table, info); // Initialise searchHistory and killers
 	
 	// Get moves from opening book
-	if(EngineOptions->UseBook == TRUE) {
+	if (EngineOptions->UseBook == TRUE) {
 		bestMove = GetBookMove(pos);
 	}
-	
-	if(bestMove == NOMOVE) {
-		for( int currentDepth = 1; currentDepth <= info->depth; ++currentDepth ) {
 
-			rootDepth = currentDepth;
+	if (bestMove == NOMOVE) {
+
+		for (int currentDepth = 1; currentDepth <= info->depth; ++currentDepth) {
 
 			// Do a full search on the first depth
 			if (currentDepth == 1) {
@@ -445,7 +441,7 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 				
 				// Aspiration windows
 				if (currentDepth > 6) {
-					// Window size decrease with depth, with a minimum value of 25
+					// Window size decreases linearly with depth, with a minimum value of 25
 					window_size = max(-2.5 * currentDepth + 65, 25);
 				}
 				alpha = guess - window_size;
@@ -467,7 +463,6 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			}
             
 			guess = bestScore;
-			
 
 			if(info->stopped == TRUE) {
 				break;

@@ -96,5 +96,6 @@ Evaluation:
 ## Bugs to fix:
 - Non-deterministic node count
 - May blunder threefold in a winning position due to how threefold is implemented
+- Fix perft command freeze
 - ID loop needs to only exit when it has a legal move (i.e done depth 1 at least)
 - Obscure illegal move bug that occurs once every 100-200 games. Not replicable just with FEN.

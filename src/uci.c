@@ -10,8 +10,9 @@
 // go depth 6 wtime 180000 btime 100000 binc 1000 winc 1000 movetime 1000 movestogo 40
 void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 
-	int depth = -1, movestogo = 30,movetime = -1;
-	int time = -1, inc = 0;
+	int depth = -1, movestogo = 30, movetime = -1;
+	long long time = -1;
+	long inc = 0;
     char *ptr = NULL;
 	info->timeset = FALSE;
 
@@ -62,47 +63,48 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 	if(time != -1) {
 
 		info->timeset = TRUE;
-		int phaseMoves = 0;
+		double time_allocated = time;
+		int phase_moves = 0;
 
 		// Rose was having issues managing time when there was >=5s increment
 		// time += inc / 2; // include increment in the allocation
 
 		// Time trouble check
 		if (time < 30000 /* 30s */) {
-			time /= 80;
+			time_allocated /= 80;
 		} else {
 			// Opening phase
 			if (pos->hisPly <= 30) {
 				// Allocate 10% of total time
-				time *= 0.1;
-				phaseMoves = round((30 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0); // perspective adjustment to prevent crash
-				time /= phaseMoves;
+				time_allocated *= 0.1;
+				phase_moves = round((30 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0); // perspective adjustment to prevent crash
+				time_allocated /= phase_moves;
 			} else {
 				// Early-middlegame phase
 				if (pos->hisPly <= 70) {
 					// Allocate 55% of total time
-					time *= 0.45;
-					phaseMoves = round((50 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0);
-					time /= phaseMoves;
+					time_allocated *= 0.45;
+					phase_moves = round( (70 - pos->hisPly + (pos->side ? 0 : 1)) / 2.0 );
+					time_allocated /= phase_moves;
 				} else {
 					// Late-middlegame - endgame phase
 					// Allocate remaining time evenly
-					time /= 35;
+					time_allocated /= 35;
 				}
 			}
 		}
 		
 
-		// time /= movestogo;
-		time -= 50; // overhead
-		info->stoptime = info->starttime + time + inc/2;
+		// time_allocated /= movestogo;
+		time_allocated -= 50; // overhead
+		info->stoptime = (int)(info->starttime + time_allocated + inc/2);
 	}
 
 	if(depth == -1) {
 		info->depth = MAX_DEPTH;
 	}
 
-	// printf("time:%d start:%llu stop:%llu depth:%d timeset:%d\n", time, info->starttime, info->stoptime, info->depth, info->timeset);
+	// printf("time:%lld start:%llu stop:%llu depth:%d timeset:%d\n", time, info->starttime, info->stoptime, info->depth, info->timeset);
 	SearchPosition(pos, table, info);
 }
 
@@ -140,6 +142,7 @@ void ParsePosition(char* lineIn, S_BOARD *pos) {
               ptrChar++;
         }
     }
+
 	// PrintBoard(pos);
 }
 
@@ -182,12 +185,10 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 			ClearHashTable(HashTable);
             ParsePosition("position startpos\n", pos);
         } else if (!strncmp(line, "go", 2)) {
-            // printf("Seen Go..\n");
             ParseGo(line, info, pos, HashTable);
 		} else if (!strncmp(line, "run", 3)) {
             ParseGo("go infinite", info, pos, HashTable);
         } else if (!strncmp(line, "quit", 4)) {
-			free(HashTable->pTable); // Release the memory of the TT after the program exits
             info->quit = TRUE;
             break;
         } else if (!strncmp(line, "uci", 3)) {
@@ -214,7 +215,7 @@ void Uci_Loop(S_BOARD *pos, S_SEARCHINFO *info) {
 				EngineOptions->UseBook = FALSE;
 			}
 		}
-		if(info->quit) break;
+		if (info->quit) break;
     }
 }
 
