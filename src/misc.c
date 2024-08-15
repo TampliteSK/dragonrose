@@ -7,19 +7,33 @@
 
 #ifdef WIN32
 #include "windows.h"
-#else
-#include "sys/time.h"
+// #else
+// #include "sys/time.h"
 #endif
 
+/*
 uint64_t GetTimeMs() {
 #ifdef WIN32
-  return GetTickCount();
+    return GetTickCount();
 #else
-  struct timeval t;
-  gettimeofday(&t, NULL);
-  return t.tv_sec*1000 + t.tv_usec/1000;
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    return t.tv_sec*1000 + t.tv_usec/1000;
 #endif
 }
+*/
+
+// Less accurate due to not having microseconds but should work?
+uint64_t GetTimeMs() {
+#ifdef WIN32
+    return GetTickCount();
+#else
+    time_t T = time(NULL);
+    struct tm curr_time = *localtime(&T);
+    return curr_time.tm_hour*3600*1000 + curr_time.tm_min*60000 + curr_time.tm_sec*1000;
+#endif
+}
+
 
 inline uint8_t isLightSq(uint8_t sq) {
 	  return !( (sq % 2) ^ ( ( sq / 10 ) % 2) );

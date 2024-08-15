@@ -69,10 +69,10 @@ int main(int argc, char *argv[]) {
 		} else if(!strncmp(line, "quit", 4))	{
 			break;
 		} else if(!strncmp(line, "test", 4))	{
-			// Place for debugging the engine
-			// ParseFen("r1bqr1k1/pp3pbp/6p1/3nn3/8/2P2NQ1/PPBN2PP/R1B2RK1 b - - 1 15", pos);
-			// PrintBitBoard(prepare_occupancy(pos->occupancy[WHITE], A2));
-			// PrintBitBoard(prepare_occupancy(pos->occupancy[BLACK], A2));
+			U64 bitboard = generate_king_zone(B1, WHITE);
+			PrintBitBoard(bitboard);
+			bitboard = generate_king_zone(G8, BLACK);
+			PrintBitBoard(bitboard);
 		} 
 	}
 

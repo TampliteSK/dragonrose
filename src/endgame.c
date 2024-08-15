@@ -56,7 +56,7 @@ inline uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
 		}
 
 		// 6-man endgames
-		else if (man_count == 6) {
+		if (man_count == 6) {
 			if (
 				( (wQ_num == 1) && (wB_num == 1) && (bR_num == 2) ) ||
 				( (bQ_num == 1) && (bB_num == 1) && (wR_num == 2) ) 
@@ -95,7 +95,7 @@ inline uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
 		}
 
 		// 5-man endgames
-		else if (man_count == 5) {
+		if (man_count == 5) {
 			if (
 				( (wQ_num == 1) && (bN_num == 2) ) ||
 				( (bQ_num == 1) && (wN_num == 2) )
@@ -107,19 +107,17 @@ inline uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
 		
 
 		// 4-man endgames
-		else if (man_count == 4) {
+		if (man_count == 4) {
 			if ( (man_count == 4) && ( (wN_num == 2) || (bN_num == 2) ) ) {
 				// 4-man: KNN v K is a draw (and is considered "insufficient material" on websites and GUIs)
 				return TRUE;
 			}
 		}
 
-		else {
-			// Special cases that check out:
-			// KQ v KRBB
-			// KBB v KN (barely exceeds margin - 312 vs 310) and related endgames
-			return TRUE;
-		}
+		// Special cases that check out:
+		// KQ v KRBB
+		// KBB v KN (barely exceeds margin - 312 vs 310) and related endgames
+		return TRUE;
 		
 	} else {
 		return FALSE;

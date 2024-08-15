@@ -333,7 +333,7 @@ extern void MirrorBoard(S_BOARD *pos);
 extern uint8_t is_material_draw(const S_BOARD *pos, int net_material);
 
 // evaluate.c
-// extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
+extern U64 generate_king_zone(uint8_t kingSq, uint8_t col);
 extern double evalWeight(const S_BOARD *pos);
 extern int16_t EvalPosition(const S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos);

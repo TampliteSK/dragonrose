@@ -47,7 +47,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 		depth = atoi(ptr + 6);
 	}
 
-	if(movetime != -1) {
+	if (movetime != -1) {
 		time = movetime;
 		movestogo = 1;
 	}
@@ -59,7 +59,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 	*** Time Management ***
 	**********************/
 	
-	if(time != -1) {
+	if (time != -1) {
 
 		info->timeset = TRUE;
 		double time_allocated = time;
@@ -99,7 +99,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 		info->stoptime = (int)(info->starttime + time_allocated + inc/2);
 	}
 
-	if(depth == -1) {
+	if (depth == -1) {
 		info->depth = MAX_DEPTH;
 	}
 

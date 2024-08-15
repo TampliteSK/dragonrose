@@ -39,7 +39,6 @@ uint8_t IsCheck(const S_BOARD *pos, int move) {
 
 // Used for check detection / determining castling privileges
 // Returns 1 if a given square is attacked
-
 uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 
 	int pce,t_sq,dir;
