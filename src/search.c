@@ -55,9 +55,9 @@ static void PickNextMove(int moveNum, S_MOVELIST *list) {
 		}
 	}
 
-	ASSERT(moveNum>=0 && moveNum<list->count);
-	ASSERT(bestNum>=0 && bestNum<list->count);
-	ASSERT(bestNum>=moveNum);
+	ASSERT(moveNum >= 0 && moveNum < list->count);
+	ASSERT(bestNum >= 0 && bestNum < list->count);
+	ASSERT(bestNum >= moveNum);
 
 	temp = list->moves[moveNum];
 	list->moves[moveNum] = list->moves[bestNum];
@@ -281,6 +281,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 	for(int MoveNum = 0; MoveNum < list->count; ++MoveNum) {
 
 		// PickNextMove(MoveNum, list);
+
 		int curr_move = list->moves[MoveNum].move;
 
 		/*
@@ -291,22 +292,22 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		// Depth 1 margin: ~minor piece
 		#define FUTILITY_MARGIN 325
 		// Depth 2 margin: ~rook
-		#define EXTENDED_FUTILITY_MARGIN 525
+		#define EXTENDED_FUTILITY_MARGIN 475
 	
 		// Move classifications
-		uint8_t InCheck = SqAttacked(pos->KingSq[pos->side], !pos->side, pos);
 		uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos);
 		int IsCapture = CAPTURED(curr_move);
 
 		// We check if it is a frontier node (1/2 ply from horizon) and the eval is not very high
-		int static_score = EvalPosition(pos);
-		if ( ( (depth == 1) || (depth == 2) ) && (abs(static_score) < 1200) ) {
+		// int static_score = EvalPosition(pos);
+		if ( ( (depth == 1) || (depth == 2) ) && (abs(Score) < 1200) ) {
+			int static_score = EvalPosition(pos);
 
 			// Check to make sure it's not a capture or a check
 			if (!IsCapture && !IsCheck) {
-				if ( (depth == 1) && (static_score + FUTILITY_MARGIN <= alpha) ) {
-					continue;
-				} else if ( (depth == 2) && (static_score + EXTENDED_FUTILITY_MARGIN <= alpha) ) {
+				if ( (depth == 2) && (static_score + EXTENDED_FUTILITY_MARGIN <= alpha) ) {
+					continue; 
+				} else if ( (depth == 1) && (static_score + FUTILITY_MARGIN <= alpha) ) {
 					continue;
 				}
 			}
@@ -327,7 +328,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 
         int reduced_depth = depth - 1; // We move further into the tree
         // Do not reduce if it's completely winning / near mating position 
-        if (abs(static_score) < 1200) {
+        if (abs(Score) < 1200) {
 
             // Check if it's a late move
             if (MoveNum > 3 && depth > 4) {

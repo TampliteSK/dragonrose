@@ -7,7 +7,6 @@
 // Determins if the position is a draw by material (with no pawns)
 // Outputs: TRUE - It is a draw | FALSE - It is not a draw
 
-/*
 inline uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
 	// Useful resource with a list of endgames to check if it's a draw
 	// https://en.wikipedia.org/wiki/Pawnless_chess_endgame
@@ -127,4 +126,3 @@ inline uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
 	}
 
 }
-*/

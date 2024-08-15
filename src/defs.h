@@ -330,7 +330,7 @@ extern int CheckBoard(const S_BOARD *pos);
 extern void MirrorBoard(S_BOARD *pos);
 
 // endgame.c - Used in evaluate.c
-// extern uint8_t is_material_draw(const S_BOARD *pos, int net_material);
+extern uint8_t is_material_draw(const S_BOARD *pos, int net_material);
 
 // evaluate.c
 // extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);

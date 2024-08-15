@@ -18,32 +18,12 @@
 // Pos5 (h6 blunders): 8/8/6R1/5ppP/5k2/3r1P2/8/6K1 w - - 9 57
 // Pos6 (Qc6/Qe7/Be7) [+0.6]: rnb1kb1r/pppp1ppp/5n2/8/4q3/5N2/PPPPBPPP/RNBQK2R b KQkq - 1 5
 
-// Temporary hack. Scales down the eval in case it's too high (assuming the code works fine)
+// Eval normalisation
 // #define squishFactor 0.35
 
 /********************************
 ***** Evaluation components *****
 ********************************/
-
-// Gives bonuses if bishop and pawns are of different colour complexes
-/*
-uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col) {
-
-	uint8_t subscore = 0;
-	uint8_t bonus = 5;
-	uint8_t pce = (col == WHITE) ? wP : bP;
-
-	for (int pawn = 0; pawn < 8; ++pawn) {
-		uint8_t pawnSq = pos->pList[pce][pawn];
-		if ( isLightSq(bishopSq) != isLightSq(pawnSq) ) {
-			subscore += bonus;
-		}
-	}
-	
-	return subscore;
-
-}
-*/
 
 // Applying gamePhase at startpos
 #define openingPhase 64
@@ -350,18 +330,6 @@ static inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double 
 
 }
 
-uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
-
-	#define MAX_MINOR_PIECE 310
-
-	if (net_material <= MAX_MINOR_PIECE) {
-		return TRUE;
-	} else {
-		return FALSE;
-	}
-
-}
-
 /********************************
 *** Main Evaluation Function ****
 ********************************/
@@ -601,16 +569,6 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 
 	// 50-move rule adjustment
 	score = (int)( score * ( (100 - pos->fiftyMove) / 100.0) );
-
-	/*
-	// Opposite-coloured bishop endgame adjustment
-	if (is_opposite_bishop(pos) && netMaterial < 310) {
-		// Drawishness increases with less (non-king) material on the board
-		double drawish_factor = (whiteMaterial + blackMaterial - 100000) / (4039 * 2);
-		drawish_factor = log(drawish_factor) / 2.8 + 1; // slope increases as the fraction goes from 1 to 0
-		score = (int)(score * drawish_factor);
-	}
-	*/
 
 	// No good way of calculating mobility
 	// Kinda counted already by PSQT and open files / bishop pair bonuses. 
