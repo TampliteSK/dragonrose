@@ -119,7 +119,7 @@ inline uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
 			// KQ v KRBB
 			// KBB v KN (barely exceeds margin - 312 vs 310) and related endgames
 			return TRUE;
-		//}
+		}
 		
 	} else {
 		return FALSE;
