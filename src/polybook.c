@@ -47,9 +47,10 @@ void InitPolyBook() {
 			EngineOptions->UseBook = TRUE;
 		}
 
+		fclose(pFile);
+
 	}
 
-	fclose(pFile);
 }
 
 void CleanPolyBook() {

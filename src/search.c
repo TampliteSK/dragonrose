@@ -17,7 +17,7 @@ static void CheckUp(S_SEARCHINFO *info) {
 static void sort_move_list(S_MOVELIST *list, int move_count) {
 
 	// Invalid input
-	if (list == NULL || list->moves == NULL || move_count <= 0) {
+	if (list == NULL || move_count <= 0) {
         return;
     }
 	

@@ -48,7 +48,7 @@ uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col) {
 // Applying gamePhase at startpos
 #define openingPhase 64
 
-inline int16_t evaluate_pawn_structure(const S_BOARD *pos, uint8_t pawn_sq, uint8_t col) {
+int16_t evaluate_pawn_structure(const S_BOARD *pos, uint8_t pawn_sq, uint8_t col) {
 
 	int16_t pawn_score = 0;
 
@@ -308,7 +308,7 @@ static inline double kingTropism(const S_BOARD *pos, uint8_t col) {
 	return tropism;
 }
 
-inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
+static inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
 	// kingSq = your own king
 	// mat = enemy material excluding king
 	// The approach of this function is in terms of deductions to your own king
@@ -329,7 +329,7 @@ inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, u
 // #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
 
 // Material eval
-inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat) {
+static inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat) {
 	
 	*whiteMat = 0;
 	*blackMat = 0;
@@ -350,7 +350,7 @@ inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackM
 
 }
 
-inline uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
+uint8_t is_material_draw(const S_BOARD *pos, int net_material) {
 
 	#define MAX_MINOR_PIECE 310
 
@@ -598,6 +598,9 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	// Bishop pair bonus
 	if(pos->pceNum[wB] >= 2) score += BishopPair;
 	if(pos->pceNum[bB] >= 2) score -= BishopPair;
+
+	// 50-move rule adjustment
+	score = (int)( score * ( (100 - pos->fiftyMove) / 100.0) );
 
 	/*
 	// Opposite-coloured bishop endgame adjustment

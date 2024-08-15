@@ -11,8 +11,7 @@
 void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 
 	int depth = -1, movestogo = 30, movetime = -1;
-	long long time = -1;
-	long inc = 0;
+	int time = -1, inc = 0; // Supports up to ~24 days base time + ~24 days increment. In practice 300+60 should be upper limit.
     char *ptr = NULL;
 	info->timeset = FALSE;
 
@@ -64,7 +63,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 
 		info->timeset = TRUE;
 		double time_allocated = time;
-		int phase_moves = 0;
+		uint8_t phase_moves = 0;
 
 		// Rose was having issues managing time when there was >=5s increment
 		// time += inc / 2; // include increment in the allocation
@@ -104,7 +103,7 @@ void ParseGo(char* line, S_SEARCHINFO *info, S_BOARD *pos, S_HASHTABLE *table) {
 		info->depth = MAX_DEPTH;
 	}
 
-	// printf("time:%lld start:%llu stop:%llu depth:%d timeset:%d\n", time, info->starttime, info->stoptime, info->depth, info->timeset);
+	// printf("time:%d start:%llu stop:%llu depth:%d timeset:%d\n", time, info->starttime, info->stoptime, info->depth, info->timeset);
 	SearchPosition(pos, table, info);
 }
 

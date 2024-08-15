@@ -30,8 +30,10 @@ uint8_t IsCheck(const S_BOARD *pos, int move) {
 			}
 		}
 	} else if (IsBishop(moving_pce)) {
-
+		return FALSE;
 	}
+
+	return FALSE;
 	// TODO: Do the same for sliders and king
 }
 
