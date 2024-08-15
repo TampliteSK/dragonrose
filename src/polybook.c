@@ -22,7 +22,7 @@ void InitPolyBook() {
 	
 	FILE *pFile = fopen("VICEbook.bin","rb");
 	
-	if(pFile == NULL) {
+	if (pFile == NULL) {
 		// printf("Book File Not Read\n");
 	} else {
 		fseek(pFile,0,SEEK_END);

@@ -335,8 +335,6 @@ extern void MirrorBoard(S_BOARD *pos);
 // evaluate.c
 // extern uint8_t bishopPawnComplex(const S_BOARD *pos, uint8_t bishopSq, uint8_t col);
 extern double evalWeight(const S_BOARD *pos);
-extern double kingSafetyScore(const S_BOARD *pos, uint8_t sq, uint8_t col, uint16_t mat);
-extern double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat);
 extern int16_t EvalPosition(const S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos);
 
