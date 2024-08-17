@@ -69,7 +69,7 @@ Evaluation:
 
 ## Changelogs <br>
 ### 0.x: <br>
-0.28 (dev): Added extended futility pruning. Improved material draw detection. Added 50-move adjustment. | Elo gain: ~15. <br>
+0.28 (dev): Added extended futility pruning. Rework king safety. Improved material draw detection. Added 50-move adjustment. | Elo gain: ~15. <br>
 0.27c: Added doubled pawns. Improved time management. Minor code restructuring. <br>
 0.27b: Improved aspiration windows. Improved move ordering. Added OpenBench support. | Elo gain: ~30. <br>
 0.27: Added late move pruning. Improved drawn endgame detection. Optimised king tropism. | Elo gain: ~50. <br>
@@ -95,7 +95,6 @@ Evaluation:
 - Search thread / LazySMP
 
 ## Bugs to fix:
-- Non-deterministic node count
 - May blunder threefold in a winning position due to how threefold is implemented
 - Fix perft command freeze
 - ID loop needs to only exit when it has a legal move (i.e done depth 1 at least)

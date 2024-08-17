@@ -203,7 +203,7 @@ static inline double king_tropism(const S_BOARD *pos, uint8_t col) {
 	tropism += king_tropism_for_bishop(pos, opp_king_sq, pce); // 0 ~ 24
 
 	// Rooks and Queens
-	tropism += king_tropism_for_RQ(pos, opp_king_sq, col) * 0.8; // 0 ~ 180. Default 0.9
+	tropism += king_tropism_for_RQ(pos, opp_king_sq, col) * 0.7; // 0 ~ 180. Default 0.8
 
 	return tropism;
 }

@@ -33,6 +33,7 @@ int main(int argc, char *argv[]) {
 			start = clock();
 			for (int index = 0; index < 50; ++index) {
 				printf("\n=== Benching position %d/%d ===\n", index, 49);
+				info->nodes = 0;
 				printf("Position: %s\n", bench_positions[index]);
 				ParseFen(bench_positions[index], pos);
 				ParseGo("go depth 7", info, pos, HashTable);
