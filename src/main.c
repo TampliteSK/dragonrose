@@ -69,10 +69,9 @@ int main(int argc, char *argv[]) {
 		} else if(!strncmp(line, "quit", 4))	{
 			break;
 		} else if(!strncmp(line, "test", 4))	{
-			U64 bitboard = generate_king_zone(B1, WHITE);
-			PrintBitBoard(bitboard);
-			bitboard = generate_king_zone(G8, BLACK);
-			PrintBitBoard(bitboard);
+			U64 castled_king = RankBBMask[RANK_1];
+			castled_king ^= (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)); // Not on d1 e1 or f1
+			PrintBitBoard(castled_king);
 		} 
 	}
 

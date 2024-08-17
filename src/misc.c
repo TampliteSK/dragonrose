@@ -39,6 +39,10 @@ inline uint8_t isLightSq(uint8_t sq) {
 	  return !( (sq % 2) ^ ( ( sq / 10 ) % 2) );
 }
 
+inline uint8_t on_same_diagonal(uint8_t sq_1, uint8_t sq_2) {
+    return abs(sq_1 - sq_2) % 9;
+}
+
 // Determines if the endgame involves opposite-coloured bishops
 inline uint8_t isOppColBishops(const S_BOARD *pos) {
 
@@ -68,6 +72,7 @@ inline uint8_t dist_between_squares(uint8_t sq_1, uint8_t sq_2) {
     return abs(file_1 - file_2) + abs(rank_1 - rank_2);
 }
 
+/*
 // Manhattan distance alt defintiion
 inline int8_t max_between_squares(uint8_t sq_1, uint8_t sq_2) {
     uint8_t file_1 = FilesBrd[sq_1];
@@ -77,4 +82,5 @@ inline int8_t max_between_squares(uint8_t sq_1, uint8_t sq_2) {
 
     return max( abs(file_1 - file_2), abs(rank_1 - rank_2) );
 }
+*/
 

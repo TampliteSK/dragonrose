@@ -333,7 +333,7 @@ extern void MirrorBoard(S_BOARD *pos);
 extern uint8_t is_material_draw(const S_BOARD *pos, int net_material);
 
 // evaluate.c
-extern U64 generate_king_zone(uint8_t kingSq, uint8_t col);
+extern U64 generate_shield_zone(uint8_t kingSq, uint8_t col);
 extern double evalWeight(const S_BOARD *pos);
 extern int16_t EvalPosition(const S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos);
@@ -359,9 +359,10 @@ extern void TakeNullMove(S_BOARD *pos);
 // misc.c
 extern uint64_t GetTimeMs();
 extern uint8_t isLightSq(uint8_t sq);
+extern uint8_t on_same_diagonal(uint8_t sq_1, uint8_t sq_2);
 extern uint8_t isOppColBishops(const S_BOARD *pos);
 extern uint8_t dist_between_squares(uint8_t sq_1, uint8_t sq_2);
-extern int8_t max_between_squares(uint8_t sq_1, uint8_t sq_2);
+// extern int8_t max_between_squares(uint8_t sq_1, uint8_t sq_2);
 
 // movegen.c
 extern void GenerateSliders(const S_BOARD *pos, S_MOVELIST *list);

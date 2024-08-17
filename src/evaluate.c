@@ -82,6 +82,288 @@ inline double evalWeight(const S_BOARD *pos) {
 *** King Safety ***
 ******************/
 
+// Punishing kings in the center without castling rights
+// Should be greater punishment than castled with a broken a pawn shield
+static inline int16_t punish_center_kings(const S_BOARD *pos, uint8_t king_sq, uint8_t col) {
+
+	const int file_punishment[8] = { 0, 0, 0, -50, -100, -50, 0, 0 };
+	const int rank_punishment[8] = { 0, -25, -75, -125, -150, -175, -200, -225 };
+	uint8_t no_castling = 0;
+	uint8_t relative_rank = 0;
+	if (col == WHITE) {
+		no_castling = (pos->castlePerm & 0b0011) == 0;
+		relative_rank = RanksBrd[king_sq];
+	} else {
+		no_castling = (pos->castlePerm & 0b1100) == 0;
+		relative_rank = 8 - RanksBrd[king_sq];
+	}
+
+	if (no_castling) {
+		return file_punishment[FilesBrd[king_sq]] + rank_punishment[relative_rank];
+	} else {
+		return 0;
+	}
+
+}
+
+static inline double king_tropism_for_knight(const S_BOARD *pos, int opp_king_sq, uint8_t pce, uint8_t factor) {
+
+	double tropism = 0;
+
+	for (int i = 0; i < pos->pceNum[pce]; ++i) {
+		uint8_t sq = pos->pList[pce][i];
+		tropism += factor * ( 15 - (dist_between_squares(opp_king_sq, sq) - 3)); // Minimum possible distance is 2 for queen and 3 for knight
+	}
+
+	return tropism;
+}
+
+static inline double king_tropism_for_bishop(const S_BOARD *pos, int opp_king_sq, uint8_t pce) {
+
+	const int KiDir[8] = { -1, -10,	1, 10, -9, -11, 11, 9 }; // From attack.c
+	const uint8_t bishop_king_sq_bonus = 4;
+	double tropism = 0;
+
+	for (int i = 0; i < pos->pceNum[pce]; ++i) {
+		uint8_t sq = pos->pList[pce][i];
+		for (int j = 0; j < 8; ++j) {
+			uint8_t sq_near_king = sq + KiDir[j];
+			if ( (SQ64(sq_near_king) != 65) && on_same_diagonal(opp_king_sq, sq) ) {
+				tropism += bishop_king_sq_bonus;
+			}
+		}
+	}
+
+	return tropism;
+}
+
+static inline int16_t king_tropism_for_RQ(const S_BOARD *pos, uint8_t opp_king_sq, uint8_t col) {
+	// Applies to Rooks and Queens
+	
+	const uint8_t rook_KingSemiopenFile = 10;
+	const uint8_t rook_KingOpenFile[3] = { 25, 55, 25 };
+	const uint8_t queen_KingSemiopenFile = 10;
+	const uint8_t queen_KingOpenFile[3] = { 40, 70, 40 };
+
+	uint8_t king_file = FilesBrd[opp_king_sq];
+	uint8_t col_offset = (col == WHITE) ? 0 : 6;
+	uint16_t tropism = 0;
+
+	uint8_t pce = wR + col_offset;
+	for (int i = 0; i < pos->pceNum[pce]; ++i) {
+		uint8_t sq = pos->pList[pce][i];
+		uint8_t relative_file = FilesBrd[sq] - king_file;
+
+		if (abs(relative_file) < 1) {
+			if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
+				tropism -= rook_KingSemiopenFile;
+			} else if(!(pos->pawns[BLACK] & FileBBMask[FilesBrd[sq]])) {
+				uint8_t relative_file = FilesBrd[sq] - king_file;
+				tropism += rook_KingOpenFile[relative_file];
+			}
+		}
+	}
+
+	pce = wQ + col_offset;
+	for (int i = 0; i < pos->pceNum[pce]; ++i) {
+		uint8_t sq = pos->pList[pce][i];
+		uint8_t relative_file = FilesBrd[sq] - king_file;
+
+		if (abs(relative_file) < 1) {
+			if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
+				tropism += queen_KingSemiopenFile;
+			} else if(!(pos->pawns[BLACK] & FileBBMask[FilesBrd[sq]])) {
+				uint8_t relative_file = FilesBrd[sq] - king_file;
+				tropism += queen_KingOpenFile[relative_file];
+			}
+		}
+	}
+
+
+	return tropism;
+}
+
+static inline double king_tropism(const S_BOARD *pos, uint8_t col) {
+	// A coarse method to promote better attacks
+	// Seems to do better than Attacking King Zone or Attack Units for some reason
+	// Also less expensive to use (less drop in NPS)
+
+	double tropism = 0;
+	int opp_king_sq = 0;
+	uint8_t colour_offset = (col == BLACK) ? 6 : 0;
+
+	// Obtain opponent's king square
+	opp_king_sq = pos->KingSq[!col];
+	
+	// Bishops and Knights
+	uint8_t pce = wN + colour_offset;
+	tropism += king_tropism_for_knight(pos, opp_king_sq, pce, 1); // 3 ~ 15
+
+	pce = wB + colour_offset;
+	tropism += king_tropism_for_bishop(pos, opp_king_sq, pce); // 0 ~ 24
+
+	// Rooks and Queens
+	tropism += king_tropism_for_RQ(pos, opp_king_sq, col) * 0.8; // 0 ~ 180. Default 0.9
+
+	return tropism;
+}
+
+static inline int16_t punish_open_files(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
+	// col = Side with the king
+
+	uint8_t king_file = FilesBrd[kingSq];
+	const int16_t KingOpenFile[3] = { -50, -70, -50 };
+	int16_t openLines = 0;
+
+	//    For edge cases
+	if (king_file == FILE_A || king_file == FILE_H) {
+		// Open king file
+		if (!(pos->pawns[BOTH] & FileBBMask[king_file])) {
+			openLines += KingOpenFile[1];
+		}
+		if (king_file == FILE_A) {
+			if (!(pos->pawns[BOTH] & FileBBMask[FILE_B])) {
+				openLines += KingOpenFile[0];
+			} 
+		} else {
+			if (!(pos->pawns[BOTH] & FileBBMask[FILE_G])) {
+				openLines += KingOpenFile[0];
+			} 
+		}
+	} else {
+		// For general cases
+		for (int file = king_file - 1; file <= king_file + 1; ++file) {
+			// Open king file
+			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
+				openLines += KingOpenFile[file - king_file + 1];
+			} 
+		}
+	}
+
+	return openLines;
+
+}
+
+U64 generate_shield_zone(uint8_t kingSq, uint8_t col) {
+
+	/*
+	--------
+	--------
+	--------
+	--------
+	-----xxx
+	-----xxx
+	-----xxx
+	------K-
+	*/
+
+	U64 shield_zone = 0ULL;
+	uint8_t kingFile = FilesBrd[kingSq];
+	uint8_t kingRank = RanksBrd[kingSq];
+
+	if (col == WHITE) {
+		for (int rank = kingRank + 1; rank <= kingRank + 3; ++rank) {
+			for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
+				uint8_t sq = SQ64(FR2SQ(file, rank));
+				if (sq != 65) {
+					shield_zone |= 1ULL << sq;
+				}
+			}
+		}
+	} else {
+		for (int rank = kingRank - 1; rank >= kingRank - 3; --rank) {
+			for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
+				uint8_t sq = SQ64(FR2SQ(file, rank));
+				if (sq != 65) {
+					shield_zone |= 1ULL << sq;
+				}
+			}
+		}
+	}
+
+	return shield_zone;
+}
+
+static inline int16_t pawn_shield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
+
+	// [0]: starting sq
+	// [1]: moved 1 sq
+	// [2]: moved 2 sq
+	// [3]: moved 3+ sq / dead. this value shouldn't be too high as kingOpenFile exists
+	const int PawnShield[4] = { 0, -10, -18, -125 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
+	U64 castled_king = 0ULL;
+	int16_t shield = 0;
+
+	if (col == WHITE) {
+		// Pawn shield only applies to castled king
+		castled_king = RankBBMask[RANK_1];
+		castled_king ^= (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)); // Not on d1 e1 or f1
+		if (castled_king & (1ULL << SQ64(kingSq))) {
+			U64 king_zone = generate_shield_zone(kingSq, WHITE);
+			U64 pawns_in_zone = pos->pawns[WHITE] & king_zone;
+
+			uint8_t bits = CountBits(pawns_in_zone);
+			if (bits < 3) {
+				// At least one pawn is too far advanced or dead
+				shield += PawnShield[3] * (3 - bits);
+			}
+
+			while (pawns_in_zone) {
+				uint8_t pawn_sq = PopBit(&pawns_in_zone);
+				uint8_t rank = pawn_sq / 8;
+				shield += PawnShield[rank - 2];
+			}
+		}
+	} 
+	else {
+		castled_king = RankBBMask[RANK_8];
+		castled_king ^= (1ULL << SQ64(D8)) | (1ULL << SQ64(E8)) | (1ULL << SQ64(F8)); // Not on d8 e8 or f8
+		if (castled_king & (1ULL << SQ64(kingSq))) {
+			U64 king_zone = generate_shield_zone(kingSq, BLACK);
+			U64 pawns_in_zone = pos->pawns[BLACK] & king_zone;
+
+			uint8_t bits = CountBits(pawns_in_zone);
+			if (bits < 3) {
+				// At least one pawn is too far advanced or dead
+				// Works even in cases when king is on A/H files
+				shield += PawnShield[3] * (3 - bits);
+			}
+
+			while (pawns_in_zone) {
+				uint8_t pawn_sq = PopBit(&pawns_in_zone);
+				uint8_t rank = pawn_sq / 8;
+				shield += PawnShield[7 - rank];
+			}
+		}
+	}
+
+	return shield;
+
+}
+
+static inline double king_safety_score(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
+	// kingSq = your own king
+	// mat = enemy material excluding king
+	// The approach of this function is in terms of deductions to your own king
+
+	double king_safety = 0;
+	king_safety += pawn_shield(pos, kingSq, col) * 0.35;
+	// king_safety += punish_center_kings(pos, kingSq, col) * 1; // default: 1
+	king_safety += king_tropism(pos, col) * 1; // default: 1, Pending rewrite and tuning
+	king_safety += punish_open_files(pos, kingSq, col) * 0.85; // Pending tuning
+
+	// Will have to try a different way of scoring the phase, like number of pieces but greater value for queens
+	return king_safety * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
+
+}
+
+/*************************
+*** Endgame Adjustment ***
+*************************/
+
+// Used for some sort of king eval tapering. Probably not very good, but an interesting approach. Kept for legacy
+// #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
+
 // Rewarding active kings and punishing immobile kings to assist mates
 static inline int16_t king_mobility(const S_BOARD *pos, uint8_t king_sq, uint8_t col) {
 
@@ -102,247 +384,23 @@ static inline int16_t king_mobility(const S_BOARD *pos, uint8_t king_sq, uint8_t
 	return mobility_bonus[mobile_squares];
 }
 
-static inline int16_t RQ_open_files(const S_BOARD *pos, uint8_t king_file, uint8_t col) {
-	// col = Side with the kin
-
-	const int16_t rook_on_KingOpenFile[3] = { -30, -50, -30 };
-	const int16_t queen_on_KingOpenFile[3] = { -60, -100, -60 };
-	uint8_t col_offset = (!col == BLACK) ? 6 : 0;
-	int16_t punishment = 0;
-
-	uint8_t pce = wR + col_offset;
-	for (int i = 0; i < pos->pceNum[pce]; ++i) {
-		uint8_t sq = pos->pList[pce][i];
-		uint8_t relative_file = FilesBrd[sq] - king_file;
-		if (abs(relative_file) < 1) {
-			punishment += rook_on_KingOpenFile[relative_file];
-		}
-	}
-
-	pce = wQ + col_offset;
-	for (int i = 0; i < pos->pceNum[pce]; ++i) {
-		uint8_t sq = pos->pList[pce][i];
-		uint8_t relative_file = FilesBrd[sq] - king_file;
-		if (abs(relative_file) < 1) {
-			punishment += queen_on_KingOpenFile[relative_file];
-		}
-	}
-
-	return punishment;
-}
-
-static inline int16_t punish_open_files(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
-	// col = Side with the king
-
-	uint8_t king_file = FilesBrd[kingSq];
-	const int16_t KingOpenFile[3] = { -50, -70, -50 };
-	int16_t openLines = 0;
-
-	//    For edge cases
-	if (king_file == FILE_A || king_file == FILE_H) {
-		// Open king file
-		if (!(pos->pawns[BOTH] & FileBBMask[king_file])) {
-			openLines += KingOpenFile[1];
-			openLines += RQ_open_files(pos, king_file, col); // Check for rooks and queens
-		}
-		if (king_file == FILE_A) {
-			if (!(pos->pawns[BOTH] & FileBBMask[FILE_B])) {
-				openLines += KingOpenFile[0];
-				openLines += RQ_open_files(pos, king_file, col);
-			} 
-		} else {
-			if (!(pos->pawns[BOTH] & FileBBMask[FILE_G])) {
-				openLines += KingOpenFile[0];
-				openLines += RQ_open_files(pos, king_file, col);
-			} 
-		}
-	} else {
-		// For general cases
-		for (int file = king_file - 1; file <= king_file + 1; ++file) {
-			// Open king file
-			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
-				openLines += KingOpenFile[file - king_file + 1];
-				openLines += RQ_open_files(pos, king_file, col); // Check for rooks and queens
-			} 
-		}
-	}
-
-	return openLines;
-
-}
-
-U64 generate_king_zone(uint8_t kingSq, uint8_t col) {
-	U64 king_zone = 0ULL;
-	uint8_t kingFile = FilesBrd[kingSq];
-	uint8_t kingRank = RanksBrd[kingSq];
-
-	if (col == WHITE) {
-		for (int rank = kingRank + 1; rank <= kingRank + 3; ++rank) {
-			for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
-				king_zone |= 1ULL << SQ64(FR2SQ(file, rank));
-			}
-		}
-	} else {
-		for (int rank = kingRank - 1; rank >= kingRank - 3; --rank) {
-			for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
-				king_zone |= 1ULL << SQ64(FR2SQ(file, rank));
-			}
-		}
-	}
-
-	return king_zone;
-	
-}
-
-static inline int16_t pawn_shield(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
-
-	/*
-	--------
-	--------
-	--------
-	--------
-	--------
-	-----xxx
-	-----xxx
-	------K-
-	*/
-
-	// [0]: starting sq
-	// [1]: moved 1 sq
-	// [2]: moved 2 sq
-	// [3]: moved 3+ sq / dead. this value shouldn't be too high as kingOpenFile exists
-	const int PawnShield[4] = { 0, -10, -18, -125 }; // startpos, moved 1 sq, 2 sq, too far away / dead. [3] shouldn't be too high as kingOpenFile exists
-	U64 castled_king = 0ULL;
-	int16_t shield = 0;
-
-	if (col == WHITE) {
-		// Pawn shield only applies to castled king
-		castled_king = RankBBMask[RANK_1];
-		castled_king ^= (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)); // Not on d1 e1 or f1
-		if (castled_king & (1ULL << SQ64(kingSq))) {
-			U64 king_zone = generate_king_zone(kingSq, WHITE);
-			U64 pawns_in_zone = pos->pawns[WHITE] & king_zone;
-
-			uint8_t bits = CountBits(pawns_in_zone);
-			if (bits < 3) {
-				// At least one pawn is too far advanced or dead
-				shield += PawnShield[3] * (3 - bits);
-			}
-
-			while (pawns_in_zone) {
-				uint8_t pawn_sq = PopBit(&pawns_in_zone);
-				uint8_t rank = pawn_sq / 8;
-				shield += PawnShield[rank - 2];
-			}
-		}
-	} 
-	else {
-		castled_king = RankBBMask[RANK_8];
-		castled_king ^= (1ULL << SQ64(D8)) | (1ULL << SQ64(E8)) | (1ULL << SQ64(F8)); // Not on d8 e8 or f8
-		if (castled_king & (1ULL << SQ64(kingSq))) {
-			U64 king_zone = generate_king_zone(kingSq, BLACK);
-			U64 pawns_in_zone = pos->pawns[BLACK] & king_zone;
-
-			uint8_t bits = CountBits(pawns_in_zone);
-			if (bits < 3) {
-				// At least one pawn is too far advanced or dead
-				shield += PawnShield[3] * (3 - bits);
-			}
-
-			while (pawns_in_zone) {
-				uint8_t pawn_sq = PopBit(&pawns_in_zone);
-				uint8_t rank = pawn_sq / 8;
-				shield += PawnShield[7 - rank];
-			}
-		}
-	}
-
-	return shield;
-
-}
-
-static inline double king_tropism_for_piece(const S_BOARD *pos, int opp_king_sq, uint8_t pce, uint8_t factor) {
-	double tropism = 0;
-
-	for (int i = 0; i < pos->pceNum[pce]; ++i) {
-		uint8_t sq = pos->pList[pce][i];
-		if (IsKn(pce)) {
-			tropism += factor * ( 15 - dist_between_squares(opp_king_sq, sq) );
-		} else {
-			// Past a certain point getting sliders close to the king is meaningless
-			tropism += factor * ( 15 - max( dist_between_squares(opp_king_sq, sq), 5 ) );
-		}
-	}
-
-	return tropism;
-}
-
-static inline double kingTropism(const S_BOARD *pos, uint8_t col) {
-	// A coarse method to promote better attacks
-	// Seems to do better than Attacking King Zone or Attack Units for some reason
-	// Also less expensive to use (less drop in NPS)
-
-	double tropism = 0;
-	int opp_king_sq = 0;
-	uint8_t colour_offset = (col == BLACK) ? 6 : 0;
-
-	// Obtain opponent's king square
-	opp_king_sq = pos->KingSq[!col];
-	
-	// Knights
-	uint8_t pce = wN + colour_offset;
-	tropism += king_tropism_for_piece(pos, opp_king_sq, pce, 5);
-
-	// Bishops
-	pce = wB + colour_offset;
-	tropism += king_tropism_for_piece(pos, opp_king_sq, pce, 5);
-
-	// Rooks
-	pce = wR + colour_offset;
-	tropism += king_tropism_for_piece(pos, opp_king_sq, pce, 5);
-
-	// Queens
-	pce = wQ + colour_offset;
-	tropism += king_tropism_for_piece(pos, opp_king_sq, pce, 10);
-
-	return tropism;
-}
-
-static inline double kingSafetyScore(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
-	// kingSq = your own king
-	// mat = enemy material excluding king
-	// The approach of this function is in terms of deductions to your own king
-
-	double kingSafety = punish_open_files(pos, kingSq, col) * 0.85;
-	kingSafety += pawn_shield(pos, kingSq, col) * 1; // default: 1
-	kingSafety += kingTropism(pos, col) * 0.45;
-
-	return kingSafety * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
-
-}
-
-/*************************
-*** Endgame Adjustment ***
-*************************/
-
-// Used for some sort of king eval tapering. Probably not very good, but an interesting approach. Kept for legacy
-// #define ENDGAME_MAT (1 * PieceVal[wR] + 2 * PieceVal[wN] + 2 * PieceVal[wP] + PieceVal[wK])
-
 // Material eval
-static inline double CountMaterial(const S_BOARD *pos, double *whiteMat, double *blackMat) {
+static inline double CountMaterial(const S_BOARD *pos, double weight, double *whiteMat, double *blackMat) {
 	
 	*whiteMat = 0;
 	*blackMat = 0;
+
 	for(int index = 0; index < BRD_SQ_NUM; ++index) {
 		int piece = pos->pieces[index];
 		ASSERT(PceValidEmptyOffbrd(piece));
-		if(piece != OFFBOARD && piece != EMPTY) {
-			int colour = PieceCol[piece];
-			ASSERT(SideValid(colour));
-			if (colour == WHITE)
-				*whiteMat += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+		// Removing piece != OFFBOARD causes major problems for some reason
+		if (piece != OFFBOARD && piece != EMPTY) {
+			uint8_t col = PieceCol[piece];
+			ASSERT(SideValid(col));
+			if (col == WHITE)
+				*whiteMat += PieceValMg[piece] * weight + PieceValEg[piece] * (1 - weight);
 			else 
-				*blackMat += PieceValMg[piece] * evalWeight(pos) + PieceValEg[piece] * ( 1 - evalWeight(pos) );
+				*blackMat += PieceValMg[piece] * weight + PieceValEg[piece] * (1 - weight);
 		}
 	}
 
@@ -364,37 +422,39 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	uint8_t sq;
 
 	double score = 0;
+	// Tapered eval weight (middlegame perspective)
+	double weight = evalWeight(pos);
 
-	// Material eval
+	/*
+		Material
+	*/
+
 	double whiteMaterial = 0;
 	double blackMaterial = 0;
-	score += CountMaterial(pos, &whiteMaterial, &blackMaterial);
+	double net_material = CountMaterial(pos, weight, &whiteMaterial, &blackMaterial);
+	score += net_material;
 
-	// Material draw (checks if there are 1 or less pawns as well)
-	int netMaterial = (int)fabs(whiteMaterial - blackMaterial);
+	// Material draw
 	// TODO: Make is_material_draw include 1 pawn or less for each side
 	// Check if it's in endgame (8 or less pieces exc. pawns on the board)
 	uint8_t piece_count = CountBits(pos->occupancy[BOTH]) - CountBits(pos->pawns[BOTH]);
 	uint8_t isEndgame = piece_count < 8;
 	if (isEndgame) {
-		if ( !pos->pceNum[wP] && !pos->pceNum[bP] && is_material_draw(pos, netMaterial) ) {
+		if ( !pos->pceNum[wP] && !pos->pceNum[bP] && is_material_draw(pos, (int)fabs(net_material)) ) {
 			return 0;
 		}
 	}
-	
-	// Tapered eval weight. Calculated only once to save resources
-	double weight = evalWeight(pos);
 
-	/************
-	*** Pawns ***
-	************/
+	/*
+		Evaluate pawns
+	*/
 
 	pce = wP;
 	for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += PawnMgTable[SQ64(sq)] * weight + PawnEgTable[SQ64(sq)] * ( 1 - weight );
+		score += PawnMgTable[SQ64(sq)] * weight + PawnEgTable[SQ64(sq)] * (1 - weight);
 		score += evaluate_pawn_structure(pos, sq, WHITE);
 	}
 
@@ -403,20 +463,20 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= PawnMgTable[MIRROR64(SQ64(sq))] * weight + PawnEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );	
+		score -= PawnMgTable[MIRROR64(SQ64(sq))] * weight + PawnEgTable[MIRROR64(SQ64(sq))] * (1 - weight);	
 		score -= evaluate_pawn_structure(pos, sq, BLACK);
 	}
 
-	/************
-	** Knights **
-	************/
+	/*
+		Evaluate knights
+	*/
 
 	pce = wN;
 	for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += KnightMgTable[SQ64(sq)] * weight + KnightEgTable[SQ64(sq)] * ( 1 - weight );
+		score += KnightMgTable[SQ64(sq)] * weight + KnightEgTable[SQ64(sq)] * (1 - weight);
 
 		// Punish knights in front of c-pawn
 		U64 mask = pos->pawns[WHITE] & FileBBMask[FilesBrd[sq]];
@@ -431,7 +491,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= KnightMgTable[MIRROR64(SQ64(sq))] * weight + KnightEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
+		score -= KnightMgTable[MIRROR64(SQ64(sq))] * weight + KnightEgTable[MIRROR64(SQ64(sq))] * (1 - weight);
 
 		// Punish knights in front of c-pawn
 		U64 mask = pos->pawns[BLACK] & FileBBMask[FilesBrd[sq]];
@@ -441,9 +501,9 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		}
 	}
 
-	/************
-	** Bishops **
-	************/
+	/*
+		Evaluate bishops
+	*/
 
 	pce = wB;
 	for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
@@ -451,7 +511,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += BishopMgTable[SQ64(sq)] * weight + BishopEgTable[SQ64(sq)] * ( 1 - weight );
+		score += BishopMgTable[SQ64(sq)] * weight + BishopEgTable[SQ64(sq)] * (1 - weight);
 
 		// Punish bishops in front of e- or d-pawn
 		U64 mask = pos->pawns[WHITE] & FileBBMask[FilesBrd[sq]];
@@ -463,10 +523,6 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 				score += BishopBlocksPawn;
 			}
 		}
-
-		// Bonus for bishop-pawn interaction
-		// score += bishopPawnComplex(pos, sq, WHITE);
-	
 	}
 
 	pce = bB;
@@ -475,7 +531,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= BishopMgTable[MIRROR64(SQ64(sq))] * weight + BishopEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
+		score -= BishopMgTable[MIRROR64(SQ64(sq))] * weight + BishopEgTable[MIRROR64(SQ64(sq))] * (1 - weight);
 		
 		// Punish bishops in front of e- or d-pawn
 		U64 mask = pos->pawns[BLACK] & FileBBMask[FilesBrd[sq]];
@@ -487,22 +543,18 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 				score -= BishopBlocksPawn;
 			}
 		}
-
-		// Bonus for bishop-pawn interaction
-		// score -= bishopPawnComplex(pos, sq, BLACK);
-
 	}
 	
-	/************
-	*** Rooks ***
-	************/
+	/*
+		Evaluate rooks
+	*/
 
 	pce = wR;
 	for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += RookMgTable[SQ64(sq)] * weight + RookEgTable[SQ64(sq)] * ( 1 - weight );
+		score += RookMgTable[SQ64(sq)] * weight + RookEgTable[SQ64(sq)] * (1 - weight);
 
 		ASSERT(FileRankValid(FilesBrd[sq]));
 
@@ -518,7 +570,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= RookMgTable[MIRROR64(SQ64(sq))] * weight + RookEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
+		score -= RookMgTable[MIRROR64(SQ64(sq))] * weight + RookEgTable[MIRROR64(SQ64(sq))] * (1 - weight);
 		ASSERT(FileRankValid(FilesBrd[sq]));
 		if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
 			score -= RookOpenFile;
@@ -527,16 +579,16 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		}
 	}
 
-	/************
-	** Queens ***
-	************/
+	/*
+		Evaluate queens
+	*/
 
 	pce = wQ;
 	for(pceNum = 0; pceNum < pos->pceNum[pce]; ++pceNum) {
 		sq = pos->pList[pce][pceNum];
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-		score += QueenMgTable[SQ64(sq)] * weight + QueenEgTable[SQ64(sq)] * ( 1 - weight );
+		score += QueenMgTable[SQ64(sq)] * weight + QueenEgTable[SQ64(sq)] * (1 - weight);
 		ASSERT(FileRankValid(FilesBrd[sq]));
 		if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
 			score += QueenOpenFile;
@@ -551,7 +603,7 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		ASSERT(SqOnBoard(sq));
 		ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
 		ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-		score -= QueenMgTable[MIRROR64(SQ64(sq))] * weight + QueenEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
+		score -= QueenMgTable[MIRROR64(SQ64(sq))] * weight + QueenEgTable[MIRROR64(SQ64(sq))] * (1 - weight);
 		ASSERT(FileRankValid(FilesBrd[sq]));
 		if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
 			score -= QueenOpenFile;
@@ -560,17 +612,17 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 		}
 	}
 
-	/************
-	*** Kings ***
-	************/
+	/*
+		Evaluate kings
+	*/
 
 	// Test position: 8/p6k/6p1/5p2/P4K2/8/5pB1/8 b - - 2 62
 	pce = wK;
 	sq = pos->pList[pce][0];
 	ASSERT(SqOnBoard(sq));
 	ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
-	score += KingMgTable[SQ64(sq)] * weight + KingEgTable[SQ64(sq)] * ( 1 - weight );
-	score += kingSafetyScore(pos, sq, WHITE, blackMaterial - 50000);
+	score += KingMgTable[SQ64(sq)] * weight + KingEgTable[SQ64(sq)] * (1 - weight);
+	score += king_safety_score(pos, sq, WHITE, blackMaterial - 50000);
 	if (isEndgame) {
 		score += king_mobility(pos, sq, WHITE);
 	}
@@ -579,27 +631,27 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	sq = pos->pList[pce][0];
 	ASSERT(SqOnBoard(sq));
 	ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
-	score -= KingMgTable[MIRROR64(SQ64(sq))] * weight + KingEgTable[MIRROR64(SQ64(sq))] * ( 1 - weight );
-	score -= kingSafetyScore(pos, sq, BLACK, whiteMaterial - 50000);
+	score -= KingMgTable[MIRROR64(SQ64(sq))] * weight + KingEgTable[MIRROR64(SQ64(sq))] * (1 - weight);
+	score -= king_safety_score(pos, sq, BLACK, whiteMaterial - 50000);
 	if (isEndgame) {
 		score -= king_mobility(pos, sq, BLACK);
 	}
 
 
-	/****************
-	* Other bonuses *
-	****************/
+	/*
+		Bonuses and Adjustments
+	*/
 
 	// Bishop pair bonus
 	if(pos->pceNum[wB] >= 2) score += BishopPair;
 	if(pos->pceNum[bB] >= 2) score -= BishopPair;
 
 	// 50-move rule adjustment
-	score = (int)( score * ( (100 - pos->fiftyMove) / 100.0) );
+	if (score < ISMATE) {
+		score = (int)( score * ( (100 - pos->fiftyMove) / 100.0) );
+	}
 
 	// No good way of calculating mobility
-	// Kinda counted already by PSQT and open files / bishop pair bonuses. 
-	// Perhaps have to do some trick with setting rooks on certain files to limit king movement in endgame.
 
 	// Perspective adjustment
 	if(pos->side == WHITE) {
