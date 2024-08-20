@@ -48,7 +48,7 @@ Evaluation:
 - King safety: pawn shield, open files, king tropism
 - Piece bonuses: Rook/queen open-file bonuses
 - Pawn bonuses: Passed pawns, isolated pawns, doubled pawns
-- Drawn endgame detection: Basic material draw (e.g. K+R v K+B)
+- Endgame knowledge: Drawn endgame detection (7-man equivalent), 50-move rule adjustment
 
 ## Playing Strength
 
@@ -69,7 +69,7 @@ Evaluation:
 
 ## Changelogs <br>
 ### 0.x: <br>
-0.28 (dev): Added extended futility pruning. Rework king safety. Improved material draw detection. Added 50-move adjustment. | Elo gain: ~15. <br>
+0.28 (dev): Rework king safety. Added extended futility pruning. Improved endgame knowledge. | Elo gain: ~5. <br>
 0.27c: Added doubled pawns. Improved time management. Minor code restructuring. <br>
 0.27b: Improved aspiration windows. Improved move ordering. Added OpenBench support. | Elo gain: ~30. <br>
 0.27: Added late move pruning. Improved drawn endgame detection. Optimised king tropism. | Elo gain: ~50. <br>

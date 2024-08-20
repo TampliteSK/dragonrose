@@ -82,29 +82,9 @@ inline double evalWeight(const S_BOARD *pos) {
 *** King Safety ***
 ******************/
 
-// Punishing kings in the center without castling rights
-// Should be greater punishment than castled with a broken a pawn shield
-static inline int16_t punish_center_kings(const S_BOARD *pos, uint8_t king_sq, uint8_t col) {
-
-	const int file_punishment[8] = { 0, 0, 0, -50, -100, -50, 0, 0 };
-	const int rank_punishment[8] = { 0, -25, -75, -125, -150, -175, -200, -225 };
-	uint8_t no_castling = 0;
-	uint8_t relative_rank = 0;
-	if (col == WHITE) {
-		no_castling = (pos->castlePerm & 0b0011) == 0;
-		relative_rank = RanksBrd[king_sq];
-	} else {
-		no_castling = (pos->castlePerm & 0b1100) == 0;
-		relative_rank = 8 - RanksBrd[king_sq];
-	}
-
-	if (no_castling) {
-		return file_punishment[FilesBrd[king_sq]] + rank_punishment[relative_rank];
-	} else {
-		return 0;
-	}
-
-}
+/*
+	King Tropism
+*/
 
 static inline double king_tropism_for_knight(const S_BOARD *pos, int opp_king_sq, uint8_t pce, uint8_t factor) {
 
@@ -152,7 +132,7 @@ static inline int16_t king_tropism_for_RQ(const S_BOARD *pos, uint8_t opp_king_s
 	uint8_t pce = wR + col_offset;
 	for (int i = 0; i < pos->pceNum[pce]; ++i) {
 		uint8_t sq = pos->pList[pce][i];
-		uint8_t relative_file = FilesBrd[sq] - king_file;
+		int8_t relative_file = FilesBrd[sq] - king_file;
 
 		if (abs(relative_file) < 1) {
 			if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
@@ -167,7 +147,7 @@ static inline int16_t king_tropism_for_RQ(const S_BOARD *pos, uint8_t opp_king_s
 	pce = wQ + col_offset;
 	for (int i = 0; i < pos->pceNum[pce]; ++i) {
 		uint8_t sq = pos->pList[pce][i];
-		uint8_t relative_file = FilesBrd[sq] - king_file;
+		int8_t relative_file = FilesBrd[sq] - king_file;
 
 		if (abs(relative_file) < 1) {
 			if(!(pos->pawns[BOTH] & FileBBMask[FilesBrd[sq]])) {
@@ -203,44 +183,76 @@ static inline double king_tropism(const S_BOARD *pos, uint8_t col) {
 	tropism += king_tropism_for_bishop(pos, opp_king_sq, pce); // 0 ~ 24
 
 	// Rooks and Queens
-	tropism += king_tropism_for_RQ(pos, opp_king_sq, col) * 0.7; // 0 ~ 180. Default 0.8
+	tropism += king_tropism_for_RQ(pos, opp_king_sq, col) * 0.5; // 0 ~ 90
 
 	return tropism;
 }
 
-static inline int16_t punish_open_files(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
-	// col = Side with the king
+/*
+	Other components
+*/
 
-	uint8_t king_file = FilesBrd[kingSq];
-	const int16_t KingOpenFile[3] = { -50, -70, -50 };
-	int16_t openLines = 0;
-
-	//    For edge cases
-	if (king_file == FILE_A || king_file == FILE_H) {
-		// Open king file
-		if (!(pos->pawns[BOTH] & FileBBMask[king_file])) {
-			openLines += KingOpenFile[1];
-		}
-		if (king_file == FILE_A) {
-			if (!(pos->pawns[BOTH] & FileBBMask[FILE_B])) {
-				openLines += KingOpenFile[0];
-			} 
-		} else {
-			if (!(pos->pawns[BOTH] & FileBBMask[FILE_G])) {
-				openLines += KingOpenFile[0];
-			} 
-		}
+// Punishing kings in the center without castling rights
+// Should be greater punishment than castled with a broken a pawn shield
+static inline int16_t punish_center_kings(const S_BOARD *pos, uint8_t king_sq, uint8_t col) {
+	
+	// optimal weight: 0.15
+	/*
+	const int file_punishment[8] = { -10, -30, -50, -70, -70, -50, -30, -10 };
+	const int rank_punishment[8] = { 0, -25, -75, -125, -150, -175, -200, -225 };
+	uint8_t no_castling = 0;
+	uint8_t relative_rank = 0;
+	if (col == WHITE) {
+		no_castling = (pos->castlePerm & 0b0011) == 0;
+		relative_rank = RanksBrd[king_sq];
 	} else {
-		// For general cases
-		for (int file = king_file - 1; file <= king_file + 1; ++file) {
-			// Open king file
-			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
-				openLines += KingOpenFile[file - king_file + 1];
-			} 
-		}
+		no_castling = (pos->castlePerm & 0b1100) == 0;
+		relative_rank = 8 - RanksBrd[king_sq];
 	}
 
-	return openLines;
+	if (no_castling) {
+		// Base value of 50
+		return -50 + file_punishment[FilesBrd[king_sq]] + rank_punishment[relative_rank];
+	} else {
+		return 0;
+	}
+	*/
+
+	int8_t no_castle_punishment = -23;
+	uint8_t no_castling = 0;
+
+	if (col == WHITE) {
+		no_castling = (pos->castlePerm & 0b0011) == 0;
+	} else {
+		no_castling = (pos->castlePerm & 0b1100) == 0;
+	}
+
+	if (no_castling) {
+		return no_castle_punishment;
+	} else {
+		return 0;
+	}
+
+}
+
+static inline int16_t punish_open_files(const S_BOARD *pos, uint8_t col) {
+
+	uint8_t opp_king_sq = pos->KingSq[col];
+	uint8_t king_file = FilesBrd[opp_king_sq];
+	const uint8_t KingOpenFile[3] = { 60, 70, 60 };
+	int16_t open_lines = 0;
+
+	for (int file = king_file - 1; file <= king_file + 1; ++file) {
+		if (file >= FILE_A && file <= FILE_H) {
+			// Open king file
+			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
+					open_lines -= KingOpenFile[file - king_file + 1];
+			} 
+		}
+			
+	}
+
+	return open_lines;
 
 }
 
@@ -347,13 +359,17 @@ static inline double king_safety_score(const S_BOARD *pos, uint8_t kingSq, uint8
 	// The approach of this function is in terms of deductions to your own king
 
 	double king_safety = 0;
+	king_safety += punish_open_files(pos, col) * 0.85; // Default: 1
+	king_safety += king_tropism(pos, col) * 0.6;
 	king_safety += pawn_shield(pos, kingSq, col) * 0.35;
-	// king_safety += punish_center_kings(pos, kingSq, col) * 1; // default: 1
-	king_safety += king_tropism(pos, col) * 1; // default: 1, Pending rewrite and tuning
-	king_safety += punish_open_files(pos, kingSq, col) * 0.85; // Pending tuning
+	king_safety += punish_center_kings(pos, kingSq, col) * 1;
 
 	// Will have to try a different way of scoring the phase, like number of pieces but greater value for queens
-	return king_safety * mat / 4039.0; // king safety matters less when there's fewer pieces on the bqoard
+	// Modified NNUE Phase System
+	uint8_t phase = 3 * (pos->pceNum[wN] + pos->pceNum[bN] + pos->pceNum[wB] + pos->pceNum[bB]) +
+                	5 * (pos->pceNum[wR] + pos->pceNum[bR]) + 
+					10 * (pos->pceNum[wQ] + pos->pceNum[bQ]);
+	return king_safety * phase / 64; // king safety matters less when there's fewer pieces on the bqoard
 
 }
 
@@ -622,9 +638,10 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	ASSERT(SqOnBoard(sq));
 	ASSERT(SQ64(sq)>=0 && SQ64(sq)<=63);
 	score += KingMgTable[SQ64(sq)] * weight + KingEgTable[SQ64(sq)] * (1 - weight);
-	score += king_safety_score(pos, sq, WHITE, blackMaterial - 50000);
 	if (isEndgame) {
 		score += king_mobility(pos, sq, WHITE);
+	} else {
+		score += king_safety_score(pos, sq, WHITE, blackMaterial - 50000);
 	}
 
 	pce = bK;
@@ -632,11 +649,11 @@ inline int16_t EvalPosition(const S_BOARD *pos) {
 	ASSERT(SqOnBoard(sq));
 	ASSERT(MIRROR64(SQ64(sq))>=0 && MIRROR64(SQ64(sq))<=63);
 	score -= KingMgTable[MIRROR64(SQ64(sq))] * weight + KingEgTable[MIRROR64(SQ64(sq))] * (1 - weight);
-	score -= king_safety_score(pos, sq, BLACK, whiteMaterial - 50000);
 	if (isEndgame) {
 		score -= king_mobility(pos, sq, BLACK);
+	} else {
+		score -= king_safety_score(pos, sq, BLACK, whiteMaterial - 50000);
 	}
-
 
 	/*
 		Bonuses and Adjustments

@@ -18,7 +18,7 @@ OPT_FLAGS = -Ofast -march=native -funroll-loops
 
 # Detect Clang
 ifeq ($(CC), clang)
-	OPT_FLAGS = -O3 -ffast-math -march=native -funroll-loops
+	OPT_FLAGS = -O3 -ffast-math -flto -fuse-ld=lld -march=native -funroll-loops
 endif
 
 # -lm is added to fix errors when compiling on Linux (Ubuntu)

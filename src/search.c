@@ -120,8 +120,7 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 		return EvalPosition(pos);
 	}
 
-	int32_t Score = 0; // Flagged "Conditional jump or move depends on uninitialised value(s)" by Valgrind
-	Score = EvalPosition(pos); // stand-pat score
+	int32_t Score = EvalPosition(pos); // Stand-pat score
 
 	ASSERT(Score > -INF_BOUND && Score < INF_BOUND);
 
@@ -147,7 +146,6 @@ static inline int Quiescence(int alpha, int beta, S_BOARD *pos, S_SEARCHINFO *in
 
     int MoveNum = 0;
 	int Legal = 0;
-	Score = -INF_BOUND;
 	
 	// Delta pruning buffer.
 	#define DELTA_BUFFER 180
@@ -283,7 +281,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		// PickNextMove(MoveNum, list);
 
 		int curr_move = list->moves[MoveNum].move;
-
+		
 		/*
 			(Extended) Futility Pruning
 		*/
@@ -293,18 +291,17 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		#define FUTILITY_MARGIN 325
 		// Depth 2 margin: ~rook
 		#define EXTENDED_FUTILITY_MARGIN 475
-	
+
 		// Move classifications
-		uint8_t IsCheck = SqAttacked(pos->KingSq[!pos->side], pos->side, pos);
 		int IsCapture = CAPTURED(curr_move);
 
-		// We check if it is a frontier node (1/2 ply from horizon) and the eval is not very high
+		// We check if it is a frontier node (1/2 ply from horizon) and not mate
 		// int static_score = EvalPosition(pos);
-		if ( ( (depth == 1) || (depth == 2) ) && (abs(Score) < 1200) ) {
+		if ( ( (depth == 1) || (depth == 2) ) && (abs(Score) < ISMATE) ) {
 			int static_score = EvalPosition(pos);
 
 			// Check to make sure it's not a capture or a check
-			if (!IsCapture && !IsCheck) {
+			if (!InCheck && !IsCapture) {
 				if ( (depth == 2) && (static_score + EXTENDED_FUTILITY_MARGIN <= alpha) ) {
 					continue; 
 				} else if ( (depth == 1) && (static_score + FUTILITY_MARGIN <= alpha) ) {
@@ -328,7 +325,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 
         int reduced_depth = depth - 1; // We move further into the tree
         // Do not reduce if it's completely winning / near mating position 
-        if (abs(Score) < 1200) {
+        if (abs(Score) < ISMATE) {
 
             // Check if it's a late move
             if (MoveNum > 3 && depth > 4) {
@@ -342,7 +339,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
                 // Checks if a move's target square is within 3 king moves
                 uint8_t target_sq_within_king_zone = dist_between_squares(self_king_sq, target_sq) <= 3; 
 
-                if (!IsCapture && !IsPromotion && !InCheck && !IsCheck && !IsPawn(moving_pce) && !target_sq_within_king_zone) {
+                if (!IsCapture && !IsPromotion && !InCheck && !IsPawn(moving_pce) && !target_sq_within_king_zone) {
                     reduced_depth = (int)( log(depth) * log(MoveNum) / 2.25 );
 					// reduced_depth = max(reduced_depth, 3);
 					reduced_depth = max(reduced_depth, max(4, depth - 4));

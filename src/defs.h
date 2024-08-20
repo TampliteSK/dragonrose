@@ -95,14 +95,14 @@ typedef struct {
 
 enum { HFNONE, HFALPHA, HFBETA, HFEXACT };
 
-// 25 bytes (but will be rounded to 32 for storage)
+// 23 bytes (will be padded to 24)
 typedef struct {
 	U64 posKey;
 	int move;
 	int score;
 	uint8_t depth;
 	int flags;
-	int age; // indicates how new an entry is
+	uint16_t age; // indicates how new an entry is
 } S_HASHENTRY;
 
 typedef struct {
