@@ -95,7 +95,7 @@ typedef struct {
 
 enum { HFNONE, HFALPHA, HFBETA, HFEXACT };
 
-// 23 bytes (will be padded to 24)
+// 23 bytes (will be padded to 32)
 typedef struct {
 	U64 posKey;
 	int move;
