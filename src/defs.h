@@ -93,15 +93,16 @@ typedef struct {
 	int count;
 } S_MOVELIST;
 
+// Move flag for hash entry
 enum { HFNONE, HFALPHA, HFBETA, HFEXACT };
 
-// 23 bytes (will be padded to 32)
+// 20 bytes (will be padded to 24)
 typedef struct {
 	U64 posKey;
 	int move;
-	int score;
+	int16_t score;
 	uint8_t depth;
-	int flags;
+	uint8_t flags;
 	uint16_t age; // indicates how new an entry is
 } S_HASHENTRY;
 

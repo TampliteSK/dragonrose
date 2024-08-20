@@ -359,7 +359,7 @@ static inline double king_safety_score(const S_BOARD *pos, uint8_t kingSq, uint8
 	// The approach of this function is in terms of deductions to your own king
 
 	double king_safety = 0;
-	king_safety += punish_open_files(pos, col) * 0.85; // Default: 1
+	king_safety += punish_open_files(pos, col) * 0.5; // Default: 0.7
 	king_safety += king_tropism(pos, col) * 0.6;
 	king_safety += pawn_shield(pos, kingSq, col) * 0.35;
 	king_safety += punish_center_kings(pos, kingSq, col) * 1;
