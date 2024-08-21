@@ -1,9 +1,10 @@
 # Compiler
-# Run "make CC=xxx" and replace xxx with your choice of compiler to use another compiler (e.g. clang)
+# Run "make CC=<compiler>" and replace <compiler> with either gcc or clang
+# If left unspecified, gcc is used as default
 CC ?= gcc 
 SRCS = $(wildcard src/*.c)
 
-# Run "make EXE=yyy" to name the executable yyy
+# Attaching "EXE=<name>" to the above command allows you to rename the executable to <name>. By default it is "Dragonrose.exe"
 EXE ?= Dragonrose
 
 

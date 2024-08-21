@@ -36,7 +36,7 @@ typedef unsigned long long U64;
 #define OPENBENCH_MODE 1
 
 /*
-	MAX_HASH: Maximum hash size - 65536 MB (64 GB), or 2,147,483,648 positions
+	MAX_HASH: Maximum hash size - 65536 MB (64 GB), or 2,863,311,530 positions
 	MAX_GAME_MOVES: Maximum no. of moves in a game
 	MAX_POSITION_MOVES: Maximum expected legal moves in a given position
 		Note: There is a position that breaks the conventional 256 limit (credits to Caisssa and Quanticade):
@@ -96,7 +96,7 @@ typedef struct {
 // Move flag for hash entry
 enum { HFNONE, HFALPHA, HFBETA, HFEXACT };
 
-// 20 bytes (will be padded to 24)
+// 18 bytes (will be padded to 24)
 typedef struct {
 	U64 posKey;
 	int move;
@@ -247,7 +247,7 @@ Mask to get captured:
 
 #define min(x, y) ((x) > (y) ? (y) : (x))
 #define max(x, y) ((x) > (y) ? (x) : (y))
-// #define clamp(value, low, high) ((value) < (low) ? (low) : ((value) > (high) ? (high) : (value)))
+#define clamp(low, value, high) ((value) < (low) ? (low) : ((value) > (high) ? (high) : (value)))
 
 /*******************
 ***** Globals ******
@@ -313,6 +313,7 @@ extern S_HASHTABLE HashTable[1]; // brought out from board struct to make it glo
 
 // attack.c
 extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
+extern uint8_t SqAttackedS(const int sq, const int side, const S_BOARD *pos);
 extern uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos);
 extern uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos);
 extern U64 prepare_occupancy(U64 occupancy, uint8_t sq);
@@ -334,8 +335,11 @@ extern void MirrorBoard(S_BOARD *pos);
 extern uint8_t is_material_draw(const S_BOARD *pos, int net_material);
 
 // evaluate.c
-extern U64 generate_shield_zone(uint8_t kingSq, uint8_t col);
+// extern U64 generate_king_zone(uint8_t kingSq);
+// extern U64 generate_shield_zone(uint8_t kingSq, uint8_t col);
+// extern int16_t attack_units(const S_BOARD *pos, uint8_t col);
 extern double evalWeight(const S_BOARD *pos);
+// extern int8_t pawn_storm(const S_BOARD *pos, uint8_t kingSq, uint8_t col);
 extern int16_t EvalPosition(const S_BOARD *pos);
 extern void MirrorEvalTest(S_BOARD *pos);
 
@@ -363,7 +367,7 @@ extern uint8_t isLightSq(uint8_t sq);
 extern uint8_t on_same_diagonal(uint8_t sq_1, uint8_t sq_2);
 extern uint8_t isOppColBishops(const S_BOARD *pos);
 extern uint8_t dist_between_squares(uint8_t sq_1, uint8_t sq_2);
-// extern int8_t max_between_squares(uint8_t sq_1, uint8_t sq_2);
+extern int8_t max_between_squares(uint8_t sq_1, uint8_t sq_2);
 
 // movegen.c
 extern void GenerateSliders(const S_BOARD *pos, S_MOVELIST *list);

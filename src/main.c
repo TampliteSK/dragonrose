@@ -70,10 +70,11 @@ int main(int argc, char *argv[]) {
 		} else if(!strncmp(line, "quit", 4))	{
 			break;
 		} else if(!strncmp(line, "test", 4))	{
-			U64 castled_king = RankBBMask[RANK_1];
-			castled_king ^= (1ULL << SQ64(D1)) | (1ULL << SQ64(E1)) | (1ULL << SQ64(F1)); // Not on d1 e1 or f1
-			PrintBitBoard(castled_king);
-		} 
+			char *test_fen = "2bq1rk1/1rpp1ppp/1p1b1n2/p2NN1BQ/2BPP3/6R1/PPP3PP/R5K1 w - - 8 15";
+			ParseFen(test_fen, pos);
+			// int eval = attack_units(pos, WHITE);
+			// printf("Eval = %d\n", eval);
+		}
 	}
 
 	free(HashTable->pTable);

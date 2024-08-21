@@ -120,6 +120,80 @@ uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos) {
 	
 }
 
+// Special version of SqAttacked() which excludes kings
+uint8_t SqAttackedS(const int sq, const int side, const S_BOARD *pos) {
+
+	int pce,t_sq,dir;
+	
+	ASSERT(SqOnBoard(sq));
+	ASSERT(SideValid(side));
+	ASSERT(CheckBoard(pos));
+	
+	// pawns
+	if(side == WHITE) {
+		if(pos->pieces[sq-11] == wP || pos->pieces[sq-9] == wP) {
+			return TRUE;
+		}
+	} else {
+		if(pos->pieces[sq+11] == bP || pos->pieces[sq+9] == bP) {
+			return TRUE;
+		}	
+	}
+	
+	// knights
+	for(int index = 0; index < 8; ++index) {		
+		pce = pos->pieces[sq + KnDir[index]];
+		ASSERT(PceValidEmptyOffbrd(pce));
+		if(pce != OFFBOARD && IsKn(pce) && PieceCol[pce]==side) {
+			return TRUE;
+		}
+	}
+	
+	// rooks, queens
+	for(int index = 0; index < 4; ++index) {		
+		dir = RkDir[index];
+		t_sq = sq + dir;
+		ASSERT(SqIs120(t_sq));
+		pce = pos->pieces[t_sq];
+		ASSERT(PceValidEmptyOffbrd(pce));
+		while(pce != OFFBOARD) {
+			if(pce != EMPTY) {
+				if(IsRQ(pce) && PieceCol[pce] == side) {
+					return TRUE;
+				}
+				break;
+			}
+			t_sq += dir;
+			ASSERT(SqIs120(t_sq));
+			pce = pos->pieces[t_sq];
+		}
+	}
+	
+	// bishops, queens
+	for(int index = 0; index < 4; ++index) {		
+		dir = BiDir[index];
+		t_sq = sq + dir;
+		ASSERT(SqIs120(t_sq));
+		pce = pos->pieces[t_sq];
+		ASSERT(PceValidEmptyOffbrd(pce));
+		while(pce != OFFBOARD) {
+			if(pce != EMPTY) {
+				if(IsBQ(pce) && PieceCol[pce] == side) {
+					return TRUE;
+				}
+				break;
+			}
+			t_sq += dir;
+			ASSERT(SqIs120(t_sq));
+			pce = pos->pieces[t_sq];
+		}
+	}
+	
+	return FALSE;
+	
+}
+
+
 // Sort of inverse of SqAttacked(). Considering the perspective of the piece rather than the square
 uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos) {
 	// sq = Landing square of the move

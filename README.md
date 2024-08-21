@@ -1,5 +1,5 @@
 # Dragonrose Chess Engine
-**Dragonrose is a weak chess engine written in C.** This is merely a passion project of mine, and I certainly don't expect much to come out of it, but I hope to learn a bit more about C and programming in general through this experience. On top of this, the engine will be written with readability in mind, so 1) it
+**Dragonrose is a weak UCI-compliant chess engine written in C.** This is merely a passion project of mine, and I certainly don't expect much to come out of it, but I hope to learn a bit more about C and programming in general through this experience. On top of this, the engine will be written with readability in mind, so 1) it
 is easier to understand and 2) I am not good enough to optimise the code much :P. <br>
 Although this engine is probably too trash for anyone to bother using as a reference, you are free to borrow and modify my code if you so wish, as long as you give credit to both me and Bluefever Software (see below for details). <br>
 To use the engine, either grab the binary from releases, or build the project locally. In the future I will consider releasing Linux builds. <br>
@@ -14,7 +14,7 @@ You can find the playlist here: [Link to playlist](https://www.youtube.com/playl
 ## How to Use
 
 - Challenge it on Lichess [here](https://lichess.org/@/DragonroseDev)
-- To run it locally either download a binary from releases or build it yourself with the makefile (or CMake). With it you can pick one of two options:
+- To run it locally either download a binary from releases or build it yourself with the makefile. Run `make CC=<compiler>` and replace compiler with your preferred compiler (gcc / clang). With it you can pick one of two options:
   - Plug it into a chess GUI such as Arena or Cutechess
   - Directly run the executable (usually for testing). You can run it normally with ./Dragonrose or run a benchmark with ./Dragonrose bench
 
@@ -41,13 +41,13 @@ Search:
 - Transposition table using "age"
 - Polyglot opening books
 
-Evaluation:
+Evaluation (Hand-crafted evaluation (HCE)):
 - Tapered eval
   - Material
   - Piece-square table bonuses
-- King safety: pawn shield, open files, king tropism
+- King safety: customised king tropism, pawn shield, king open files penalty, king in centre penalty
 - Piece bonuses: Rook/queen open-file bonuses
-- Pawn bonuses: Passed pawns, isolated pawns, doubled pawns
+- Pawn bonuses / penalties: Passed pawns, isolated pawns, stacked pawns
 - Endgame knowledge: Drawn endgame detection (7-man equivalent), 50-move rule adjustment
 
 ## Playing Strength
@@ -87,8 +87,9 @@ Evaluation:
 0.1: Added tapered eval to PSQT. <br>
 
 ## To-do list
-- Improve king tropism / king safety
-- Optimise TT (size of entry)
+- Improve king safety
+- Add TT move ordering
+- Tune LMR
 - Add SEE
 - Pawn / bishop interaction
 - Optimise movegen (magic bitboard)
