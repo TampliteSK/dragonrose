@@ -227,14 +227,12 @@ U64 generate_king_zone(uint8_t kingSq) {
 // Consider both attackers and defenders to better gauge how strong an attack is
 int16_t attack_units(const S_BOARD *pos, uint8_t col) {
 	
-	printf("attack units called\n");
 	uint8_t opp_king_sq = pos->KingSq[!col];
 	U64 king_zone = generate_king_zone(opp_king_sq);
 	uint8_t attack_units = 0, defense_units = 0;
 	
 	while (king_zone) {
-		uint8_t sq = PopBit(&king_zone);
-		printf("Sq = %d\n", sq);
+		uint8_t sq = SQ120(PopBit(&king_zone));
 		if (SqAttackedS(sq, col, pos)) {
 			attack_units++;
 		}
@@ -243,7 +241,6 @@ int16_t attack_units(const S_BOARD *pos, uint8_t col) {
 		}
 	}
 
-	// printf("Attack units = %d, Defense units = %d\n", attack_units, defense_units);
 	int16_t attack_potency = (attack_units - defense_units) * 3;
 	return SafetyTable[clamp(0, attack_potency, 99)];
 }
@@ -457,7 +454,7 @@ static inline double king_safety_score(const S_BOARD *pos, uint8_t kingSq, uint8
 
 	double king_safety = 0;
 	king_safety += punish_king_open_files(pos, col) * 0.7;
-	king_safety += attack_units(pos, col) * 1; // default: 1
+	// king_safety += attack_units(pos, col) * 1; // default: 1
 	king_safety += king_tropism(pos, col) * 0.6;
 	king_safety += pawn_shield(pos, kingSq, col) * 0.35;
 	king_safety += punish_center_kings(pos, kingSq, col) * 0.15;

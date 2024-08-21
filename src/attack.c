@@ -178,7 +178,7 @@ uint8_t SqAttackedS(const int sq, const int side, const S_BOARD *pos) {
 		ASSERT(PceValidEmptyOffbrd(pce));
 		while(pce != OFFBOARD) {
 			if(pce != EMPTY) {
-				if(IsBQ(pce) && PieceCol[pce] == side) {
+				if (IsBQ(pce) && PieceCol[pce] == side) {
 					return TRUE;
 				}
 				break;
