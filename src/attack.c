@@ -368,7 +368,7 @@ uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos) {
 
 U64 set_occupancy(int index, int bits_in_mask, uint64_t attack_mask) {
 
-	uint64_t occupancy = 0ULL;
+	U64 occupancy = 0ULL;
 
 	for (int count = 0; count < bits_in_mask; count++) {
 		int sq = PopBit(&attack_mask);
@@ -407,14 +407,14 @@ U64 mask_pawn_attacks(uint8_t sq, uint8_t col) {
 }
 
 // Relevant occupancy squares for bishops
-U64 mask_bishop_attacks(int sq) {
+U64 mask_bishop_attacks(uint8_t sq64) {
 
 	U64 attacks = 0ULL;
 	int r, f;
 
 	// Target ranks & files
-	int tr = RanksBrd[sq];
-	int tf = FilesBrd[sq];
+	int tr = RanksBrd[SQ120(sq64)];
+	int tf = FilesBrd[SQ120(sq64)];
 
 	for (r = tr + 1, f = tf + 1; r <= 6 && f <= 6; r++, f++)
 		attacks |= (1ULL << (r * 8 + f));
@@ -429,14 +429,14 @@ U64 mask_bishop_attacks(int sq) {
 }
 
 // Relevant occupancy squares for rooks
-U64 mask_rook_attacks(int sq) {
+U64 mask_rook_attacks(uint8_t sq64) {
 
 	U64 attacks = 0ULL;
 	int r, f;
 
 	// Target rank & files
-	int tr = RanksBrd[sq];
-	int tf = FilesBrd[sq];
+	int tr = RanksBrd[SQ120(sq64)];
+	int tf = FilesBrd[SQ120(sq64)];
 
 	for (r = tr + 1; r <= 6; r++)
 		// Up
@@ -455,7 +455,7 @@ U64 mask_rook_attacks(int sq) {
 }
 
 // generate bishop attacks on the fly
-U64 bishop_attacks_on_the_fly(int sq, uint64_t block) {
+U64 bishop_attacks_on_the_fly(uint8_t sq, uint64_t block) {
 
 	U64 attacks = 0ULL;
 	int r, f;
@@ -492,7 +492,7 @@ U64 bishop_attacks_on_the_fly(int sq, uint64_t block) {
 }
 
 // generate rook attacks on the fly
-U64 rook_attacks_on_the_fly(int sq, uint64_t block) {
+U64 rook_attacks_on_the_fly(uint8_t sq, uint64_t block) {
 
 	U64 attacks = 0ULL;
 	int r, f;
@@ -528,76 +528,90 @@ U64 rook_attacks_on_the_fly(int sq, uint64_t block) {
 	return attacks;
 }
 
-U64 get_bishop_attacks(int sq, U64 occupancy) {
-	occupancy &= bishop_masks[sq];
-	occupancy *= bishop_magic_numbers[sq];
-	occupancy >>= 64 - bishop_relevant_bits[sq];
+U64 get_bishop_attacks(uint8_t sq, U64 occupancy) {
+	
+	uint8_t sq64 = SQ64(sq);
+	occupancy ^= 1ULL << sq64;
+	occupancy &= bishop_masks[sq64];
+	occupancy *= bishop_magic_numbers[sq64];
+	occupancy >>= 64 - bishop_relevant_bits[sq64];
 
-	return bishop_attacks[sq][occupancy];
+	return bishop_attacks[sq64][occupancy];
 }
 
-U64 get_rook_attacks(int sq, U64 occupancy) {
-	occupancy &= rook_masks[sq];
-	occupancy *= rook_magic_numbers[sq];
-	occupancy >>= 64 - rook_relevant_bits[sq];
+U64 get_rook_attacks(uint8_t sq, U64 occupancy) {
 
-	return rook_attacks[sq][occupancy];
+	uint8_t sq64 = SQ64(sq);
+	occupancy ^= 1ULL << sq64;
+	occupancy &= rook_masks[sq64];
+	occupancy *= rook_magic_numbers[sq64];
+	occupancy >>= 64 - rook_relevant_bits[sq64];
+
+	return rook_attacks[sq64][occupancy];
 }
 
 // get queen attacks
-U64 get_queen_attacks(int sq, U64 occupancy) {
+U64 get_queen_attacks(uint8_t sq, U64 occupancy) {
+
 	U64 queen_attacks = 0ULL;
 
+	uint8_t sq64 = SQ64(sq);
+	occupancy ^= 1ULL << sq64;
 	U64 bishop_occupancy = occupancy;
 	U64 rook_occupancy = occupancy;
 
-	bishop_occupancy &= bishop_masks[sq];
-	bishop_occupancy *= bishop_magic_numbers[sq];
-	bishop_occupancy >>= 64 - bishop_relevant_bits[sq];
+	bishop_occupancy &= bishop_masks[sq64];
+	bishop_occupancy *= bishop_magic_numbers[sq64];
+	bishop_occupancy >>= 64 - bishop_relevant_bits[sq64];
 
-	rook_occupancy &= rook_masks[sq];
-	rook_occupancy *= rook_magic_numbers[sq];
-	rook_occupancy >>= 64 - rook_relevant_bits[sq];
+	rook_occupancy &= rook_masks[sq64];
+	rook_occupancy *= rook_magic_numbers[sq64];
+	rook_occupancy >>= 64 - rook_relevant_bits[sq64];
 
-	queen_attacks = bishop_attacks[sq][bishop_occupancy] | rook_attacks[sq][rook_occupancy];
+	queen_attacks = bishop_attacks[sq64][bishop_occupancy] | rook_attacks[sq64][rook_occupancy];
 	return queen_attacks;
 }
 
 void init_slider_attacks() {
 
-	for (int sq = 0; sq < 64; ++sq) {
+	for (int rank = RANK_1; rank <= RANK_8; ++rank) {
+		for (int file = FILE_A; file <= FILE_H; ++file) {
 
-		bishop_masks[sq] = mask_bishop_attacks(sq);
-		rook_masks[sq] = mask_rook_attacks(sq);
+			uint8_t sq = SQ64(FR2SQ(file, rank));
 
-		uint8_t bishop_relevant_bits_count = CountBits(bishop_masks[sq]);
-		uint8_t rook_relevant_bits_count = CountBits(rook_masks[sq]);
+			bishop_masks[sq] = mask_bishop_attacks(sq);
+			rook_masks[sq] = mask_rook_attacks(sq);
 
-		int bishop_occupancy_indicies = (1 << bishop_relevant_bits_count);
-		int rook_occupancy_indicies = (1 << rook_relevant_bits_count);
+			uint8_t bishop_relevant_bits_count = CountBits(bishop_masks[sq]);
+			uint8_t rook_relevant_bits_count = CountBits(rook_masks[sq]);
 
-		// Initialise bishop attacks
-		for (int index = 0; index < bishop_occupancy_indicies; index++) {
+			int bishop_occupancy_indicies = (1 << bishop_relevant_bits_count);
+			int rook_occupancy_indicies = (1 << rook_relevant_bits_count);
 
-			U64 occupancy = set_occupancy(index, bishop_relevant_bits_count, bishop_masks[sq]);
+			// Initialise bishop attacks
+			for (int index = 0; index < bishop_occupancy_indicies; index++) {
 
-			int magic_index = (occupancy * bishop_magic_numbers[sq]) >>
-								(64 - bishop_relevant_bits[sq]);
+				U64 occupancy = set_occupancy(index, bishop_relevant_bits_count, bishop_masks[sq]);
 
-			bishop_attacks[sq][magic_index] = bishop_attacks_on_the_fly(sq, occupancy);
-		}
+				int magic_index = (occupancy * bishop_magic_numbers[sq]) >>
+									(64 - bishop_relevant_bits[sq]);
 
-		// Initialise rook attacks
-		for (int index = 0; index < rook_occupancy_indicies; index++) {
+				bishop_attacks[sq][magic_index] = bishop_attacks_on_the_fly(sq, occupancy);
+			}
 
-			U64 occupancy = set_occupancy(index, rook_relevant_bits_count, rook_masks[sq]);
+			// Initialise rook attacks
+			for (int index = 0; index < rook_occupancy_indicies; index++) {
 
-			int magic_index = (occupancy * rook_magic_numbers[sq]) >>
-								(64 - rook_relevant_bits[sq]);
+				U64 occupancy = set_occupancy(index, rook_relevant_bits_count, rook_masks[sq]);
 
-			rook_attacks[sq][magic_index] =	rook_attacks_on_the_fly(sq, occupancy);
+				int magic_index = (occupancy * rook_magic_numbers[sq]) >>
+									(64 - rook_relevant_bits[sq]);
+
+				rook_attacks[sq][magic_index] =	rook_attacks_on_the_fly(sq, occupancy);
+			}
 		}
 	}
+	
 }
 
 void init_attack_tables() {

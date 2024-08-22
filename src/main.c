@@ -74,8 +74,8 @@ int main(int argc, char *argv[]) {
 			ParseFen(test_fen, pos);
 			U64 attacks = get_bishop_attacks(C4, pos->occupancy[BOTH]);
 			PrintBitBoard(attacks);
-			attacks = get_rook_attacks(H6, pos->occupancy[BOTH]);
-			PrintBitBoard(attacks);
+			// attacks = get_rook_attacks(H6, pos->occupancy[BOTH]);
+			// PrintBitBoard(attacks);
 		}
 	}
 

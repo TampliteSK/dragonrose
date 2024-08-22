@@ -15,25 +15,25 @@ const int BitTable[64] = {
 
 // Pops the last set bit and returns the index
 int PopBit(U64 *bb) {
-  U64 b = *bb ^ (*bb - 1);
-  unsigned int fold = (unsigned) ((b & 0xffffffff) ^ (b >> 32));
-  *bb &= (*bb - 1);
-  return BitTable[(fold * 0x783a9b23) >> 26];
+    U64 b = *bb ^ (*bb - 1);
+    unsigned int fold = (unsigned) ((b & 0xffffffff) ^ (b >> 32));
+    *bb &= (*bb - 1);
+    return BitTable[(fold * 0x783a9b23) >> 26];
 }
 
+// Using hardware popcount function. Should be much faster than traditional algorithms.
 int CountBits(U64 b) {
-  int r;
-  for(r = 0; b; r++, b &= b - 1);
-  return r;
+    return __builtin_popcountll(b);
 }
 
 void PrintBitBoard(U64 bb) {
 	
 	printf("\n");
 	for(int rank = RANK_8; rank >= RANK_1; --rank) {
+        printf("%d   ", rank + 1);
 		for(int file = FILE_A; file <= FILE_H; ++file) {
-			int sq = FR2SQ(file,rank);	// 120 based		
-			int sq64 = SQ64(sq); // 64 based
+			int sq120 = FR2SQ(file, rank);
+			int sq64 = SQ64(sq120);
 			
 			if((1ULL << sq64) & bb) 
 				printf("X");
@@ -42,7 +42,22 @@ void PrintBitBoard(U64 bb) {
 				
 		}
 		printf("\n");
-	}  
+	}
+    printf("    ABCDEFGH\n");  
     printf("\n\n");
 	
+}
+
+// Flips order of the ranks of the bitboard to look up slider attack tables
+U64 flip_bitboard(U64 bb) {
+
+    U64 flipped = 0ULL;
+    U64 temp = bb;
+
+    for (int rank = 0; rank < 8; ++rank) {
+        U64 out_rank = (bb >> (rank * 8)) & 0xFF; // Extract the bits for the current rank
+        flipped |= out_rank << ((7 - rank) * 8);  // Place the extracted bits into the flipped position
+    }
+    
+    return flipped;
 }

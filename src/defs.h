@@ -323,17 +323,18 @@ extern uint8_t SqAttackedS(const int sq, const int side, const S_BOARD *pos);
 extern uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos);
 extern uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos);
 
-// extern U64 mask_bishop_attacks(int sq);
-// extern U64 mask_rook_attacks(int sq);
-extern U64 get_bishop_attacks(int sq, U64 occupancy);
-extern U64 get_rook_attacks(int sq, U64 occupancy);
-extern U64 get_queen_attacks(int sq, U64 occupancy);
+// extern U64 mask_bishop_attacks(uint8_t sq64);
+// extern U64 mask_rook_attacks(uint8_t sq64);
+extern U64 get_bishop_attacks(uint8_t sq, U64 occupancy);
+extern U64 get_rook_attacks(uint8_t sq, U64 occupancy);
+extern U64 get_queen_attacks(uint8_t sq, U64 occupancy);
 extern void init_attack_tables();
 
 // bitboards.c
 extern void PrintBitBoard(U64 bb);
 extern int PopBit(U64 *bb);
 extern int CountBits(U64 b);
+extern U64 flip_bitboard(U64 bb);
 
 // board.c
 extern void ResetBoard(S_BOARD *pos);

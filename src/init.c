@@ -179,15 +179,18 @@ void InitSq120To64() {
 
 void AllInit() {
 	
-	// attack.c
+	// init.c
+	InitSq120To64();
+	InitFilesRanksBrd();
+
+	// attack.c (High priority)
 	init_attack_tables();
 
-	// init.c (here)
+	// init.c (cont.)
 	InitBitMasks();
 	InitEvalMasks();
 	InitHashKeys();
-	InitSq120To64();
-	InitFilesRanksBrd();
+	
 
 	// polybook.c
 	InitPolyBook();
