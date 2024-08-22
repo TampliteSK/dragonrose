@@ -17,6 +17,9 @@ EXE ?= Dragonrose
 WARN_FLAGS = -Wall -Werror -Wextra -Wno-error=vla -Wpedantic -Wno-unused-command-line-argument
 OPT_FLAGS = -Ofast -march=native -funroll-loops
 
+# Custom additional flags like -g
+MISC_FLAGS ?=
+
 # Detect Clang
 ifeq ($(CC), clang)
 	OPT_FLAGS = -O3 -ffast-math -flto -march=native -funroll-loops
@@ -33,7 +36,7 @@ LIBS = -lm
 
 # Default target
 all:
-	$(CC) $(SRCS) -o $(EXE) $(OPT_FLAGS) $(LIBS)
+	$(CC) $(SRCS) -o $(EXE) $(OPT_FLAGS) $(MISC_FLAGS) $(LIBS)
 
 # Clean target to remove the executable
 clean:

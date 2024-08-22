@@ -70,10 +70,12 @@ int main(int argc, char *argv[]) {
 		} else if(!strncmp(line, "quit", 4))	{
 			break;
 		} else if(!strncmp(line, "test", 4))	{
-			char *test_fen = "2bq1rk1/1rpp1ppp/1p1b1n2/p2NN1BQ/2BPP3/6R1/PPP3PP/R5K1 w - - 8 15";
+			char *test_fen = "r1bqkbn1/pppp1pp1/2n4r/4p2p/2B1P3/5N1P/PPPP1PP1/RNBQK2R w KQq - 1 5";
 			ParseFen(test_fen, pos);
-			// int eval = attack_units(pos, WHITE);
-			// printf("Eval = %d\n", eval);
+			U64 attacks = get_bishop_attacks(C4, pos->occupancy[BOTH]);
+			PrintBitBoard(attacks);
+			attacks = get_rook_attacks(H6, pos->occupancy[BOTH]);
+			PrintBitBoard(attacks);
 		}
 	}
 
