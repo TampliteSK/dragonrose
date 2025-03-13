@@ -32,18 +32,21 @@ int16_t evaluate_pawn_structure(const S_BOARD *pos, uint8_t pawn_sq, uint8_t col
 
 	int16_t pawn_score = 0;
 
+	// Isolated pawns penalty
 	if( (IsolatedMask[SQ64(pawn_sq)] & pos->pawns[col]) == 0) {
 		//printf("wP Iso:%s\n",PrSq(sq));
 		pawn_score += PawnIsolated;
 	}
 
+	// Stacked pawns penalty
 	U64 mask = FileBBMask[FilesBrd[pawn_sq]] & pos->pawns[col];
 	uint8_t stacked_count = CountBits(mask);
 	if(stacked_count > 1) {
-		//printf("wP Iso:%s\n",PrSq(sq));
-		pawn_score += PawnDoubled * (stacked_count - 1); // Scales with doubled and tripled pawns
+		// Scales with the number of pawns stacked
+		pawn_score += PawnDoubled * (stacked_count - 1);
 	}
 
+	// Passed pawns bonus
 	if (col == WHITE) {
 		if( (WhitePassedMask[SQ64(pawn_sq)] & pos->pawns[BLACK]) == 0) {
 			//printf("wP Passed:%s\n",PrSq(sq));
@@ -189,74 +192,65 @@ static inline double king_tropism(const S_BOARD *pos, uint8_t col) {
 }
 
 /*
-	Other components
+	Attack Units (modified)
 */
 
-// Punishing kings in the center without castling rights
-// Should be greater punishment than castled with a broken a pawn shield
-static inline int16_t punish_center_kings(const S_BOARD *pos, uint8_t king_sq, uint8_t col) {
-	
-	// optimal weight: 0.15
-	/*
-	const int file_punishment[8] = { -10, -30, -50, -70, -70, -50, -30, -10 };
-	const int rank_punishment[8] = { 0, -25, -75, -125, -150, -175, -200, -225 };
-	uint8_t no_castling = 0;
-	uint8_t relative_rank = 0;
-	if (col == WHITE) {
-		no_castling = (pos->castlePerm & 0b0011) == 0;
-		relative_rank = RanksBrd[king_sq];
-	} else {
-		no_castling = (pos->castlePerm & 0b1100) == 0;
-		relative_rank = 8 - RanksBrd[king_sq];
-	}
+U64 generate_king_zone(uint8_t kingSq) {
 
-	if (no_castling) {
-		// Base value of 50
-		return -50 + file_punishment[FilesBrd[king_sq]] + rank_punishment[relative_rank];
-	} else {
-		return 0;
-	}
+	/*
+	--------
+	--------
+	--------
+	--------
+	---xxxxx
+	---xxxxx
+	---xxxxx
+	---xxxKx
 	*/
 
-	int8_t no_castle_punishment = -23;
-	uint8_t no_castling = 0;
+	U64 king_zone = 0ULL;
+	uint8_t king_file = FilesBrd[kingSq];
+	uint8_t king_rank = RanksBrd[kingSq];
 
-	if (col == WHITE) {
-		no_castling = (pos->castlePerm & 0b0011) == 0;
-	} else {
-		no_castling = (pos->castlePerm & 0b1100) == 0;
-	}
-
-	if (no_castling) {
-		return no_castle_punishment;
-	} else {
-		return 0;
-	}
-
-}
-
-static inline int16_t punish_open_files(const S_BOARD *pos, uint8_t col) {
-
-	uint8_t opp_king_sq = pos->KingSq[col];
-	uint8_t king_file = FilesBrd[opp_king_sq];
-	const uint8_t KingOpenFile[3] = { 60, 70, 60 };
-	int16_t open_lines = 0;
-
-	for (int file = king_file - 1; file <= king_file + 1; ++file) {
-		if (file >= FILE_A && file <= FILE_H) {
-			// Open king file
-			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
-					open_lines -= KingOpenFile[file - king_file + 1];
-			} 
+	for (int rank = king_rank - 3; rank <= king_rank + 3; ++rank) {
+		for (int file = king_file - 3; file <= king_file + 3; ++file) {
+			if (rank >= RANK_1 && rank <= RANK_8 && file >= FILE_A && file <= FILE_H) {
+				uint8_t sq = SQ64(FR2SQ(file, rank));
+				king_zone |= 1ULL << sq;
+			}
 		}
-			
 	}
 
-	return open_lines;
-
+	return king_zone;
 }
 
-U64 generate_shield_zone(uint8_t kingSq, uint8_t col) {
+// Consider both attackers and defenders to better gauge how strong an attack is
+int16_t attack_units(const S_BOARD *pos, uint8_t col) {
+	
+	uint8_t opp_king_sq = pos->KingSq[!col];
+	U64 king_zone = generate_king_zone(opp_king_sq);
+	uint8_t attack_units = 0, defense_units = 0;
+	
+	while (king_zone) {
+		uint8_t sq = SQ120(PopBit(&king_zone));
+		if (SqAttackedS(sq, col, pos)) {
+			attack_units++;
+		}
+		if (SqAttackedS(sq, !col, pos)) {
+			defense_units++;
+		}
+	}
+
+	int16_t attack_potency = (attack_units - defense_units) * 3;
+	return SafetyTable[clamp(0, attack_potency, 99)];
+}
+
+
+/*
+	Pawn Shield
+*/
+
+static inline U64 generate_shield_zone(uint8_t kingSq, uint8_t col) {
 
 	/*
 	--------
@@ -270,25 +264,26 @@ U64 generate_shield_zone(uint8_t kingSq, uint8_t col) {
 	*/
 
 	U64 shield_zone = 0ULL;
-	uint8_t kingFile = FilesBrd[kingSq];
-	uint8_t kingRank = RanksBrd[kingSq];
+	uint8_t king_file = FilesBrd[kingSq];
+	uint8_t king_rank = RanksBrd[kingSq];
 
+	int8_t delta = 0;
+	uint8_t start_rank = 0, end_rank = 0;
 	if (col == WHITE) {
-		for (int rank = kingRank + 1; rank <= kingRank + 3; ++rank) {
-			for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
-				uint8_t sq = SQ64(FR2SQ(file, rank));
-				if (sq != 65) {
-					shield_zone |= 1ULL << sq;
-				}
-			}
-		}
+		delta = 1;
+		start_rank = king_rank + 1;
+		end_rank = king_rank + 3;
 	} else {
-		for (int rank = kingRank - 1; rank >= kingRank - 3; --rank) {
-			for (int file = kingFile - 1; file <= kingFile + 1; ++file) {
-				uint8_t sq = SQ64(FR2SQ(file, rank));
-				if (sq != 65) {
-					shield_zone |= 1ULL << sq;
-				}
+		delta = -1;
+		start_rank = king_rank - 1;
+		end_rank = king_rank - 3;
+	}
+
+	for (int rank = start_rank; (col == WHITE) ? rank <= end_rank : rank >= end_rank; rank += delta) {
+		for (int file = king_file - 1; file <= king_file + 1; ++file) {
+			uint8_t sq = SQ64(FR2SQ(file, rank));
+			if (sq != 65) {
+				shield_zone |= 1ULL << sq;
 			}
 		}
 	}
@@ -353,16 +348,117 @@ static inline int16_t pawn_shield(const S_BOARD *pos, uint8_t kingSq, uint8_t co
 
 }
 
+/*
+	Other components
+*/
+
+// Punishing kings in the center without castling rights
+// Should be greater punishment than castled with a broken a pawn shield
+static inline int16_t punish_center_kings(const S_BOARD *pos, uint8_t king_sq, uint8_t col) {
+	
+	const int file_punishment[8] = { -10, -30, -50, -70, -70, -50, -30, -10 };
+	const int rank_punishment[8] = { 0, -25, -75, -125, -150, -175, -200, -225 };
+	uint8_t no_castling = 0;
+	uint8_t relative_rank = 0;
+	if (col == WHITE) {
+		no_castling = (pos->castlePerm & 0b0011) == 0;
+		relative_rank = RanksBrd[king_sq];
+	} else {
+		no_castling = (pos->castlePerm & 0b1100) == 0;
+		relative_rank = 8 - RanksBrd[king_sq];
+	}
+
+	if (no_castling) {
+		// Base value of 50
+		return -50 + file_punishment[FilesBrd[king_sq]] + rank_punishment[relative_rank];
+	} else {
+		return 0;
+	}
+
+	/*
+	int8_t no_castle_penalty = -23;
+	uint8_t no_castling = 0;
+
+	if (col == WHITE) {
+		no_castling = (pos->castlePerm & 0b0011) == 0;
+	} else {
+		no_castling = (pos->castlePerm & 0b1100) == 0;
+	}
+
+	if (no_castling) {
+		return no_castle_penalty;
+	} else {
+		return 0;
+	}
+	*/
+
+}
+
+static inline int16_t punish_king_open_files(const S_BOARD *pos, uint8_t col) {
+
+	uint8_t opp_king_sq = pos->KingSq[col];
+	uint8_t king_file = FilesBrd[opp_king_sq];
+	const uint8_t KingOpenFile[3] = { 60, 70, 60 };
+	int16_t open_lines = 0;
+
+	for (int file = king_file - 1; file <= king_file + 1; ++file) {
+		if (file >= FILE_A && file <= FILE_H) {
+			// Open king file
+			if (!(pos->pawns[BOTH] & FileBBMask[file])) {
+					open_lines -= KingOpenFile[file - king_file + 1];
+			} 
+		}
+			
+	}
+
+	return open_lines;
+
+}
+
+/*
+int8_t pawn_storm(const S_BOARD *pos, uint8_t kingSq, uint8_t col) {
+
+	uint8_t king_file = FilesBrd[kingSq];
+	uint8_t relevant_base_rank = (col == WHITE) ? RANK_5 : RANK_4; // h4 against black and h5 against white for example are beginning of pawn storms
+	uint8_t relative_rank = 0;
+	int8_t pawn_storm = 0;
+
+	// Check if the king is castled
+	if (king_file <= FILE_C || king_file >= FILE_G) {
+		for (int file = king_file - 1; file <= king_file + 1; ++file) {
+			if (file >= FILE_A && file <= FILE_H) {
+				U64 pawn_storm_mask = FileBBMask[file] & pos->pawns[!col];
+				while (pawn_storm_mask) {
+					uint8_t pawn_sq = PopBit(&pawn_storm_mask);
+					uint8_t pawn_rank = RanksBrd[SQ120(pawn_sq)];
+					
+					if ( ( (col == WHITE) && (pawn_rank <= relevant_base_rank) ) || 
+						( (col == BLACK) && (pawn_rank >= relevant_base_rank) ) ) {
+						relative_rank = abs(relevant_base_rank - pawn_rank);
+						pawn_storm += PawnStormPenalty - relative_rank;
+					}
+				}
+			}
+		}
+	}
+	
+
+	return pawn_storm;
+}
+*/
+
 static inline double king_safety_score(const S_BOARD *pos, uint8_t kingSq, uint8_t col, uint16_t mat) {
 	// kingSq = your own king
 	// mat = enemy material excluding king
 	// The approach of this function is in terms of deductions to your own king
 
 	double king_safety = 0;
-	king_safety += punish_open_files(pos, col) * 0.5; // Default: 0.7
+	king_safety += punish_king_open_files(pos, col) * 0.7;
+	// king_safety += attack_units(pos, col) * 1; // default: 1
 	king_safety += king_tropism(pos, col) * 0.6;
 	king_safety += pawn_shield(pos, kingSq, col) * 0.35;
-	king_safety += punish_center_kings(pos, kingSq, col) * 1;
+	king_safety += punish_center_kings(pos, kingSq, col) * 0.15;
+	// king_safety += pawn_storm(pos, kingSq, col) * 0.3; // default: 0.7
 
 	// Will have to try a different way of scoring the phase, like number of pieces but greater value for queens
 	// Modified NNUE Phase System

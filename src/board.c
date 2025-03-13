@@ -108,7 +108,7 @@ int CheckBoard(const S_BOARD *pos) {
 		ASSERT(t_pceNum[t_piece]==pos->pceNum[t_piece]);
 	}
 
-	// check bitboards count
+	// Check bitboards count
 	pcount = CNT(t_pawns[WHITE]);
 	ASSERT(pcount == pos->pceNum[wP]);
 	pcount = CNT(t_pawns[BLACK]);

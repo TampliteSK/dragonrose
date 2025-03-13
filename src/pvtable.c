@@ -35,18 +35,18 @@ int GetPvLine(const int depth, S_BOARD *pos, const S_HASHTABLE *table) {
 
 void ClearHashTable(S_HASHTABLE *table) {
 
-  S_HASHENTRY *tableEntry;
+  	S_HASHENTRY *tableEntry;
   
-  for (tableEntry = table->pTable; tableEntry < table->pTable + table->maxEntries; tableEntry++) {
-    tableEntry->posKey = 0ULL;
-    tableEntry->move = NOMOVE;
-    tableEntry->depth = 0;
-    tableEntry->score = 0;
-    tableEntry->flags = 0;
-	tableEntry->age = 0;
-  }
-  table->newWrite = 0;
-  table->currentAge = 0;
+	for (tableEntry = table->pTable; tableEntry < table->pTable + table->maxEntries; tableEntry++) {
+		tableEntry->posKey = 0ULL;
+		tableEntry->move = NOMOVE;
+		tableEntry->depth = 0;
+		tableEntry->score = 0;
+		tableEntry->flags = 0;
+		tableEntry->age = 0;
+	}
+	table->newWrite = 0;
+	table->currentAge = 0;
 }
 
 void InitHashTable(S_HASHTABLE *table, const int MB) {  
@@ -76,11 +76,11 @@ int ProbeHashEntry(S_BOARD *pos, S_HASHTABLE *table, int *move, int *score, int 
 	int index = pos->posKey % table->maxEntries;
 	
 	ASSERT(index >= 0 && index <= table->maxEntries - 1);
-    ASSERT(depth>=1&&depth<MAX_DEPTH);
-    ASSERT(alpha<beta);
-    ASSERT(alpha>=-INF_BOUND&&alpha<=INF_BOUND);
-    ASSERT(beta>=-INF_BOUND&&beta<=INF_BOUND);
-    ASSERT(pos->ply>=0&&pos->ply<MAX_DEPTH);
+    ASSERT(depth >= 1 && depth < MAX_DEPTH);
+    ASSERT(alpha < beta);
+    ASSERT(alpha >= -INF_BOUND && alpha <= INF_BOUND);
+    ASSERT(beta >= -INF_BOUND && beta <= INF_BOUND);
+    ASSERT(pos->ply >= 0 && pos->ply < MAX_DEPTH);
 	
 	if( table->pTable[index].posKey == pos->posKey ) {
 		*move = table->pTable[index].move;

@@ -8,6 +8,7 @@
 /* Pawns */
 const int8_t PawnIsolated = -10;
 const int8_t PawnDoubled = -10;
+const int8_t PawnStormPenalty = -5;
 const uint8_t PawnPassed[8] = { 0, 5, 10, 20, 35, 60, 100, 200 };
 
 /* Pieces */
@@ -19,7 +20,22 @@ const uint8_t RookSemiOpenFile = 5;
 const uint8_t QueenOpenFile = 5;
 const uint8_t QueenSemiOpenFile = 3;
 
+/*
+    Safety Table
+*/
 
+const int SafetyTable[100] = {
+    0,  0,   1,   2,   3,   5,   7,   9,  12,  15,
+  18,  22,  26,  30,  35,  39,  44,  50,  56,  62,
+  68,  75,  82,  85,  89,  97, 105, 113, 122, 131,
+ 140, 150, 169, 180, 191, 202, 213, 225, 237, 248,
+ 260, 272, 283, 295, 307, 319, 330, 342, 354, 366,
+ 377, 389, 401, 412, 424, 436, 448, 459, 471, 483,
+ 494, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+ 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+ 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+ 500, 500, 500, 500, 500, 500, 500, 500, 500, 500
+};
 
 /*
     PesTO / Rofchade Piece Tables

@@ -178,11 +178,24 @@ void InitSq120To64() {
 }
 
 void AllInit() {
+	
+	// init.c
 	InitSq120To64();
-	InitBitMasks();
-	InitHashKeys();
 	InitFilesRanksBrd();
+
+	// attack.c (High priority)
+	init_attack_tables();
+
+	// init.c (cont.)
+	InitBitMasks();
 	InitEvalMasks();
-	InitMvvLva();
+	InitHashKeys();
+	
+
+	// polybook.c
 	InitPolyBook();
+
+	// movegen.c
+	InitMvvLva();
+
 }
