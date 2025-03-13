@@ -22,9 +22,7 @@ int PopBit(U64 *bb) {
 }
 
 int CountBits(U64 b) {
-  int r;
-  for(r = 0; b; r++, b &= b - 1);
-  return r;
+  return __builtin_popcountll(b);
 }
 
 void PrintBitBoard(U64 bb) {
