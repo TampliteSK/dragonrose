@@ -31,7 +31,7 @@ exit(1);}
 
 typedef unsigned long long U64;
 
-#define NAME "Dragonrose 0.28"
+#define NAME "Dragonrose 0.28d"
 // 1: TRUE, 0: FALSE
 #define OPENBENCH_MODE 1
 
@@ -252,12 +252,6 @@ Mask to get captured:
 ***** Globals ******
 *******************/
 
-// attack.c
-extern U64 bishop_masks[64];
-extern U64 rook_masks[64];
-extern U64 bishop_attacks[64][512];
-extern U64 rook_attacks[64][4096];
-
 // bitboard.c
 extern U64 SetMask[64];
 extern U64 ClearMask[64];
@@ -318,16 +312,6 @@ extern S_HASHTABLE HashTable[1]; // brought out from board struct to make it glo
 
 // attack.c
 extern uint8_t SqAttacked(const int sq, const int side, const S_BOARD *pos);
-extern uint8_t SqAttackedS(const int sq, const int side, const S_BOARD *pos);
-extern uint8_t IsAttack(const int pce, const int sq, const S_BOARD *pos);
-extern uint16_t SqAttackedByWho(const int sq, const int side, const S_BOARD *pos);
-
-// extern U64 mask_bishop_attacks(uint8_t sq64);
-// extern U64 mask_rook_attacks(uint8_t sq64);
-extern U64 get_bishop_attacks(uint8_t sq, U64 occupancy);
-extern U64 get_rook_attacks(uint8_t sq, U64 occupancy);
-extern U64 get_queen_attacks(uint8_t sq, U64 occupancy);
-extern void init_attack_tables();
 
 // bitboards.c
 extern void PrintBitBoard(U64 bb);

@@ -183,9 +183,6 @@ void AllInit() {
 	InitSq120To64();
 	InitFilesRanksBrd();
 
-	// attack.c (High priority)
-	init_attack_tables();
-
 	// init.c (cont.)
 	InitBitMasks();
 	InitEvalMasks();
@@ -197,5 +194,4 @@ void AllInit() {
 
 	// movegen.c
 	InitMvvLva();
-
 }
