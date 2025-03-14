@@ -470,7 +470,8 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			bestMove = pos->PvArray[0];
 
 			// Display mate if there's forced mate
-			unsigned long long time = GetTimeMs() - info->starttime;
+			unsigned long long time = GetTimeMs() - info->starttime; // in ms
+			unsigned long long nps = (int)( ((double)info->nodes / (time + 1)) * 1000 );
 			uint8_t mate_found = FALSE; // Save computation
 			int8_t mate_moves = 0;
 			if (abs(bestScore) >= ISMATE) {
@@ -479,10 +480,10 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 				// Note that /2 is integer division (e.g. 3/2 = 1)
 				mate_moves = round( (INF_BOUND - abs(bestScore) - 1) / 2 + 1) * copysign(1.0, bestScore);
 				printf("info score mate %d depth %d nodes %ld nps %ld hashfull %d time %llu pv",
-					mate_moves, currentDepth, info->nodes, info->nodes / (time + 1), (int)(table->numEntries / (double)table->maxEntries * 1000), time);
+					mate_moves, currentDepth, info->nodes, nps, (int)(table->numEntries / (double)table->maxEntries * 1000), time);
 			} else {
 				printf("info score cp %d depth %d nodes %ld nps %ld hashfull %d time %llu pv",
-					bestScore, currentDepth, info->nodes, info->nodes / (time + 1), (int)(table->numEntries / (double)table->maxEntries * 1000), time);
+					bestScore, currentDepth, info->nodes, nps, (int)(table->numEntries / (double)table->maxEntries * 1000), time);
 			}
 			
 
