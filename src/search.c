@@ -370,9 +370,9 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 						pos->searchKillers[0][pos->ply] = curr_move;
 					}
 
-					StoreHashEntry(pos, table, BestMove, beta, HFBETA, depth);
+					StoreHashEntry(pos, table, BestMove, BestScore, HFBETA, depth);
 
-					return beta;
+					return BestScore; // Fail-soft beta-cutoff
 				}
 				alpha = Score;
 
@@ -400,7 +400,7 @@ static inline int AlphaBeta(int alpha, int beta, int depth, S_BOARD *pos, S_HASH
 		StoreHashEntry(pos, table, BestMove, alpha, HFALPHA, depth);
 	}
 
-	return alpha;
+	return BestScore;
 }
 
 /*******************************
@@ -478,11 +478,11 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 				// copysign(1.0, value) outputs +/- 1.0 depending on the sign of "value" (i.e. sgn(value))
 				// Note that /2 is integer division (e.g. 3/2 = 1)
 				mate_moves = round( (INF_BOUND - abs(bestScore) - 1) / 2 + 1) * copysign(1.0, bestScore);
-				printf("info score mate %d depth %d nodes %ld hashfull %d time %llu pv",
-					mate_moves, currentDepth, info->nodes, (int)(table->numEntries / (double)table->maxEntries * 1000), time);
+				printf("info score mate %d depth %d nodes %ld nps %ld hashfull %d time %llu pv",
+					mate_moves, currentDepth, info->nodes, info->nodes / (time + 1), (int)(table->numEntries / (double)table->maxEntries * 1000), time);
 			} else {
-				printf("info score cp %d depth %d nodes %ld hashfull %d time %llu pv",
-					bestScore, currentDepth, info->nodes, (int)(table->numEntries / (double)table->maxEntries * 1000), time);
+				printf("info score cp %d depth %d nodes %ld nps %ld hashfull %d time %llu pv",
+					bestScore, currentDepth, info->nodes, info->nodes / (time + 1), (int)(table->numEntries / (double)table->maxEntries * 1000), time);
 			}
 			
 
@@ -493,7 +493,7 @@ void SearchPosition(S_BOARD *pos, S_HASHTABLE *table, S_SEARCHINFO *info) {
 			printf("\n");
 
 			// Exit search if mate at current depth is found, in order to save time
-			if ( mate_found && ( currentDepth >= (abs(mate_moves) + 1) ) ) {
+			if ( mate_found && ( currentDepth > (abs(mate_moves) + 1) ) ) {
 				break;
 				// Buggy if no search is performed before pruning immediately
 			}
